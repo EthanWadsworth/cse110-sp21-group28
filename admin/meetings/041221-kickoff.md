@@ -1,4 +1,4 @@
-# Notes for Monday April 12th KickOff Meeting
+# Notes for Monday, April 12th KickOff Meeting
 Team Number: 28  
 Type of meeting: Kickoff meeting  
 People missing: Edward De Leon  
