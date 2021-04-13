@@ -1,8 +1,8 @@
 # Notes for Monday April 12th KickOff Meeting
-Team Number: 28
-Type of meeting: Kickoff meeting
-People missing: Edward De Leon
-Zoom meeting at 6 PM PST: Monday, April 12th
+Team Number: 28  
+Type of meeting: Kickoff meeting  
+People missing: Edward De Leon  
+Zoom meeting at 6 PM PST: Monday, April 12th  
 
 ## Objective for Today
 Today, our goal was to go over the group contract, set up the Github Repo and Org, and discuss what we need to do for the week.
