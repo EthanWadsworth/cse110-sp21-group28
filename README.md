@@ -9,4 +9,4 @@ A bullet journal is a tool for individuals to use to organize their tasks in an 
 Landing page for cse110-sp21-group28 
 This will be the landing page for our project which will be gradually updated as time passes and we progress through the assignment. 
 
-[Team Page](team.md)
+[Team Page](/admin/team.md)
