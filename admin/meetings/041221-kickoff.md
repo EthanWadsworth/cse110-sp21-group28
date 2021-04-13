@@ -25,7 +25,7 @@ Today, our goal was to go over the group contract, set up the Github Repo and Or
 - Set up who does the notetaker position (Abhishek Vasudevan, me).
 - Double checking if the mentor needs to be invited to the github repo/org.
 
-## ReadMe
+### ReadMe
 - Added content to the README.md file talking about the project details and discussing what a bullet journal is.
 - Set up an org for the repo.
 ### Branding, GroupPage, and Video Task
