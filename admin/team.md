@@ -6,14 +6,14 @@ In regards to custom fonts, although we are spicy, we are also classy and refine
 Powerpoint themes will be primirily the colors black and yellow to keep in touch with our key branding.
 
 ## Team Members:
-Ethan Tan https://github.com/aazurill
-Frank Rodriz https://github.com/Frankiee00
-Abhishek Vasudevan https://github.com/abvasude
-Allen Cheung https://github.com/akcheu
-Dave Jiang https://github.com/jeffreyjiang4
-Ethan Wadsworth https://github.com/EthanWadsworth
-Jacob Kindley https://github.com/jacobDKindley
-Edward De Leon https://github.com/edwardddeleon
+* Ethan Tan https://github.com/aazurill
+* Frank Rodriz https://github.com/Frankiee00
+* Abhishek Vasudevan https://github.com/abvasude
+* Allen Cheung https://github.com/akcheu
+* Dave Jiang https://github.com/jeffreyjiang4
+* Ethan Wadsworth https://github.com/EthanWadsworth
+* Jacob Kindley https://github.com/jacobDKindley
+* Edward De Leon https://github.com/edwardddeleon
 
 ## Team Name:
 Spicy Ocelots
