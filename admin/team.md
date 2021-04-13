@@ -13,6 +13,7 @@ Powerpoint themes will be primirily the colors black and yellow to keep in touch
 * Allen Cheung https://github.com/akcheu
 * Dave Jiang https://github.com/jeffreyjiang4
 * Ethan Wadsworth https://github.com/EthanWadsworth
+  * Second year computer science major in Warren college. Enjoys swimming, video games, and strawberry milk 🍓🥛.
 * Jacob Kindley https://github.com/jacobDKindley
 * Edward De Leon https://github.com/edwardddeleon
 
