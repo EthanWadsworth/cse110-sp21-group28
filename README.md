@@ -1,4 +1,4 @@
-#README 
+# README 
 CSE 110 Project - Bullet Journal 
 
 A bullet journal is a tool for individuals to use to organize their tasks in an easily accessible manner. Some important features of a bullet journal are: 
