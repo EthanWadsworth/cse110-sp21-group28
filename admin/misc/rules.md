@@ -12,6 +12,7 @@ Lab section # – A00 \
 Group # – 28 \
 Instructor – Powell \
 Team Name  – Spicy Ocelots 
+![Spicy Ocelot](https://i.ytimg.com/vi/hLwKXvji660/maxresdefault.jpg)
 
 Team member info:
 
