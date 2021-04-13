@@ -7,6 +7,7 @@ Powerpoint themes will be primirily the colors black and yellow to keep in touch
 
 ## Team Members:
 * Ethan Tan https://github.com/aazurill
+  * Second year computer science student at Muir college who loves playing badminton, cats and drinking tea.    
 * Frank Rodriz https://github.com/Frankiee00
 * Abhishek Vasudevan https://github.com/abvasude
 * Allen Cheung https://github.com/akcheu
