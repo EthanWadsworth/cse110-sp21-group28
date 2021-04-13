@@ -4,8 +4,17 @@ Team colors - ocelot colors (yellow and brown to represent the ocelot, and green
 Our mascot is Sam, the Spicy Minecraft Ocelot (picture attatched).
 In regards to custom fonts, although we are spicy, we are also classy and refined, and as such we stick primarily to fonts such as Serif fonts.
 Powerpoint themes will be primirily the colors black and yellow to keep in touch with our key branding.
+
 ## Team Members:
-Ethan Tan, Frank Rodriz, Abhishek Vasudevan, Allen Cheung, Dave Jiang, Ethan Wadsworth, Jacob Kindley, Edward De Leon
+Ethan Tan https://github.com/aazurill
+Frank Rodriz https://github.com/Frankiee00
+Abhishek Vasudevan https://github.com/abvasude
+Allen Cheung https://github.com/akcheu
+Dave Jiang https://github.com/jeffreyjiang4
+Ethan Wadsworth https://github.com/EthanWadsworth
+Jacob Kindley https://github.com/jacobDKindley
+Edward De Leon https://github.com/edwardddeleon
+
 ## Team Name:
 Spicy Ocelots
 ## Values:
