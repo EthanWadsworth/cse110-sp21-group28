@@ -10,6 +10,7 @@ Powerpoint themes will be primirily the colors black and yellow to keep in touch
   * Second year computer science student at Muir college who loves playing badminton, cats and drinking tea.    
 * Frank Rodriz https://github.com/Frankiee00
 * Abhishek Vasudevan https://github.com/abvasude
+  * Second year computer engineering student at Marshall College. Loves cricket, hiking, and video games :video_game:. 
 * Allen Cheung https://github.com/akcheu
 * Dave Jiang https://github.com/jeffreyjiang4
   * Third year computer science student from Warren College. Big fan of trading / sports.
