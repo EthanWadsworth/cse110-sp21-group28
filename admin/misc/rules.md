@@ -125,4 +125,5 @@ Ethan Tan 4/12/2021 \
 Ethan Wadsworth 4/12/2021 \
 Allen Cheung 4/12/2021 \
 Abhishek Vasudevan 4/12/2021 \
-Dave Jiang 4/12/2021
+Dave Jiang 4/12/2021 \
+Frank Rodriz 4/12/2021 
