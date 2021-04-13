@@ -17,6 +17,7 @@ Powerpoint themes will be primirily the colors black and yellow to keep in touch
 * Ethan Wadsworth https://github.com/EthanWadsworth
   * Second year computer science major in Warren college. Enjoys swimming, video games, and strawberry milk 🍓🥛.
 * Jacob Kindley https://github.com/jacobDKindley
+  * Second year computer engineering student at ERC. I like board games, swimming, and video games.
 * Edward De Leon https://github.com/edwardddeleon
 
 ## Team Name:
