@@ -20,7 +20,7 @@ Powerpoint themes will be primirily the colors black and yellow to keep in touch
 * Jacob Kindley https://github.com/jacobDKindley
   * Second year computer engineering student at ERC. I like board games, swimming, and video games.
 * Edward De Leon https://github.com/edwardddeleon
-
+  * Second year computer science major at Muir College. Loves boba/tea, trying new food, and inting in League :)
 ## Team Name:
 Spicy Ocelots
 ## Values:
