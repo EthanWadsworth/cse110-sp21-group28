@@ -1,9 +1,14 @@
 # Team Page
 ## Brand:
 Team colors - ocelot colors (yellow and brown to represent the ocelot, and green to represent the environment which the ocelot lives). Can't forget the color red to represent our spiciness.
-Our mascot is Sam, the Spicy Minecraft Ocelot (picture attatched).
+Our mascot is Sam, the Spicy Ocelot.
+
+<img src="/admin/branding/spicy_ocelot.png" alt="mascot" width="200"/>
+
 In regards to custom fonts, although we are spicy, we are also classy and refined, and as such we stick primarily to fonts such as Serif fonts.
 Powerpoint themes will be primirily the colors black and yellow to keep in touch with our key branding.
+
+
 
 ## Team Members:
 * Ethan Tan https://github.com/aazurill
