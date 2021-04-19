@@ -13,8 +13,8 @@ Today, our goal was to get started Brainstorming about Bullet Journal and what w
 3. Complain about other classes (if time remaining)
 
 ## Meeting Notes
--Wait for a couple of minutes to ensure that everyone joins before we get started with the meeting.
--Team Roles (informal roles)
+- Wait for a couple of minutes to ensure that everyone joins before we get started with the meeting.
+- Team Roles (informal roles)
   - arbritrarily assign roles in the future for the project
 
 Took a couple of minutes to read the Brainstorming activity guidelines
