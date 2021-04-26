@@ -1,7 +1,7 @@
 # Notes for Sunday, April 25th Brainstorm Meeting
 Team Number: 28  
 Type of meeting: 2nd Brainstorm meeting  
-Group Members absent: Edward
+Group Members absent: Edward  
 Zoom meeting at 6 PM PST: Sunday, April 25th  
 
 ## Objective for Today
