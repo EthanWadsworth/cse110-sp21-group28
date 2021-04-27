@@ -1,4 +1,4 @@
-# Notes for Monday, April 18th Brainstorm Meeting
+# Notes for Sunday, April 18th Brainstorm Meeting
 Team Number: 28  
 Type of meeting: First Brainstorm meeting  
 People here: All Present
