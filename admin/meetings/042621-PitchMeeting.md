@@ -5,7 +5,7 @@ Group Members absent: All present
 Zoom meeting at 6 PM PST: Monday, April 26th  
 
 ## Objective for Today
-Today, our goal was to discuss the Project Pitch and 
+Today, our goal was to discuss the Project Pitch and plan out what we want to include in our pitch as a group.
 
 ## Agenda
 1. Introduction -> explanation of what we will do today
