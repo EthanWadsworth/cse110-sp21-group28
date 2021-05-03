@@ -17,7 +17,7 @@ Today, our goal was to finish the Project Pitch by adding User Personas and Wire
 
 ## Meeting Notes
 - Wait for a couple of minutes to ensure that everyone joins before we get started with the meeting.
-- Ethan and Frank explained that today, we will use Miro to create User Personas and we will also use a similar software for the wireframs
+- Ethan and Frank explained that today, we will use Miro to create User Personas and we will also use a similar software for the wireframes
 
 ### Project Pitch
 - Read through the canvas assignment for the project pitch and decided to create a google document to store our ideas
