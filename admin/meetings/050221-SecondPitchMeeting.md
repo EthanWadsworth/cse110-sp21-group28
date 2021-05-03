@@ -25,11 +25,11 @@ Today, our goal was to finish the Project Pitch by adding User Personas and Wire
 ###### Personas
 - Created two personas (Anne Oce and John Lot). 
   - John: He is a 21 year old studying how to be a veterinarian and he is known to be a procrastinator. He is not tech savvy, very lazy and is not organized.
-    ** He is interested in football, animals, fashion.
-    ** Juggles trying to find order in his life because of the fact that he has too much work and too many classes to deal with.
+    - He is interested in football, animals, fashion.
+    - Juggles trying to find order in his life because of the fact that he has too much work and too many classes to deal with.
   - Anne: She is a 19 year old student who is an extrovert that is extremely outgoing, social, but her life is packed with the amount of work that she has so she needs to communicate her schedule for others. 
-    ** Business Major at SDSU and has many friends with whom she needs to communicate her schedule with.
-    ** Even though she is organized, she would like an all-in-one solution that allows other people to view her schedule and also help her keep track of her own schedule.
+    - Business Major at SDSU and has many friends with whom she needs to communicate her schedule with.
+    - Even though she is organized, she would like an all-in-one solution that allows other people to view her schedule and also help her keep track of her own schedule.
 
 ###### WireFrames
 - Created a wireframe design to show how we envision our design will look like
