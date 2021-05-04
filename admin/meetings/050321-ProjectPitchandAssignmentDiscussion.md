@@ -1,9 +1,9 @@
 # Notes for Monday, May 3rd, Project Pitch Discussion and Future Assignments Meeting
 Team Number: 28  
-Team Name: Spicy Ocelots
+Team Name: Spicy Ocelots   
 Type of meeting: Project Pitch Discussion and Future Assignments Meeting  
-Group Members absent: All Present
-Zoom meeting at 6 PM PST: Monday, May 3rd 
+Group Members absent: All Present  
+Zoom meeting at 6 PM PST: Monday, May 3rd  
 
 ## Objective for Today
 Today, our goal was to go over the TA's comments about the Project Pitch and go over future assignments.
