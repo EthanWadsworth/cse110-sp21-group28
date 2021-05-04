@@ -61,5 +61,5 @@ Today, our goal was to go over the TA's comments about the Project Pitch and go 
 We had a very productive meeting and want more clarification form the TA/Prof about the CI/CD Pipeline.
 - We plan to meet maybe twice more this week
 - Attend the discussion section this to ask our TA any last minute questions
-- CI/CD Pipeline and ADR meeting sometime this week.
+- CI/CD Pipeline and ADR meeting sometime this week.  
 Finished meeting on Monday, May 3rd at 6:50 PM.
