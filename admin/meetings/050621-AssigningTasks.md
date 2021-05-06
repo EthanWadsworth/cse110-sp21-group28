@@ -24,5 +24,5 @@ Today, our goal was to distribute tasks to each team member so that we can start
 
 
 ## Current Timeline and thoughts for the week
--We had a short meeting and will go over more in detail on Sunday, May 9th.  
+- We had a short meeting and will go over more in detail on Sunday, May 9th.  
 Finished meeting on Thursday, May 3rd at 1:10 PM.
