@@ -20,7 +20,7 @@ Today, our goal was to distribute tasks to each team member so that we can start
 - Reminder/Daily and Weekly Todo page: Edward and Allen
 - Choosing between journals/creating new journal page: Ethan W. and Dave
 - Sign in/Sign up authentication Pages: Jacob, Frank, and Abhishek
-- Database(backend design): Ethan T. (with some assistance from Ethan W.)
+- Database(backend design): Ethan T. and Dave (with some assistance from Ethan W.)
 
 
 ## Current Timeline and thoughts for the week
