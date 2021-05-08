@@ -1,0 +1,54 @@
+* {
+    font-family: sans-serif;
+  }
+  header{
+      text-align: center;
+      margin-top: 15vh;
+  }
+  
+    
+  input[type="text"] {
+    width: 80%;
+    border: 1px solid black;
+    padding: 5px;
+    margin-bottom: 5px;
+    border-radius: 8px;
+  }
+  .button{
+    border: 1px solid black;
+    border-radius: 5px;
+
+  }
+  .button:hover{
+    background-color:gainsboro;
+}
+ .button:active{
+      background-color: orangered;
+  }
+  
+  #button-group{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 10px;
+    width: 80%;
+    padding: 4px;
+      
+
+  }
+
+  
+  #user-info-group {    
+    margin: auto;
+    width: 20%;
+    padding: 1%;
+    background-color: gray;
+    border-radius: 25px;
+    display: grid;
+    justify-items: center;
+  }
+
+  
+  
+  
+ 
+  
