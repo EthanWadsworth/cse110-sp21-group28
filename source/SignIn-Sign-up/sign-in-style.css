@@ -12,7 +12,7 @@
   }
   
     
-  input[type="text"] {
+  #username, #password {
     width: 80%;
     border: 1px solid black;
     padding: 5px;
