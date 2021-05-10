@@ -35,7 +35,7 @@ Today, our goal was to go over the CI/CD Pipeline and quickly update each other 
 - We have already completed our first ADR last week.
 
 ### Team status Video overview
--Discuss more in detail next meeting.
+- Discuss more in detail next meeting.
 
 ## Current Timeline and thoughts for the week
 - By next week, try to have everything set up in terms of our HTML and focus on javascript and setting up functionality during week 8.
