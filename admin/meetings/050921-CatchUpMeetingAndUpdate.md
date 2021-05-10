@@ -1,8 +1,8 @@
 # Notes for Sunday, May 9th, Catch up meeting
 Team Number: 28  
 Team Name: Spicy Ocelots   
-Type of meeting: Catch up meeting
-Group Members absent: All Present
+Type of meeting: Catch up meeting. 
+Group Members absent: All Present. 
 Zoom meeting at 6 PM PST: Sunday, May 9th  
 
 ## Objective for Today
@@ -39,6 +39,6 @@ Today, our goal was to go over the CI/CD Pipeline and quickly update each other 
 
 ## Current Timeline and thoughts for the week
 - By next week, try to have everything set up in terms of our HTML and focus on javascript and setting up functionality during week 8.
-- We will talk more during the week and in our next meetings
-Finished meeting on Sunday, May 9th at 6:42 PM.
+- We will talk more during the week and in our next meetings. 
+Finished meeting on Sunday, May 9th at 6:42 PM.  
 
