@@ -1,7 +1,7 @@
 const modal = document.getElementById('new-journal');
 
 const createBtn = document.getElementById('create-button');
-const cancelBtn = document.querySelector('.cancel');
+const cancelBtn = document.getElementById('cancel');
 
 const closeSpan = document.querySelector(".close");
 
