@@ -6,7 +6,7 @@
 
 const database = firebase.database();
 
-//DAVE TO DO:
+// DAVE TO DO:
 // Write the getJournals function (this is important for the render function)
 // Find a way to populate HTML page with all of those journals
 // Make the render function for JOurnals
@@ -177,4 +177,3 @@ function getTodos(journalId) {
 // let newtest = "CSE 110"
 // let newdesc = "lol this class really is something"
 // createNewJournal(newtest, newdesc);
-// deleteJournal(1)
