@@ -1,4 +1,4 @@
-# Notes for Sunday, May 16th, Retrospective and Team Status Meeting
+# Notes for Sunday, May 16th: Retrospective and Team Status Meeting
 Team Number: 28  
 Team Name: Spicy Ocelots   
 Type of meeting: Retrospective and Team Status Meeting   
