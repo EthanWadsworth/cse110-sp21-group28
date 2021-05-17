@@ -53,7 +53,7 @@ Time Started: 6 PM.
 - If time, create a landing page
 - More immediately, once user is authenticated, then team members will assist with using that information and connect with the database
 
-### Backend Database
+### Database
 - Backend of the entire thing has been configured using google firebase
 - Use the database to populate information for each user
 - showed an example journal and how to use the functions
