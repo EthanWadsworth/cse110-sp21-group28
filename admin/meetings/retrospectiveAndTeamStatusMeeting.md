@@ -1,13 +1,12 @@
 # Notes for Sunday, May 16th, Retrospectuve and Tean Status Meeting
 Team Number: 28  
 Team Name: Spicy Ocelots   
-Type of meeting: Retrsopective Meeting of the Agile Sprint Process 
-Group Members absent: All Present 
-Zoom meeting at 6:35 PM PST: Sunday, May 16th  
+Type of meeting: Retrsopective Meeting of the Agile Sprint Process    
+Group Members absent: All Present    
+Zoom meeting at 6:35 PM PST: Sunday, May 16th    
 
 ## Objective for Today
-Today, our goal was to go over each assignment that is due this week. More specifically, we went did another ADR, finished the team status video, and talked about the CI/CD Pipeline
-in regards to what we want to complete before tomorrow's checkpoint.
+Today, our goal was to go over each assignment that is due this week. More specifically, we went did another ADR, finished the team status video, and talked about the CI/CD Pipeline in regards to what we want to complete before tomorrow's checkpoint.
 
 ## AGENDA:
 ### Meeting Schedule today:
@@ -27,7 +26,7 @@ in regards to what we want to complete before tomorrow's checkpoint.
 ### 2nd ADR decision
 - We decided to change our database from MongoDB to Firebase. This is because it was easier to set up via firebase and it was easier to implement
 - MongoDB doesnt have easy authentication so it is more manual. More involved and will take much more time.
-For more information, look to the ADR markdown file which is on this github repo.
+- For more information, look to the ADR markdown file which is on this github repo.
 
 ### CI/CD Pipeline
 Use github actions to check each process and each file for node. Make modifications of original github material.
@@ -36,7 +35,7 @@ Use github actions to check each process and each file for node. Make modificati
 
 ### Agile Team Status Video
 - Read about the agile team status video and go through it as a team
-- Go through this as teams (breakout rooms)
+- Plan what we want to say as teams (breakout rooms)
 - We came together as a group and presented what we had in the meeting itself (Ethan T. recorded each part)
 - Lastly, we designated (Allen Cheung) to splice the recordings of the messages together.
 
