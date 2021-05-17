@@ -31,7 +31,7 @@ Time Started: 6 PM.
 - Includes a sidebar with logout, go back to journals tab, and entries tab
 - Each day on the todo has tags and clicking on the day/tags creates a popup with more text and descriptions that users have entered
   - Text can be added on this pop up
-  - 
+
 ###### TO DO
 - Need to start implementing this now that the design is complete and everyone signed off on it
 - Still need to connect the database of users.
@@ -69,8 +69,8 @@ Question:
 What is the difference between Entries and Journals?      
 Answer: Journal is a container for the entries.      
 Question: How will users add and delete todos?     
-Answer: Add and delete todos from the journal via the database.     
-Question What do teams do if they are done early?
+Answer: Add and delete todos from the journal via the database.      
+Question What do teams do if they are done early?    
 Answer: Lots of database work needs to be done so a team can join forces with another team or get started on connecting user's information together using database.  
 
 Finish Time: 6:30 PM.   
