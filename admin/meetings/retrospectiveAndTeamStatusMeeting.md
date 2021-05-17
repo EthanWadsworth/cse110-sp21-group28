@@ -1,7 +1,7 @@
-# Notes for Sunday, May 16th, Retrospectuve and Tean Status Meeting
+# Notes for Sunday, May 16th, Retrospective and Team Status Meeting
 Team Number: 28  
 Team Name: Spicy Ocelots   
-Type of meeting: Retrsopective Meeting of the Agile Sprint Process    
+Type of meeting: Retrospective and Team Status Meeting   
 Group Members absent: All Present    
 Zoom meeting at 6:35 PM PST: Sunday, May 16th    
 
