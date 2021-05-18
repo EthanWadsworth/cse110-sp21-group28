@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "npx jest --coverage",
-    "unit-tests": "npx jest --coverage source/*/",
+    "unit-tests": "npx jest --coverage",
     "lint": "npx eslint . --ext .js",
     "lint-fix": "npx eslint --fix . --ext .js",
     "lint-edited": "eslint $(git diff --name-only HEAD | xargs)",
