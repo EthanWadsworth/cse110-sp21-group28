@@ -12,6 +12,7 @@ const database = firebase.database();
 // Make the render function for JOurnals
 
 
+
 // Function to get new JournalId when inserting a new journal
 function getNewJournalId() {
   return database.ref().child('journalId').get()
