@@ -1,7 +1,8 @@
 # Current Status of CI Pipeline
 
-![CI CD Pipeline](phase1.drawio.png)
+![CI CD Pipeline](phase1.png)
 
+Above: diagram of planned CI Pipeline
 ## Before Pushing to the Remote Repository
 
 Before even pushing to any of the remote development branches, the following scripts should be run by each member who wishes to push to the remote repository:
