@@ -10,12 +10,14 @@ on:
     branches: [ main ]
 
 jobs:
+
   build:
 
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
+        os: [ubuntu-latest, windows-2016]
         node-version: [10.x, 12.x, 14.x, 15.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
@@ -25,6 +27,9 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm ci
+    - name: Install modules
+      run: npm ci
     - run: npm run build --if-present
-    - run: npm test
+    - name: Run ESLint
+      run: npm run lint
+    - run: npm unit-tests
