@@ -41,7 +41,8 @@ const sampleJournals = [
   },
 ];
 
-function renderJournals() {
+async function renderJournals() {
+  // const reponse = await firebaseGetReuest();
   const journalContainer = document.getElementById('journal-entries');
   let newJournal = {};
 
