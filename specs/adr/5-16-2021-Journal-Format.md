@@ -1,4 +1,4 @@
-# [Chose to Focus on Individual Classes as Journal Topics]
+# [Chose to Use Google Firebase]
 
 * Status: [accepted] 
 * Deciders: [Spicy Ocelots] 
