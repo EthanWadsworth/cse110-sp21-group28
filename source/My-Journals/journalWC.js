@@ -5,7 +5,7 @@ class journalWC extends HTMLElement {
         const template = document.createElement('template');
 
         template.innerHTML = `
-        
+
         `
     }
 }
