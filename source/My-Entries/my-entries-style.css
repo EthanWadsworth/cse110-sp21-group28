@@ -4,18 +4,105 @@
     font-family:"Montserrat", sans-serif;
 }
 
-.weekly {
-    position: absolute;
-    width: 50%;
+body, html {
+    height:  100%;
+    margin:  0px auto;
+    padding: 0px auto;
+}
+
+/* Wrapper */
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+}
+
+/* Sidebar rectangle */
+.sidebar {
+    width: 302px;
     height: 100%;
     left: 0px;
+    top: 0px;
+    background:#FF0031;
+    border-radius: 0px 20px 20px 0px;
+}
+
+/* Sidebar Elements */
+/* Jocelot Logo Container */
+.logo {
+    display: flex;
+    flex-direction: row;
+    width: auto;
+    height: auto;
+    justify-content: center;
+    padding: 20px 0px 0px 0px;
+}
+
+/* Jocelot Text */
+.logo h1 {
+    color:white;
+    font-weight: bolder;
+    font-size: 48px;
+    text-align: center;
+}
+
+/* Jocelot Logo */
+.logo img {
+    width: 59px;
+    height: 100%;
+    left: 4px;
+}
+
+/* Page Container */
+ul a {
+    display:block;
+    height: auto;
+    width: auto;
+    line-height:50px;
+    text-decoration: none;
+    color:white;
+    font-weight: bolder;
+    font-size: 24px;
+    margin-left: 50px;
+
+}
+
+/* Page */
+.page {
+    color:white;
+    list-style: none;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+/* Journal Icon */
+#journal-logo {
+    list-style-image: url("album.svg");
+}
+
+/* Entries Icon */
+#entries-logo {
+    list-style-image: url("list.svg");
+}
+
+/* Log Out Icon */
+#log-out-logo {
+    list-style-image: url("enter.svg");
+}
+
+.weekly {
+    position: relative;
+    flex-grow: 1;
+    flex-basis: 0;
+    height: 100%;
     top: 0px;
     background: #e7e7e7;
     border-radius: 0px 20px 20px 0px;
 }
 
 .weekly h1 {
-    padding: 20px 0 0;
+    padding: 20px 0px 0px;
     text-align: center;
     font-weight: 700;
     color: #4f4f4f
@@ -111,4 +198,11 @@
     color: black;
 }
 
-
+.daily {
+    flex-grow: 1;
+    flex-basis: 0;
+    height: 100%;
+    top: 0px;
+    background: white;
+    border-radius: 0px 20px 20px 0px;
+}
