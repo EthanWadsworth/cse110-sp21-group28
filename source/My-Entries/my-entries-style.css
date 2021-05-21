@@ -1,0 +1,114 @@
+* {
+    margin:0px;
+    padding:0px;
+    font-family:"Montserrat", sans-serif;
+}
+
+.weekly {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+    background: #e7e7e7;
+    border-radius: 0px 20px 20px 0px;
+}
+
+.weekly h1 {
+    padding: 20px 0 0;
+    text-align: center;
+    font-weight: 700;
+    color: #4f4f4f
+}
+
+.dateChangeContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.dateRange {
+    padding: 20px 0 35px;
+    text-align: center;
+    font-weight: 500;
+    font-size: 40px;
+    color: #4f4f4f
+}
+
+.dateContainer {  
+    /* border: 1px solid rgb(111,41,97); */
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.dateContainer > div {
+    margin: 10px;
+}
+
+.day {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 80%;
+    background: #c4c4c4;
+    border-radius: 20px 20px 20px 20px;
+    padding: 10px;
+}
+
+.topLine h3 {
+    padding: 5px 5px 5px;
+    color: white;
+    font-weight: 800;
+}
+
+
+.topLine {
+    display: flex;
+    align-items: right;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.date {
+    font-weight: 400;
+    color: white;
+}
+
+.tasks {
+    font-size: large;
+    padding: 5px 5px 5px;
+    font-weight: 700;
+    color: #7c7c7c;
+}
+
+.taskContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding: 5px 5px 5px;
+}
+
+.taskContainer > div {
+    margin: 3px;
+}
+
+.task {
+    background: #A3EFDD;
+    border-radius: 100px;
+    padding: 2px;
+}
+
+.task[id="green"] {background:#A3EFDD}
+.task[id="blue"] {background: #84B5FF}
+.task[id="purple"] {background: #C099FF}
+.task[id="red"] {background: #FF9797}
+
+.task text {
+    padding: 7px 7px;
+    opacity: 0.2;
+    font-weight: 700;
+    color: black;
+}
+
+
