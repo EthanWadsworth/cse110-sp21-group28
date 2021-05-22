@@ -172,29 +172,29 @@ body, html {
     color: #7c7c7c;
 }
 
-.taskContainer {
+.tagContainer {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
     padding: 5px 5px 5px;
 }
 
-.taskContainer > div {
+.tagContainer > div {
     margin: 3px;
 }
 
-.task {
+.tag {
     background: #A3EFDD;
     border-radius: 100px;
     padding: 2px;
 }
 
-.task[id="green"] {background:#A3EFDD}
-.task[id="blue"] {background: #84B5FF}
-.task[id="purple"] {background: #C099FF}
-.task[id="red"] {background: #FF9797}
+.tag[id="green"] {background:#A3EFDD}
+.tag[id="blue"] {background: #84B5FF}
+.tag[id="purple"] {background: #C099FF}
+.tag[id="red"] {background: #FF9797}
 
-.task text {
+.tag text {
     padding: 7px 7px;
     opacity: 0.2;
     font-weight: 700;
@@ -208,6 +208,59 @@ body, html {
     top: 0px;
     background: white;
     border-radius: 0px 20px 20px 0px;
+}
+
+.daily h1 {
+    padding: 20px 0px 0px;
+    text-align: center;
+    font-weight: 700;
+    color: #4f4f4f
+}
+
+.taskContainer {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.taskContainer > div {
+    margin: 10px;
+}
+
+.task {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 80%;
+    background: #c4c4c4;
+    border-radius: 20px 20px 20px 20px;
+    padding: 10px;
+}
+
+.task[id="green"] {background:#74B9A8}
+.task[id="blue"] {background: #5D93E3}
+.task[id="purple"] {background: #A374F0}
+.task[id="red"] {background: #EF6666}
+
+.taskName {
+    padding: 5px 5px 5px;
+    color: white;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.dateRange[id="daily"] {
+    padding: 5px 5px 5px;
+    font-weight: 700;
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+    opacity: 80%;
+}
+
+.taskDescription li {
+    font-size: 17px;
+    padding: 3px 20px;
+    color: white;
 }
 
 .entryEditor {
