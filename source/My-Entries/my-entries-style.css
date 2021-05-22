@@ -36,7 +36,7 @@ body, html {
     width: auto;
     height: auto;
     justify-content: center;
-    padding: 20px 0px 0px 0px;
+    padding: 20px 0px 20px 0px;
 }
 
 /* Jocelot Text */
@@ -55,25 +55,18 @@ body, html {
 }
 
 /* Page Container */
-ul a {
-    display:block;
-    height: auto;
-    width: auto;
-    line-height:50px;
-    text-decoration: none;
-    color:white;
-    font-weight: bolder;
+.sidebar a {
+    display: block;
+    color: white;
     font-size: 24px;
-    margin-left: 50px;
-
+    font-weight: bold;
+    text-decoration: none;
+    padding: 16px 0px 16px 36px;
 }
 
-/* Page */
-.page {
-    color:white;
-    list-style: none;
-    padding-top: 10px;
-    padding-bottom: 10px;
+.sidebar a:hover {
+    background-color:#A4001F;
+    transition: 0.5s;
 }
 
 /* Journal Icon */
@@ -101,7 +94,7 @@ ul a {
     border-radius: 0px 20px 20px 0px;
 }
 
-.weekly h1 {
+.weekly h1, .daily h1 {
     padding: 20px 0px 0px;
     text-align: center;
     font-weight: 700;
@@ -114,7 +107,7 @@ ul a {
     justify-content: space-evenly;
 }
 
-.dateRange {
+.dateRange, #currentDate {
     padding: 20px 0 35px;
     text-align: center;
     font-weight: 500;
@@ -122,7 +115,7 @@ ul a {
     color: #4f4f4f
 }
 
-.dateContainer {  
+.dateContainer, .entryContainer {  
     /* border: 1px solid rgb(111,41,97); */
     align-items: center;
     display: flex;
@@ -141,6 +134,16 @@ ul a {
     background: #c4c4c4;
     border-radius: 20px 20px 20px 20px;
     padding: 10px;
+}
+
+.day:hover {
+    background-color: #7C7C7C;
+    transition: 0.5s;
+}
+
+.day:hover .tasks {
+    color: black;
+    transition: 0.5s;
 }
 
 .topLine h3 {
@@ -205,4 +208,14 @@ ul a {
     top: 0px;
     background: white;
     border-radius: 0px 20px 20px 0px;
+}
+
+.entryEditor {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 80%;
+    background: #c4c4c4;
+    border-radius: 20px 20px 20px 20px;
+    padding: 10px;
 }
