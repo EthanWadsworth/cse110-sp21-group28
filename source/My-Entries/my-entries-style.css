@@ -20,6 +20,7 @@ body, html {
 
 /* Sidebar rectangle */
 .sidebar {
+    z-index: 1;
     width: 302px;
     height: 100%;
     left: 0px;
@@ -85,7 +86,11 @@ body, html {
 }
 
 .weekly {
+    z-index: 0;
+    left: -20px;
     position: relative;
+    display: flex;
+    flex-direction: column;
     flex-grow: 1;
     flex-basis: 0;
     height: 100%;
@@ -228,6 +233,7 @@ body, html {
 }
 
 .task {
+    border-right: 10px solid #33FF9D;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -237,10 +243,38 @@ body, html {
     padding: 10px;
 }
 
-.task[id="green"] {background:#74B9A8}
-.task[id="blue"] {background: #5D93E3}
-.task[id="purple"] {background: #A374F0}
-.task[id="red"] {background: #EF6666}
+.task[id="greenNotDone"] {
+    background:#74B9A8;
+    border-color: #FFDE33;
+}
+.task[id="greenDone"] {
+    background:#74B9A8;
+    border-color: #33FF9D;
+}
+.task[id="blueNotDone"] {
+    background: #5D93E3;
+    border-color: #FFDE33;
+}
+.task[id="blueDone"] {
+    background: #5D93E3;
+    border-color: #33FF9D;
+}
+.task[id="purpleNotDone"] {
+    background: #A374F0;
+    border-color: #FFDE33;
+}
+.task[id="purpleDone"] {
+    background: #A374F0;
+    border-color: #33FF9D;
+}
+.task[id="redNotDone"] {
+    background: #EF6666;
+    border-color: #FFDE33;
+}
+.task[id="redDone"] {
+    background: #EF6666;
+    border-color: #33FF9D;
+}
 
 .taskName {
     padding: 5px 5px 5px;
