@@ -1,10 +1,25 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
+const firebaseConfig = {
+  apiKey: 'AIzaSyB8xbOp9a5gOZPhAu1DePXimXbJG1RRCeE',
+  authDomain: 'bullet-journal-110.firebaseapp.com',
+  databaseURL: 'https://bullet-journal-110-default-rtdb.firebaseio.com',
+  projectId: 'bullet-journal-110',
+  storageBucket: 'bullet-journal-110.appspot.com',
+  messagingSenderId: '290407354761',
+  appId: '1:290407354761:web:1612b4616b4930443f1158',
+  measurementId: 'G-F831EK3HBB',
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+
+// Initialize Firebase Database
 const database = firebase.database();
 
 // Create a new user
 function createNewUser(user, password) {
-  console.log('creating new user');
   firebase.database().ref(`users/${user}`).set({
     password,
   });
@@ -21,12 +36,9 @@ function getNewJournalId(user) {
 }
 
 /*  Function to create a new Journal
-    Parameters: journalName: name of the jouranl
+    Parameters: journalName: name of the journal
                 journalDesc: journal description
                 user: user
-                callback: function to re-render views of journal
-
-                NOTE: need to add the callback functionality after making renderJournals
 */
 function createNewJournal(user, journalName, journalDesc) {
   // const newJournId = getNewJournalId();
@@ -45,28 +57,23 @@ function createNewJournal(user, journalName, journalDesc) {
 }
 
 /*  Function to delete a Journal
-    Parameters: journal_id: id of the journal for reference in backend
-                callback: function to re-render views of journal
+    Parameters: journal_id: name of the journal for reference in backend
+                user: user
 
-                NOTE: need to add the callback functionality after making renderJournals
 */
 function deleteJournal(user, journalId) {
-  console.log(`Deleting journal ${journalId}`);
   database.ref(`users/${user}/journals/${journalId}`).remove();
 }
 
 /*  Function to edit a journal (name/description)
-    Parameters: journal_id: id of the journal for reference in backend
+    Parameters: journal_id: name of the journal for reference in backend
                 spec: specifies if name or description is being changed
-                  Should be "color" or "tags" o "entries"
+                  Should be "color" or "tags" or "entries"
                 specChange: what the spec should be changed to
-
-                callback: function to re-render views of journal
-
-                NOTE: need to add the callback functionality after making renderJournals
+                  Should be (string for color and tag, list of strings for entry)
 */
 function editJournal(user, journalId, spec, specChange) {
-  console.log(`Editing journal ${journalId}'s ${spec}`);
+  // console.log(`Editing journal ${journalId}'s ${spec}`);
   database.ref(`users/${user}/journals/${journalId}`).update({ [spec]: specChange });
 }
 
@@ -74,8 +81,6 @@ function editJournal(user, journalId, spec, specChange) {
     Parameters: journal_id: id of the journal for reference for which post id we're making
                 user: user
                 tag: tag to be inserted into tag array for this journal
-
-                NOTE: need to add the callback functionality after making renderJournals
 */
 function newTag(user, journalId, tag) {
   const tags = database.ref().child(`users/${user}/journals/${journalId}/tags/`);
@@ -100,11 +105,9 @@ function newTag(user, journalId, tag) {
 }
 
 /*  Function to delete tag from the journal
-    Parameters: journal_id: id of the journal for reference for which post id we're making
+    Parameters: journal_id: name of the journal for reference for which post id we're making
                 user: user
                 tag: tag to be deleted from the journal
-
-                NOTE: need to add the callback functionality after making renderJournals
 */
 function deleteTag(user, journalId, tag) {
   const tags = database.ref().child(`users/${user}/journals/${journalId}/tags/`);
@@ -114,7 +117,6 @@ function deleteTag(user, journalId, tag) {
         const { key } = tagSnap;
         const val = tagSnap.val();
         if (val === tag) {
-          // console.log('found match');
           tags.child(`${key}`).remove();
         }
       });
@@ -122,10 +124,8 @@ function deleteTag(user, journalId, tag) {
 }
 
 /*  Function to get new Post Id for insertion into a journal
-    Parameters: journal_id: id of the journal for reference for which post id we're making
+    Parameters: journal_id: name of the journal for reference for which post id we're making
                 user: user
-
-                NOTE: need to add the callback functionality after making renderJournals
 */
 function getNewTodoId(user, journalId) {
   return database.ref().child(`users/${user}/journals/${journalId}`).child('postId').get()
@@ -175,36 +175,27 @@ function createNewEntry(user, todoName, todoDesc, start, end, todotags, journalI
 }
 
 /*  Function to delete a todo
-    Parameters: journal_id: id of the journal for reference in backend
+    Parameters: journal_id: name of the journal for reference in backend
                 todo_id: id of the todo for deletion
-                callback: function to re-render views of journal
-
-                NOTE: need to add the callback functionality after making renderJournals
 */
 function deleteTodo(user, journalId, entryId) {
-  // console.log(`Deleting todo ${todoId} from journal ${journalId}`);
   database.ref(`users/${user}/journals/${journalId}/entries/${entryId}`).remove();
 }
 
 /*  Function to edit a todo
-    Parameters: journalId: id of the journal for reference in backend
+    Parameters: journalId: name of the journal for reference in backend
                 todoId: id of the todo to edit
-                specChange: dict of pre instance values to the new values (DONT EDIT TAGS)
-
-                callback: function to re-render views of journal
-
-                NOTE: need to add the callback functionality after making renderJournals
+                specChange: dict of pre instance values to the new values
+                  (DONT EDIT TAGS AS TAG EDITING HAS ITS OWN PROPERTY)
 */
 function editTodo(user, journalId, entryId, specChange, spec) {
   database.ref(`users/${user}/journals/${journalId}/entries/${entryId}`).update(specChange);
 }
 
-/*  Function to get all journal objects
+/*  Function to get all journal objects of a user
     Parameters: user: userId
 
-                callback: function to re-render views of journal
-
-                NOTE: need to add the callback functionality after making renderJournals
+    Returns a list of journal objects
 */
 function getAllJournals(user) {
   const blogs = [];
@@ -214,12 +205,10 @@ function getAllJournals(user) {
       return journal;
     });
 }
-/*  Function to get all Todos specified by journal and user
+/*  Function to get all entries specified by journal and user
     Parameters: journalId: id of the journal for reference in backend
 
-                callback: function to re-render views of journal
-
-                NOTE: need to add the callback functionality after making renderJournals
+    Returns a list of entry objects
 */
 function getEntries(user, journalId) {
   let blogs = [];
@@ -232,9 +221,7 @@ function getEntries(user, journalId) {
 /*  Function to get all Todos of a user REGARDLESS of journal
     Parameters: journalId: id of the journal for reference in backend
 
-                callback: function to re-render views of journal
-
-                NOTE: need to add the callback functionality after making renderJournals
+    Returns a list of entry objects
 */
 function getAllEntries(user) {
   const blogs = [];
@@ -248,34 +235,13 @@ function getAllEntries(user) {
           });
       });
     });
-  // console.log(blogs)
   return blogs;
 }
 
-// TESTING AND USE CASES BELOW
-// getNewPostId(4);
-
-// getTodos(0);
-// let newspec = {description: "woopsie daisey", end_date: "Date 200", title: "Lab 7"}
-// editTodo(2, 0, newspec
-
-// let hi = getNewTodoId(0)
-// hi.then((result) => {
-//   console.log(result);
-// })
-
-// editJournal(2,"journalDesc","Bruhhhhhhh this works" );
-// deleteTodo(0, 2);
-
-// const testname = "Weird proof of concept"
-// const desc = "wait what lol"
-// const journalId = 0
-// const todotags = ['NOTHW', 'HW']
-// const start = "Date 1"
-// const end = "Date 2"
-
-// createNewToDo(testname, desc, start, end, todotags, journalId);
-
-// let newtest = "CSE 110"
-// let newdesc = "lol this class really is something"
-// createNewJournal(newtest, newdesc);
+// Export functions
+export {
+  createNewUser, getNewJournalId, createNewJournal,
+  deleteJournal, editJournal, newTag, deleteTag,
+  getNewTodoId, createNewEntry, deleteTodo, editTodo,
+  getAllJournals, getEntries, getAllEntries,
+};
