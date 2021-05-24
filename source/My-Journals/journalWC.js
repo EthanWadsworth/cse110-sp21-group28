@@ -42,4 +42,4 @@ class journalWC extends HTMLElement {
   }
 }
 
-customElements.define('journal-entry', journalWC);
+customElements.define('journal-collection', journalWC);

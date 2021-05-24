@@ -41,14 +41,17 @@ const sampleJournals = [
   },
 ];
 
-async function renderJournals() {
+function renderJournals() {
   // const reponse = await firebaseGetReuest();
   const journalContainer = document.getElementById('journal-entries');
   let newJournal = {};
 
   sampleJournals.forEach((sample) => {
-    newJournal = document.createElement('journal-entry');
+    newJournal = document.createElement('journal-collection');
     newJournal.entry = sample;
+    newJournal.addEventListener('click', () => {
+      window.location.href = './../Journal-Entries/entries.html';
+    });
 
     journalContainer.appendChild(newJournal);
   });
