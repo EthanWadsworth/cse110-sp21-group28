@@ -5,7 +5,7 @@
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const database = firebase.database();
 
-/*function setPersistenceNone() {
+/* function setPersistenceNone() {
   // [START auth_set_persistence_none]
   firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE)
     .then(() => {
@@ -23,7 +23,7 @@ const database = firebase.database();
   // [END auth_set_persistence_none]
 }
 */
-/*function incCount() {
+/* function incCount() {
   console.log('incing the count');
   firebase.database().ref('blogpost/count').set(5 + 1);
 }
@@ -44,39 +44,47 @@ const txtConfirm = document.getElementById('txtConfirm');
 
 // Add login event
 
-if(btnLogin!=null)btnLogin.addEventListener('click', (e) => {
-  console.log('Logging in');
-  const email = txtEmail.value;
-  const pass = txtPassword.value;
-  const auth = firebase.auth();
-  // Sign in
-  const promise = auth.signInWithEmailAndPassword(email, pass)
-  .then(() => {
-    if(firebase.auth().currentUser)window.location='temp.html';
-  });
+if (btnLogin != null){
+  btnLogin.addEventListener('click', (e) => {
+    console.log('Logging in');
+    const email = txtEmail.value;
+    const pass = txtPassword.value;
+    const auth = firebase.auth();
+    // Sign in
+    const promise = auth.signInWithEmailAndPassword(email, pass)
+    .then(() => {
+      if(firebase.auth().currentUser){
+        window.location = 'temp.html';
+      }
+    });
 
-  promise.catch((e) => console.log(e.message));
-});
+    promise.catch((e) => console.log(e.message));
+  })
+}
 
 // Add siginup event
- if(btnSignUp!=null)btnSignUp.addEventListener('click', (e) => {
-  if(txtPassword.value!=txtConfirm.value){
-    console.log("Password's don't match");
-    return;
-  }
-   console.log('Signing up');
-   const email = txtEmail.value;
-   const password = txtPassword.value;
-   const auth = firebase.auth();
+ if (btnSignUp != null){
+   btnSignUp.addEventListener('click', (e) => {
+    if(txtPassword.value != txtConfirm.value){
+      console.log("Password's don't match");
+      return;
+    }
+    console.log('Signing up');
+    const email = txtEmail.value;
+    const password = txtPassword.value;
+    const auth = firebase.auth();
+    
+    // Sign in
+    const promise = auth.createUserWithEmailAndPassword(email, password)
+    .then(() => {
+      if(firebase.auth().currentUser){
+        window.location = 'temp.html';
+      }
+    });
+    promise.catch((e) => console.log(e.message));
    
-   // Sign in
-   const promise = auth.createUserWithEmailAndPassword(email, password)
-   .then(() => {
-    if(firebase.auth().currentUser)window.location='temp.html';
-  });
-   promise.catch((e) => console.log(e.message));
-   
-});
+  })
+}
 
 firebase.auth().onAuthStateChanged((firebaseUser) => {
   if(firebaseUser){
@@ -92,5 +100,5 @@ firebase.auth().onAuthStateChanged((firebaseUser) => {
 // Logout function
 if(btnLogout!=null)btnLogout.addEventListener('click', (e) => {
   firebase.auth().signOut();
-  window.location='index.html';
+  window.location = 'index.html';
 });
