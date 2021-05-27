@@ -5,10 +5,10 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" type="image/png" href="./images/ocelot_note_icon.png"/>
+  <link rel="shortcut icon" type="image/png" href="images/ocelot_note_icon.png"/>
   <title>Sign In</title>
 
-  <link rel="stylesheet" href="./css/sign-in-style.css">
+  <link rel="stylesheet" href="css/sign-in-style.css">
 </head>
 
 <body>
@@ -18,28 +18,33 @@
   </header>
 
   <main>
-    <img src="./images/ocelot_fire.png" id="left-img">
+    <img src="images/ocelot_fire.png" id="left-img">
     <div id="user-info-group">
-      <input type="text" id="username" placeholder="Username">
-      <input type="password" id="password" placeholder="Password">
+      <input type="text" id="txtEmail" placeholder="Email">
+      <input type="password" id="txtPassword" placeholder="Password">
       <div id= "button-group">
-        <input type="button" id="login" value="Log In" class="button">
+        <input type="button" id="btnLogin" value="Log In" class="button">
         <input type="button" id="sign-up" value="Sign Up" class="button" onclick="parent.location='sign-up.html'">
       </div>
     </div>
-    <img src="./images/ocelot_fire.png" id="right-img">
-
+    <img src="images/ocelot_fire.png" id="right-img">
+    
   </main>
+  
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="/__/firebase/8.2.10/firebase-app.js"></script>
+  ​
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+      https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="/__/firebase/8.2.10/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-database.js"></script>
+​
+  <!-- Initialize Firebase -->
+  <script src="/__/firebase/init.js?useEmulator=true"></script>
+​
+  <script src="js/login-script.js"></script>
+  <!--<script src="styledcrud.js"></script> -->
 </body>
-<!-- The core Firebase JS SDK is always required and must be listed first -->
-<script src="/__/firebase/8.6.1/firebase-app.js"></script>
 
-<!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
-<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-database.js"></script>
-<!-- Initialize Firebase -->
-<script src="/__/firebase/init.js?useEmulator=true"></script>
-
-<script src="./backend/script.js"></script>
 </html>

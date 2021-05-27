@@ -11,7 +11,7 @@
   }
   
     
-  #username, #password, #confirm-password, #email {
+  #txtEmail, #txtPassword, #txtConfirm {
     width: 80%;
     border: 1px solid black;
     padding: 5px;
