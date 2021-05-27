@@ -44,7 +44,7 @@ const txtConfirm = document.getElementById('txtConfirm');
 
 // Add login event
 
-if (btnLogin != null){
+if (btnLogin != null) {
   btnLogin.addEventListener('click', (e) => {
     console.log('Logging in');
     const email = txtEmail.value;
@@ -52,20 +52,20 @@ if (btnLogin != null){
     const auth = firebase.auth();
     // Sign in
     const promise = auth.signInWithEmailAndPassword(email, pass)
-    .then(() => {
-      if(firebase.auth().currentUser){
-        window.location = 'temp.html';
-      }
-    });
+      .then(() => {
+        if (firebase.auth().currentUser) {
+          window.location = 'temp.html';
+        }
+      });
 
-    promise.catch((e) => console.log(e.message));
-  })
+    promise.catch((ex) => console.log(ex.message));
+  });
 }
 
 // Add siginup event
- if (btnSignUp != null){
-   btnSignUp.addEventListener('click', (e) => {
-    if(txtPassword.value != txtConfirm.value){
+if (btnSignUp != null) {
+  btnSignUp.addEventListener('click', (e) => {
+    if (txtPassword.value !== txtConfirm.value) {
       console.log("Password's don't match");
       return;
     }
@@ -73,32 +73,28 @@ if (btnLogin != null){
     const email = txtEmail.value;
     const password = txtPassword.value;
     const auth = firebase.auth();
-    
     // Sign in
     const promise = auth.createUserWithEmailAndPassword(email, password)
-    .then(() => {
-      if(firebase.auth().currentUser){
-        window.location = 'temp.html';
-      }
-    });
-    promise.catch((e) => console.log(e.message));
-   
-  })
+      .then(() => {
+        if (firebase.auth().currentUser) {
+          window.location = 'temp.html';
+        }
+      });
+    promise.catch((ex) => console.log(ex.message));
+  });
 }
 
 firebase.auth().onAuthStateChanged((firebaseUser) => {
-  if(firebaseUser){
-
-  }
-  else{
+  if (!firebaseUser) {
     console.log('Invalid Username And/Or password');
   }
   console.log('authChange');
-
 });
 
 // Logout function
-if(btnLogout!=null)btnLogout.addEventListener('click', (e) => {
-  firebase.auth().signOut();
-  window.location = 'index.html';
-});
+if (btnLogout != null) {
+  btnLogout.addEventListener('click', (e) => {
+    firebase.auth().signOut();
+    window.location = 'index.html';
+  });
+}
