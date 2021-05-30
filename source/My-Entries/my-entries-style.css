@@ -190,7 +190,7 @@ body, html {
 
 .tag {
     background: #A3EFDD;
-    border-radius: 100px;
+    border-radius: 20px;
     padding: 2px;
 }
 
@@ -305,4 +305,76 @@ body, html {
     background: #c4c4c4;
     border-radius: 20px 20px 20px 20px;
     padding: 10px;
+}
+
+.taskEditor {
+    margin: auto;
+    margin-top: 10px;
+    flex-direction: row;
+    width: 80%;
+    height: 900px;
+    background: #c4c4c4;
+    border-radius: 20px 20px 20px 20px;
+    padding: 10px;
+}
+
+.taskEditor h3 {
+    padding: 5px 5px 5px;
+    color: white;
+    font-weight: 800;
+}
+
+.taskEditorForm {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    width: 100%;
+}
+.taskEditor form input[type=text], input[type=date] {
+    background:white;
+    border-radius: 20px;
+    outline: none;
+    border: none;
+
+    padding: 7px 0px;
+    color: black;
+    font-weight: bold;
+}
+
+.editNameAndTags {
+    flex-grow: 1;
+    width: 50%;
+    height: 170px;
+}
+
+.editDate {
+    flex-grow: 1;
+    width: 50%;
+    height: 170px;
+}
+
+.break {
+    flex-basis: 100%;
+    height: 0;
+}
+.editDescription {
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+}
+#editTaskDescription {
+    width: 100%;
+    height: 660px;
+    margin: auto;
+    resize: none;
+
+    background:white;
+    border-radius: 20px;
+    outline: none;
+    border: none;
+
+    padding: 7px 0px;
+    color: black;
+    font-weight: bold;
 }

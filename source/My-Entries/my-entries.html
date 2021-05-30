@@ -140,6 +140,33 @@
         <div class="daily">
             <h1>Daily</h1>
             <div class = "dateRange">5/10</div>
+            <div class="taskEditor"> 
+                <form class="taskEditorForm">
+                    <div class="editNameAndTags">
+                        <div class="editName">
+                            <label for="editTaskName"><h3>Edit name</h3></label>
+                            <input type="text" id="editTaskName" name="editTaskName">
+                        </div>
+                        <div class="editTags">
+                            <h3>Select Tags</h3>
+                            <select id="tagSelector" multiple>
+                                <option value="0">Hold Ctrl/Command for multiple</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="editDate">
+                        <label for="editTaskStart"><h3>Edit date</h3></label>
+                        <input type="date" id="editTaskStart" name="editTaskStart">
+                        <h3>to</h3>
+                        <input type="date" id="editTaskEnd" name="editTaskEnd">
+                    </div>
+                    <div class="editDescription">
+                        <label for="editTaskDescription"><h3>Edit description</h3></label>
+                        <textarea id="editTaskDescription" name="editTaskDescription"></textarea>
+                    <input type="submit" value="Submit">
+                    </div>
+                </form>
+            </div>
             <div class = "taskContainer">
                 <div class = "task" id = "blueNotDone">
                     <div class = "topLine">
