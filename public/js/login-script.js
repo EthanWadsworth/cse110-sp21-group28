@@ -58,7 +58,14 @@ if (btnLogin != null) {
         }
       });
 
-    promise.catch((ex) => console.log(ex.message));
+    promise.catch((ex) => {
+      if(ex.message == 'There is no user record corresponding to this identifier. The user may have been deleted.' ) {
+        alert('Account with this email address does not exist.');
+      }
+      else {
+        alert(ex.message);
+      }
+      });
   });
 }
 
@@ -66,7 +73,7 @@ if (btnLogin != null) {
 if (btnSignUp != null) {
   btnSignUp.addEventListener('click', (e) => {
     if (txtPassword.value !== txtConfirm.value) {
-      console.log("Password's don't match");
+      alert("Password's don't match");
       return;
     }
     console.log('Signing up');
@@ -80,16 +87,16 @@ if (btnSignUp != null) {
           window.location = 'temp.html';
         }
       });
-    promise.catch((ex) => console.log(ex.message));
+    promise.catch((ex) => alert(ex.message));
   });
 }
 
-firebase.auth().onAuthStateChanged((firebaseUser) => {
+/* firebase.auth().onAuthStateChanged((firebaseUser) => {
   if (!firebaseUser) {
     console.log('Invalid Username And/Or password');
   }
   console.log('authChange');
-});
+}); */
 
 // Logout function
 if (btnLogout != null) {
