@@ -1,4 +1,6 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable no-console */
+/* eslint-disable linebreak-style */
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 const firebaseConfig = {
@@ -99,7 +101,7 @@ function newTag(user, journalId, tag) {
       if (!seen) {
         tags.push(tag);
       } else {
-        console.log('Tag already exists in this journal!');
+        console.error('Tag already exists in this journal!');
       }
     });
 }
