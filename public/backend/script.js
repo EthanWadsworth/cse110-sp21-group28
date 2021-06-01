@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable linebreak-style */
 /* eslint-disable no-console */
@@ -257,6 +258,17 @@ async function getAllEntries(user) {
   //     });
   //   });
   // return blogs;
+}
+async function getAllJournalsAsync(user) {
+  const blogs = [];
+  let journals = '';
+  return new Promise((resolve) => {
+    database.ref().child(`users/${user}/journals/`).get()
+      .then((snapshot) => {
+        journals = snapshot.val();
+        resolve(journals);
+      });
+  });
 }
 // function getAllEntries(user) {
 //   const blogs = [];
