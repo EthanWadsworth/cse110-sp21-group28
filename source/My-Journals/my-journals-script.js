@@ -45,6 +45,13 @@ const sampleJournals = [
   },
 ];
 
+function addJournalColor(color) {
+  if (color.startsWith() != '#') {
+    color = '#' + color;
+  }
+  return color;
+}
+
 async function renderJournals() {
   // const reponse = await firebaseGetReuest();
   const journalContainer = document.getElementById('journal-entries');
@@ -55,6 +62,9 @@ async function renderJournals() {
   for (let item in journals) {
     journals[item].title = item;
     newJournal = document.createElement('journal-collection');
+
+    // add color to journal
+    newJournal.style.background = addJournalColor(journals[item].color);
     newJournal.entry = journals[item];
     newJournal.addEventListener('click', () => {
       window.location.href = './../Journal-Entries/entries.html';
