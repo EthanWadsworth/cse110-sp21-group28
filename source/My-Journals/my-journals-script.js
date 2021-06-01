@@ -1,3 +1,7 @@
+import { getAllJournals } from "./../../public/backend/script.js";
+
+const database = firebase.database();
+
 const modal = document.getElementById('new-journal');
 
 const createBtn = document.getElementById('create-button');
@@ -41,20 +45,45 @@ const sampleJournals = [
   },
 ];
 
-function renderJournals() {
+async function renderJournals() {
   // const reponse = await firebaseGetReuest();
   const journalContainer = document.getElementById('journal-entries');
   let newJournal = {};
 
-  sampleJournals.forEach((sample) => {
+  const journals = await getAllJournalsAsync('User1'); // dummy function for now
+  console.log(journals);
+  for (let item in journals) {
+    journals[item].title = item;
     newJournal = document.createElement('journal-collection');
-    newJournal.entry = sample;
+    newJournal.entry = journals[item];
     newJournal.addEventListener('click', () => {
       window.location.href = './../Journal-Entries/entries.html';
     });
 
     journalContainer.appendChild(newJournal);
-  });
+  }
+
+  // sampleJournals.forEach((sample) => {
+  //   newJournal = document.createElement('journal-collection');
+  //   newJournal.entry = sample;
+  //   newJournal.addEventListener('click', () => {
+  //     window.location.href = './../Journal-Entries/entries.html';
+  //   });
+
+  //   journalContainer.appendChild(newJournal);
+  // });
 }
 
 renderJournals();
+
+async function getAllJournalsAsync(user) {
+  const blogs = [];
+  let journals = '';
+  return new Promise((resolve) => {
+    database.ref().child(`users/${user}/journals/`).get()
+    .then(snapshot => {
+      journals = snapshot.val();
+      resolve(journals);
+    })
+  })
+}
