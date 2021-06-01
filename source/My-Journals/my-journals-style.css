@@ -1,3 +1,20 @@
+body {
+    background-color: #e7e7e7;
+    font-family:"Montserrat", sans-serif;
+}
+
+journal-collection {
+    border: solid #4f4f4f 2px;
+    border-radius: 3px;
+    color: white;
+    background-color: #c4c4c4;
+    margin: 10px
+}
+journal-collection:hover {
+    background-color: #7C7C7C;
+    transition: 0.5s;
+}
+
 .entry {
     border: solid black 2px;
     display: inline-block;
@@ -88,3 +105,81 @@
     to {top: 0; opacity: 1}
 }
 
+#journal-entries-wrapper {
+    margin-left: 50px;
+}
+
+.wrapper{
+    display: grid;
+    grid-template-columns: 17vw 83vw;
+    height: 98vh;
+    justify-content: space-evenly;
+}
+
+h1 {
+    text-align: center;
+    color: #4f4f4f;
+}
+
+#create-button {
+    color: white;
+    background-color: #FF0031;
+    float: right;
+    padding: 4px;
+    margin-right: 1vw;
+    border-radius: 15px;
+}
+
+#create-button:hover {
+    background-color: #A4001F;
+}
+
+/* Sidebar */
+.sidebar {
+    z-index: 1;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+    background:#FF0031;
+    border-radius: 0px 20px 20px 0px;
+}
+
+.logo {
+    display: flex;
+    flex-direction: row;
+    width: auto;
+    height: auto;
+    justify-content: center;
+    padding: 20px 0px 20px 0px;
+}
+
+/* Jocelot text */
+.logo h1 {
+    color:white;
+    font-weight: bolder;
+    font-size: 48px;
+    text-align: center;
+}
+
+/* Jocelot Logo */
+.logo img {
+    width: 59px;
+    height: 100%;
+    left: 4px;
+}
+
+/* Page Container */
+.sidebar a {
+    display: block;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 16px 0px 16px 36px;
+}
+
+
+.sidebar a:hover {
+    background-color:#A4001F;
+    transition: 0.5s;
+}
