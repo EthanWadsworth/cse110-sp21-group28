@@ -1,4 +1,4 @@
-import { getAllJournals } from "./../../public/backend/script.js";
+import { getAllJournalsAsync } from "./../../public/backend/script.js";
 import { router } from './router.js';
 
 window.addEventListener('popstate', e => {
@@ -61,6 +61,7 @@ async function renderJournals() {
     newJournal.entry = journals[item];
     newJournal.addEventListener('click', () => {
       // window.location.href = './../Journal-Entries/entries.html';
+      console.log(journals[item].entries);
       router.setState('entries', false, item, null);
     });
 
@@ -78,16 +79,49 @@ async function renderJournals() {
   // });
 }
 
+/**
+ * 
+ * @param {*} entries entries to render
+ */
+function renderEntries(entries) {
+  const entriesContainer = document.querySelector('.entries-container');
+  // iterate through object
+  // each entry is an object
+  for (let entry in entries) {
+    
+  }
+}
+
+
+
 renderJournals();
 
-async function getAllJournalsAsync(user) {
-  const blogs = [];
-  let journals = '';
-  return new Promise((resolve) => {
-    database.ref().child(`users/${user}/journals/`).get()
-    .then(snapshot => {
-      journals = snapshot.val();
-      resolve(journals);
-    })
-  })
-}
+// async function getAllJournalsAsync(user) {
+//   const blogs = [];
+//   let journals = '';
+//   return new Promise((resolve) => {
+//     database.ref().child(`users/${user}/journals/`).get()
+//     .then(snapshot => {
+//       journals = snapshot.val();
+//       resolve(journals);
+//     })
+//   })
+// }
+
+// async function getEntries(user, journalId) {
+//   let blogs = [];
+//   return new Promise((resolve) => {
+//     database.ref().child(`users/${user}/journals/${journalId}/entries`).get()
+//     .then((snapshot) => {
+//       blogs = snapshot.val();
+//     })
+//     .then(() => blogs);
+//   });
+//   // return database.ref().child(`users/${user}/journals/${journalId}/entries`).get()
+//   //   .then((snapshot) => {
+//   //     blogs = snapshot.val();
+//   //   })
+//   //   .then(() => blogs);
+// }
+
+// console.log(getEntries('User1', 'CSE110'));

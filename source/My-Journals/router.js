@@ -12,6 +12,7 @@ const entriesContainer = document.querySelector('.entries-container');
  * @param {*} data journal/entry identifier
  */
 router.setState = (state, statePopped, data) => {
+    console.log(data);
     switch(state) {
         case 'entry':
             journalsPage(false);
@@ -55,9 +56,9 @@ function journalsPage(sendTo) {
  */
 function entriesPage(sendTo, journal) {
     if (sendTo) {
-        entriesContainer.classList.add('entries');
+        journalContainer.classList.add('entries');
     } else {
-        entriesContainer.classList.remove('entries');
+        journalContainer.classList.remove('entries');
     }
 }
 
