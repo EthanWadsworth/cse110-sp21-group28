@@ -1,4 +1,15 @@
 import { getAllJournals } from "./../../public/backend/script.js";
+import { router } from './router.js';
+
+window.addEventListener('popstate', e => {
+  if (e.state?.page && e.state.page.startsWith('entry')) {
+    router.setState('entry', true, Number(e.state.page.substr(6,e.state.page.length)));
+  } else if (e.state?.page && e.state.page) {
+
+  } else {
+    router.setState(e.state?.page, true);
+  }
+});
 
 const database = firebase.database();
 
@@ -27,24 +38,6 @@ window.addEventListener('click', (event) => {
   }
 });
 
-const sampleJournals = [
-  {
-    title: 'Journal1',
-    date: Date.now(),
-    todos: ['todo1', 'todo2'],
-  },
-  {
-    title: 'Journal2',
-    date: Date.now(),
-    todos: ['todo1'],
-  },
-  {
-    title: 'Journal3',
-    date: Date.now(),
-    todos: ['todo1', 'todo2', 'todo3', 'todo4'],
-  },
-];
-
 function addJournalColor(color) {
   if (color.startsWith() != '#') {
     color = '#' + color;
@@ -67,7 +60,8 @@ async function renderJournals() {
     newJournal.style.background = addJournalColor(journals[item].color);
     newJournal.entry = journals[item];
     newJournal.addEventListener('click', () => {
-      window.location.href = './../Journal-Entries/entries.html';
+      // window.location.href = './../Journal-Entries/entries.html';
+      router.setState('entries', false, item, null);
     });
 
     journalContainer.appendChild(newJournal);
