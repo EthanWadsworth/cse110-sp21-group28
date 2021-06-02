@@ -213,16 +213,12 @@ async function getAllEntries(user) {
   return new Promise((resolve) => {
     const blogs = [];
     database.ref().child(`users/${user}/journals/`).on('value', (snapshot) => {
-      Object.keys(snapshot.val()).forEach((journId) => {
-        getEntries(user, journId)
-          .then((entries) => {
-            for (const [key, value] of Object.entries(entries)) {
-              blogs.push({ [key]: value });
-            }
-          })
-          .then(() => {
-            resolve(blogs);
-          });
+      Object.keys(snapshot.val()).forEach(async (journId) => {
+        const entries = await getEntries(user, journId);
+        for (const [key, value] of Object.entries(entries)) {
+          blogs.push({ [key]: value });
+        }
+        resolve(blogs);
       });
     });
   });
