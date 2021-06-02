@@ -2,7 +2,7 @@ import { getAllEntries, getAllJournalsAsync } from './backend_script.js';
 
 // Function to get NAMES of journals that have tasks at CURRENT date (for Weekly Panel "Tags")
 function getCurrentJournals(currentDate) {
-  const currJournals = [];
+  const currJournals = new Set();
   getAllJournalsAsync('User1').then((journals) => {
     const names = Object.keys(journals);
     names.forEach((name) => {
@@ -12,7 +12,7 @@ function getCurrentJournals(currentDate) {
         const startDate = new Date(entries[entry].start_date);
         const endDate = new Date(entries[entry].end_date);
         const currDate = new Date(currentDate);
-        if (startDate <= currDate && currDate <= endDate) currJournals.push(name);
+        if (startDate <= currDate && currDate <= endDate) currJournals.add(name);
       });
     });
   });
@@ -52,6 +52,40 @@ async function getNumTasks(currentDate) {
 // getNumTasks('5/9/21').then((result) => {
 //   console.log(result)
 // })
+
+function populateWeeklyTags() {
+  const weekRange = document.querySelector('.dateRange');
+  const dates = weekRange.innerHTML;
+  const splitDates = dates.split(' - ');
+  const firstDate = new Date(splitDates[0].split('/'))
+  const endDate = new Date(splitDates[1].split('/'))
+  let currDate = firstDate;
+  for (let i = 0; i < 7; i += 1) {
+    var curr_date = currDate.getDate();
+    var curr_month = currDate.getMonth();
+    curr_month += 1;
+    var curr_year = currDate.getFullYear();
+    const currJournals = getCurrentJournals(curr_month + "/" + curr_date + "/" + curr_year);
+    console.log(currJournals)
+    getNumTasks(curr_month + "/" + curr_date + "/" + curr_year).then((result) => {
+      if (result > 0) {
+        const dateContainer = document.querySelectorAll('.day > .tagContainer')[i]
+        currJournals.forEach((journal) => {
+          const newTag = document.createElement('div');
+          newTag.setAttribute('class', 'tag');
+          newTag.setAttribute('id', 'blue');
+          newTag.innerHTML = journal;
+          dateContainer.appendChild(newTag);  
+        })
+      }  
+      const taskNum = document.querySelectorAll('.day > .topLine > .tasks > span');
+      taskNum[i].innerHTML = result + " ";
+    });
+    currDate.setDate(currDate.getDate() + 1)
+  }
+}
+
+// populateWeeklyTags();
 
 /**
  *  USE DOM ELEMENTS TO SHOW ALL TASKS.
@@ -238,11 +272,16 @@ weekButton[1].addEventListener('click', () => {
   findNextWeeklyDates(Number(firstDate[0]), Number(firstDate[1]),
     Number(firstDate[2]), Number(secondDate[0]), Number(secondDate[1]), Number(secondDate[2]), 'forward');
   changeDatesOfTheWeek();
+  for (var i = 0; i < 7; i += 1) document.querySelectorAll('.day > .tagContainer')[i].innerHTML = "";
+  populateWeeklyTags();
 });
+
 /**
  * This event listener will move the week range back by 7 days
  */
 weekButton[0].addEventListener('click', () => {
+
+
   const dateRange = document.querySelector('.dateRange');
   const dates = dateRange.innerHTML;
   const splitDates = dates.split(' - ');
@@ -252,7 +291,10 @@ weekButton[0].addEventListener('click', () => {
   findNextWeeklyDates(Number(firstDate[0]), Number(firstDate[1]),
     Number(firstDate[2]), Number(secondDate[0]), Number(secondDate[1]), Number(secondDate[2]), 'backward');
   changeDatesOfTheWeek();
+  document.querySelectorAll('.day > .taskContainer').innerHTML = "";
   // const dateContainer = document.querySelector('.dateContainer');
+  for (var i = 0; i < 7; i += 1) document.querySelectorAll('.day > .tagContainer')[i].innerHTML = "";
+  populateWeeklyTags();
 });
 
 // ALL OF THE BUTTON IMPLEMENTATIONS FOR THE SIDEBAR
