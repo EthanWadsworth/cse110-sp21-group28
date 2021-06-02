@@ -268,10 +268,10 @@ function changeDailyTodo() {
  */
 window.addEventListener('load', (event) => {
   changeDailyTodo();
-  for (var i = 0; i < 7; i += 1) {
-    document.querySelectorAll('.day > .tagContainer')[i].innerHTML = "";
-    document.querySelectorAll('.day > .topLine > .tasks > span')[i].innerHTML = "0 ";
-  }
+  // for (var i = 0; i < 7; i += 1) {
+  //   document.querySelectorAll('.day > .tagContainer')[i].innerHTML = "";
+  //   document.querySelectorAll('.day > .topLine > .tasks > span')[i].innerHTML = "0 ";
+  // }
   populateWeeklyTags();
 });
 
