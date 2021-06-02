@@ -45,15 +45,6 @@ function getNewJournalId(user) {
                 user: user
 */
 function createNewJournal(user, journalName, journalDesc) {
-  // const newJournId = getNewJournalId();
-  // newJournId.then((result) => {
-  //   firebase.database().ref(`${user}/journals/${result}`).set({
-  //     journalTitle: journalName,
-  //     journalDescription: journalDesc,
-  //     id: result,
-  //     postId: 0,
-  //   });
-  // });
   firebase.database().ref(`users/${user}/journals/${journalName}`).set({
     journalDescription: journalDesc,
     color: '#FFFFFF',
@@ -152,18 +143,6 @@ function getNewTodoId(user, journalId) {
                 NOTE: need to add the callback functionality after making renderTodos
 */
 function createNewEntry(user, todoName, todoDesc, start, end, todotags, journalId) {
-  // const newTodoId = getNewTodoId(journalId);
-  // newTodoId.then((result) => {
-  //   firebase.database().ref(`users/${user}/journals/${journalId}/entries/${result}`).set({
-  //     id: result,
-  //     title: todoName,
-  //     description: todoDesc,
-  //     start_date: start,
-  //     end_date: end,
-  //     tags: todotags,
-  //     isDone: false
-  //   });
-  // });
   const todoId = todoName.replace(/\s+/g, '').toLowerCase();
   firebase.database().ref(`users/${user}/journals/${journalId}/entries/${todoId}`).set({
     title: todoName,
@@ -209,19 +188,22 @@ function getAllJournals(user) {
       return journal;
     });
 }
+
 /*  Function to get all entries specified by journal and user
     Parameters: journalId: id of the journal for reference in backend
 
     Returns a list of entry objects
 */
-function getEntries(user, journalId) {
-  let blogs = [];
-  return database.ref().child(`users/${user}/journals/${journalId}/entries`).get()
-    .then((snapshot) => {
-      blogs = snapshot.val();
-    })
-    .then(() => blogs);
+async function getEntries(user, journalId) {
+  return new Promise((resolve) => {
+    const blogs = [];
+    database.ref().child(`users/${user}/journals/${journalId}/entries`).get()
+      .then((snapshot) => {
+        resolve(snapshot.val());
+      });
+  });
 }
+
 /*  Function to get all Todos of a user REGARDLESS of journal
     Parameters: journalId: id of the journal for reference in backend
 
@@ -239,25 +221,11 @@ async function getAllEntries(user) {
             }
           })
           .then(() => {
-            console.log(blogs, 'this is blogs :) ');
             resolve(blogs);
           });
       });
     });
   });
-
-  //   .then((snapshot) => {
-  //     const journal = snapshot.val();
-  //     Object.keys(journal).forEach((journId) => {
-  //       getEntries(user, journId)
-  //         .then((entries) => {
-  //           for (const [key, value] of Object.entries(entries)) {
-  //             blogs.push({ [key]: value });
-  //           }
-  //         });
-  //     });
-  //   });
-  // return blogs;
 }
 async function getAllJournalsAsync(user) {
   const blogs = [];
@@ -270,22 +238,6 @@ async function getAllJournalsAsync(user) {
       });
   });
 }
-// function getAllEntries(user) {
-//   const blogs = [];
-//   const journals = database.ref().child(`users/${user}/journals/`).get()
-//     .then((snapshot) => {
-//       const journal = snapshot.val();
-//       Object.keys(journal).forEach((journId) => {
-//         getEntries(user, journId)
-//           .then((entries) => {
-//             for (const [key, value] of Object.entries(entries)) {
-//               blogs.push({ [key]: value });
-//             }
-//           });
-//       });
-//     });
-//   return blogs;
-// }
 
 // Export functions
 export {
