@@ -291,5 +291,5 @@ export {
   createNewUser, getNewJournalId, createNewJournal,
   deleteJournal, editJournal, newTag, deleteTag,
   getNewTodoId, createNewEntry, deleteTodo, editTodo,
-  getAllJournals, getEntries, getAllEntries,
+  getAllJournals, getEntries, getAllEntries, getAllJournalsAsync,
 };

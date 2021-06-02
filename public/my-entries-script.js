@@ -1,3 +1,114 @@
+import { getAllEntries, getAllJournalsAsync } from './backend_script.js';
+
+// Function to get NAMES of journals that have tasks at CURRENT date (for Weekly Panel "Tags")
+function getCurrentJournals(currentDate) {
+  const currJournals = [];
+  getAllJournalsAsync('User1').then((journals) => {
+    const names = Object.keys(journals);
+    names.forEach((name) => {
+      const { entries } = journals[name];
+      const obj = Object.keys(entries);
+      obj.forEach((entry) => {
+        const startDate = new Date(entries[entry].start_date);
+        const endDate = new Date(entries[entry].end_date);
+        const currDate = new Date(currentDate);
+        if (startDate <= currDate && currDate <= endDate) currJournals.push(name);
+      });
+    });
+  });
+  return currJournals;
+}
+
+// Test
+// console.log(getCurrentJournals('5/13/21'));
+
+// Function to get all the entries that are still active at CURRENT date (for Daily Panel)
+async function getCurrentEvents(currentDate) {
+  const rangedEntries = [];
+  return new Promise((resolve) => {
+    getAllEntries('User1').then((entries) => {
+      entries.forEach((entry) => {
+        const obj = Object.keys(entry);
+        const startDate = new Date(entry[obj].start_date);
+        const endDate = new Date(entry[obj].end_date);
+        const currDate = new Date(currentDate);
+        if (startDate <= currDate && currDate <= endDate) rangedEntries.push(entry[obj]);
+      });
+    }).then(() => resolve(rangedEntries));
+  });
+}
+
+// getCurrentEvents('5/9/21').then((result) => {
+//   console.log(result);
+// })
+
+// Function to get NUMBER of active tasks at CURRENT date
+async function getNumTasks(currentDate) {
+  return new Promise((resolve) => {
+    getCurrentEvents(currentDate).then((result) => resolve(result.length));
+  });
+}
+
+// getNumTasks('5/9/21').then((result) => {
+//   console.log(result)
+// })
+
+/**
+ *  USE DOM ELEMENTS TO SHOW ALL TASKS.
+*/
+function createTaskContainers(rangedEntries, tagSet) {
+  rangedEntries.forEach((entry) => {
+    const daily = document.querySelector('.daily');
+    const taskContainer = document.createElement('div');
+    taskContainer.setAttribute('class', 'taskContainer');
+    daily.appendChild(taskContainer);
+
+    const task = document.createElement('div');
+    task.setAttribute('class', 'task');
+    taskContainer.appendChild(task);
+
+    const topLine = document.createElement('div');
+    topLine.setAttribute('class', 'topLine');
+    task.appendChild(topLine);
+
+    const taskName = document.createElement('div');
+    taskName.setAttribute('class', 'taskName');
+    taskName.innerHTML = entry.title;
+    topLine.appendChild(taskName);
+
+    const dateRange = document.createElement('div');
+    dateRange.setAttribute('class', 'dateRange');
+    dateRange.setAttribute('id', 'daily');
+    dateRange.innerHTML = `${entry.start_date} - ${entry.end_date}`;
+    topLine.appendChild(dateRange);
+
+    // HOW WE GONNA TAKE IN WHAT WAS INPUTTED FOR TASK DESCRIPTION AND CONVERT IT INTO A LIST
+    const taskDescription = document.createElement('div');
+    taskDescription.setAttribute('class', 'taskDescription');
+    task.appendChild(taskDescription);
+    // WILL CHANGE BASED ON JOURNAL's TEAMS RESPONSE
+    const tempList = document.createElement('li');
+    tempList.innerHTMLentry.description;
+    taskDescription.appendChild(tempList);
+
+    const tagContainer = document.createElement('div');
+    tagContainer.setAttribute('class', 'tagContainer');
+    taskDescription.appendChild(tagContainer);
+
+    const { tags } = entries;
+    let i;
+    for (i = 0; i < tags.length; i += 1) {
+      const tag = document.createElement('div');
+      tag.setAttribute('class', 'tag');
+      // tag.setAttribute('id', 'red')
+      const text = document.createElement('text');
+      text.innerHTML = tags[i];
+      tag.appendChild(text);
+      tagContainer.appendChild(tag);
+    }
+  });
+}
+
 /**
  * Changes the weekly date range by using a Date object
  * EXECUTES WHEN CLICKING ON BUTTON TO CHANGE WEEK RANGE
@@ -61,12 +172,6 @@ function changeDatesOfTheWeek() {
 
 /** FUNCTION TODO: CHANGE TAGS/TASKS INVOLVED FOR EACH DAY OF WEEK BASED ON INFO FROM DATABASE */
 
-/** FUNCTION TODO: WHEN CHANGING DAY, SHOW ALL OF THAT DAY'S TASKS ON THE RIGHT SIDE
- *  IN OTHER WORDS, GET FROM DATABASE AND USE DOM ELEMENTS TO SHOW ALL TASKS.
-*/
-
-/** FUNCTION TODO: WHEN ADDING TASK, PUT THE INFO INTO DATABASE */
-
 /**  Changes the Weekly Date Range if necessary when reloading the page (and it's a different week)
  *   If changing the date range is necessary, then change the dates next to each day of the week
  *   EXECUTES ONLY WHEN WINDOW RELOADS
@@ -111,6 +216,8 @@ function changeDailyTodo() {
     /* TODO: IMPLEMENT SOME FUNCTIONALITY TO SHOW THAT DAY'S TASKS UNDER DAILY */
     changeWeeklyDates();
     changeDatesOfTheWeek();
+    // const tagsAndEntries = getCurrentEvents(shownDate.innerHTML);
+    // createTaskContainer(tagsAndEntries[1]);
   }
 }
 /**
@@ -141,10 +248,11 @@ weekButton[0].addEventListener('click', () => {
   const splitDates = dates.split(' - ');
   const firstDate = splitDates[0].split('/');
   const secondDate = splitDates[1].split('/');
-  // const dateContainer = document.querySelector('.dateContainer');
+
   findNextWeeklyDates(Number(firstDate[0]), Number(firstDate[1]),
     Number(firstDate[2]), Number(secondDate[0]), Number(secondDate[1]), Number(secondDate[2]), 'backward');
   changeDatesOfTheWeek();
+  // const dateContainer = document.querySelector('.dateContainer');
 });
 
 // ALL OF THE BUTTON IMPLEMENTATIONS FOR THE SIDEBAR
@@ -156,6 +264,7 @@ const journalsPage = document.querySelector('body > div > div.sidebar > a:nth-ch
 journalsPage.addEventListener('click', () => {
   window.location = '../My-Journals/my-journals.html';
 });
+
 const newTaskButton = document.querySelector('body > div > div.sidebar > a:nth-child(3)');
 newTaskButton.addEventListener('click', () => {
   const wrapper = document.querySelector('.wrapper');
@@ -301,7 +410,9 @@ const shownDate = document.querySelector('body > div > div.daily > div.dateRange
 days.forEach((day) => {
   day.addEventListener('click', () => {
     shownDate.innerHTML = day.querySelector('.date').innerHTML;
+    // const tagsAndEntries = getCurrentEvents(shownDate.innerHTML);
     /** show entries for this day on the right side (get from database and create dom elements) */
+    // createTaskContainer(tagsAndEntries[1]);
   });
 });
 
@@ -328,7 +439,7 @@ tasks.forEach((item) => {
     const taskEditor = document.createElement('div');
     taskEditor.setAttribute('class', 'taskEditor');
     daily.appendChild(taskEditor);
-    // daily.insertAfter(taskEditor, daily.item);
+
     currentItem.style.display = 'none';
     const taskForm = document.createElement('form');
     taskForm.setAttribute('class', 'taskEditorForm');
@@ -445,16 +556,17 @@ tasks.forEach((item) => {
         }
       }
       /** STORE IN DATABASE AND ADD THIS TASK FOR EVERY DAY BASED ON currentTaskDates */
+      // USE GETALLJOURNALS FUNCTION AND ITERATE THROUGH THEM AND CHECK FOR THE ORIGINAL journal
       daily.removeChild(taskEditor);
     });
   });
 });
 
+/** MARK AS DONE: NOT DELETE TASKS */
 tasks.forEach((item) => {
   item.addEventListener('contextmenu', (e) => {
     e.preventDefault();
-    alert('DO YOU WANT TO DELETE THIS TASK? DELETION CANNOT BE UNDONE');
-    /** UPDATES TASKS ASSIGNED TO THOSE DAYS BY SUBTRACTING BY 1 */
-    item.parentNode.removeChild(item);
+    alert('DO YOU WANT TO MARK THIS TASK AS DONE? THIS CANNOT BE UNDONE');
+    // DO SOMETHING THAT SHOWS THAT THIS TASK IS DONE
   });
 });
