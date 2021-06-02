@@ -1,4 +1,8 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable linebreak-style */
+/* eslint-disable no-console */
+/* eslint-disable linebreak-style */
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 const firebaseConfig = {
@@ -100,7 +104,7 @@ function newTag(user, journalId, tag) {
       if (!seen) {
         tags.push(tag);
       } else {
-        console.log('Tag already exists in this journal!');
+        console.error('Tag already exists in this journal!');
       }
     });
 }
@@ -224,20 +228,65 @@ function getEntries(user, journalId) {
 
     Returns a list of entry objects
 */
-function getAllEntries(user) {
-  const blogs = [];
-  const journals = database.ref().child(`users/${user}/journals/`).get()
-    .then((snapshot) => {
-      const journal = snapshot.val();
-      Object.keys(journal).forEach((journId) => {
+async function getAllEntries(user) {
+  return new Promise((resolve) => {
+    const blogs = [];
+    database.ref().child(`users/${user}/journals/`).on('value', (snapshot) => {
+      Object.keys(snapshot.val()).forEach((journId) => {
         getEntries(user, journId)
           .then((entries) => {
-            blogs.push(entries);
+            for (const [key, value] of Object.entries(entries)) {
+              blogs.push({ [key]: value });
+            }
+          })
+          .then(() => {
+            console.log(blogs, 'this is blogs :) ');
+            resolve(blogs);
           });
       });
     });
-  return blogs;
+  });
+
+  //   .then((snapshot) => {
+  //     const journal = snapshot.val();
+  //     Object.keys(journal).forEach((journId) => {
+  //       getEntries(user, journId)
+  //         .then((entries) => {
+  //           for (const [key, value] of Object.entries(entries)) {
+  //             blogs.push({ [key]: value });
+  //           }
+  //         });
+  //     });
+  //   });
+  // return blogs;
 }
+async function getAllJournalsAsync(user) {
+  const blogs = [];
+  let journals = '';
+  return new Promise((resolve) => {
+    database.ref().child(`users/${user}/journals/`).get()
+      .then((snapshot) => {
+        journals = snapshot.val();
+        resolve(journals);
+      });
+  });
+}
+// function getAllEntries(user) {
+//   const blogs = [];
+//   const journals = database.ref().child(`users/${user}/journals/`).get()
+//     .then((snapshot) => {
+//       const journal = snapshot.val();
+//       Object.keys(journal).forEach((journId) => {
+//         getEntries(user, journId)
+//           .then((entries) => {
+//             for (const [key, value] of Object.entries(entries)) {
+//               blogs.push({ [key]: value });
+//             }
+//           });
+//       });
+//     });
+//   return blogs;
+// }
 
 // Export functions
 export {
