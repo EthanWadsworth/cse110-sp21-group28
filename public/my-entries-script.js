@@ -1,4 +1,10 @@
-import { getAllEntries, getAllJournalsAsync } from './backend_script.js';
+import { createNewUser, getNewJournalId, createNewJournal,
+  deleteJournal, editJournal, newTag, deleteTag,
+  getNewTodoId, createNewEntry, deleteTodo, editTodo,
+  getAllJournals, getEntries, getAllEntries, getAllJournalsAsync } from './backend_script.js';
+
+// createNewJournal('User1', "CSE140", 'Components and Design Techniques for Digital Systems')
+// createNewEntry('User1', 'Homework 4', 'Final homework of the quarter, decoders and multiplexers...', '6/1/21', '6/3/21', ['Homework', 'CSE 140', 'Hard'], 'CSE140')
 
 // Function to get NAMES of journals that have tasks at CURRENT date (for Weekly Panel "Tags")
 function getCurrentJournals(currentDate) {
@@ -22,7 +28,7 @@ function getCurrentJournals(currentDate) {
 }
 
 // Test
-console.log(getCurrentJournals('5/9/21'));
+// console.log(getCurrentJournals('5/9/21'));
 
 // Function to get all the entries that are still active at CURRENT date (for Daily Panel)
 async function getCurrentEvents(currentDate) {
@@ -89,8 +95,6 @@ function populateWeeklyTags() {
     currDate.setDate(currDate.getDate() + 1)
   }
 }
-
-// populateWeeklyTags();
 
 /**
  *  USE DOM ELEMENTS TO SHOW ALL TASKS.
@@ -268,6 +272,7 @@ window.addEventListener('load', (event) => {
     document.querySelectorAll('.day > .tagContainer')[i].innerHTML = "";
     document.querySelectorAll('.day > .topLine > .tasks > span')[i].innerHTML = "0 ";
   }
+  populateWeeklyTags();
 });
 
 /**
