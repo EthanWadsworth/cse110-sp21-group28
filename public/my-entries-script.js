@@ -12,7 +12,9 @@ function getCurrentJournals(currentDate) {
         const startDate = new Date(entries[entry].start_date);
         const endDate = new Date(entries[entry].end_date);
         const currDate = new Date(currentDate);
-        if (startDate <= currDate && currDate <= endDate) currJournals.add(name);
+        if (startDate <= currDate && currDate <= endDate) {
+          currJournals.add([name, journals[name].color]);
+        }
       });
     });
   });
@@ -20,7 +22,7 @@ function getCurrentJournals(currentDate) {
 }
 
 // Test
-// console.log(getCurrentJournals('5/13/21'));
+console.log(getCurrentJournals('5/13/21'));
 
 // Function to get all the entries that are still active at CURRENT date (for Daily Panel)
 async function getCurrentEvents(currentDate) {
@@ -66,15 +68,14 @@ function populateWeeklyTags() {
     curr_month += 1;
     var curr_year = currDate.getFullYear();
     const currJournals = getCurrentJournals(curr_month + "/" + curr_date + "/" + curr_year);
-    console.log(currJournals)
     getNumTasks(curr_month + "/" + curr_date + "/" + curr_year).then((result) => {
       if (result > 0) {
         const dateContainer = document.querySelectorAll('.day > .tagContainer')[i]
         currJournals.forEach((journal) => {
           const newTag = document.createElement('div');
           newTag.setAttribute('class', 'tag');
-          newTag.setAttribute('id', 'blue');
-          newTag.innerHTML = journal;
+          newTag.setAttribute('id', journal[1]);
+          newTag.innerHTML = "<text>" + journal[0] + "</text>";
           dateContainer.appendChild(newTag);  
         })
       }  
@@ -257,7 +258,14 @@ function changeDailyTodo() {
 /**
  * When the page loads, check to make sure that the day has been updated and is correctly showing
  */
-window.onload = changeDailyTodo();
+window.addEventListener('load', (event) => {
+  changeDailyTodo();
+  for (var i = 0; i < 7; i += 1) {
+    document.querySelectorAll('.day > .tagContainer')[i].innerHTML = "";
+    document.querySelectorAll('.day > .topLine > .tasks > span')[i].innerHTML = "0 ";
+  }
+});
+
 /**
  * This event listener will move the week range forward by 7 days
  */
