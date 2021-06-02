@@ -2,7 +2,7 @@ import { getAllEntries, getAllJournalsAsync } from './backend_script.js';
 
 // Function to get NAMES of journals that have tasks at CURRENT date (for Weekly Panel "Tags")
 function getCurrentJournals(currentDate) {
-  const currJournals = new Set();
+  const currJournals = [];
   getAllJournalsAsync('User1').then((journals) => {
     const names = Object.keys(journals);
     names.forEach((name) => {
@@ -13,7 +13,7 @@ function getCurrentJournals(currentDate) {
         const endDate = new Date(entries[entry].end_date);
         const currDate = new Date(currentDate);
         if (startDate <= currDate && currDate <= endDate) {
-          currJournals.add([name, journals[name].color]);
+          currJournals.push([name, journals[name].color]);
         }
       });
     });
@@ -22,7 +22,7 @@ function getCurrentJournals(currentDate) {
 }
 
 // Test
-console.log(getCurrentJournals('5/13/21'));
+console.log(getCurrentJournals('5/9/21'));
 
 // Function to get all the entries that are still active at CURRENT date (for Daily Panel)
 async function getCurrentEvents(currentDate) {
@@ -71,12 +71,16 @@ function populateWeeklyTags() {
     getNumTasks(curr_month + "/" + curr_date + "/" + curr_year).then((result) => {
       if (result > 0) {
         const dateContainer = document.querySelectorAll('.day > .tagContainer')[i]
+        let dupCheck = new Set();
         currJournals.forEach((journal) => {
-          const newTag = document.createElement('div');
-          newTag.setAttribute('class', 'tag');
-          newTag.setAttribute('id', journal[1]);
-          newTag.innerHTML = "<text>" + journal[0] + "</text>";
-          dateContainer.appendChild(newTag);  
+          if (!dupCheck.has(journal[0])) {
+            const newTag = document.createElement('div');
+            newTag.setAttribute('class', 'tag');
+            newTag.setAttribute('id', journal[1]);
+            newTag.innerHTML = "<text>" + journal[0] + "</text>";
+            dateContainer.appendChild(newTag);
+            dupCheck.add(journal[0])
+          }
         })
       }  
       const taskNum = document.querySelectorAll('.day > .topLine > .tasks > span');
