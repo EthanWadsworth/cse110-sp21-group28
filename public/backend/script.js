@@ -29,6 +29,7 @@ function createNewUser(user, password) {
   });
 }
 
+
 // Function to get new JournalId when inserting a new journal
 function getNewJournalId(user) {
   return database.ref().child(`users/${user}/journalId`).get()
