@@ -7,29 +7,28 @@ import { createNewUser, getNewJournalId, createNewJournal,
 // createNewEntry('User1', 'Homework 4', 'Final homework of the quarter, decoders and multiplexers...', '6/1/21', '6/3/21', ['Homework', 'CSE 140', 'Hard'], 'CSE140')
 
 // Function to get NAMES of journals that have tasks at CURRENT date (for Weekly Panel "Tags")
-function getCurrentJournals(currentDate) {
+async function getCurrentJournals(currentDate) {
   const currJournals = [];
-  getAllJournalsAsync('User1').then((journals) => {
-    const names = Object.keys(journals);
-    names.forEach((name) => {
-      const { entries } = journals[name];
-      const obj = Object.keys(entries);
-      obj.forEach((entry) => {
-        const startDate = new Date(entries[entry].start_date);
-        const endDate = new Date(entries[entry].end_date);
-        const currDate = new Date(currentDate);
-        if (startDate <= currDate && currDate <= endDate) {
-          currJournals.push([name, journals[name].color]);
-        }
-      });
-    });
-  });
+  const journals = await getAllJournalsAsync('User1');
+  const names = Object.keys(journals);
+  names.forEach((name) => {
+    const { entries } = journals[name];
+    const obj = Object.keys(entries);
+    obj.forEach((entry) => {
+      const startDate = new Date(entries[entry].start_date);
+      const endDate = new Date(entries[entry].end_date);
+      const currDate = new Date(currentDate);
+      if (startDate <= currDate && currDate <= endDate) {
+        currJournals.push([name, journals[name].color]);
+      }
+    })
+  })
   return currJournals;
 }
 
 // Test
 // console.log(getCurrentJournals('5/9/21'));
-
+// var getAllTaskContainers = document.querySelector(".taskContainer");
 // Function to get all the entries that are still active at CURRENT date (for Daily Panel)
 async function getCurrentEvents(currentDate) {
   const rangedEntries = [];
@@ -46,10 +45,6 @@ async function getCurrentEvents(currentDate) {
   });
 }
 
-// getCurrentEvents('5/9/21').then((result) => {
-//   console.log(result);
-// })
-
 // Function to get NUMBER of active tasks at CURRENT date
 async function getNumTasks(currentDate) {
   return new Promise((resolve) => {
@@ -57,11 +52,7 @@ async function getNumTasks(currentDate) {
   });
 }
 
-// getNumTasks('5/9/21').then((result) => {
-//   console.log(result)
-// })
-
-function populateWeeklyTags() {
+async function populateWeeklyTags() {
   const weekRange = document.querySelector('.dateRange');
   const dates = weekRange.innerHTML;
   const splitDates = dates.split(' - ');
@@ -73,7 +64,8 @@ function populateWeeklyTags() {
     var curr_month = currDate.getMonth();
     curr_month += 1;
     var curr_year = currDate.getFullYear();
-    const currJournals = getCurrentJournals(curr_month + "/" + curr_date + "/" + curr_year);
+    const currJournals = await getCurrentJournals(curr_month + "/" + curr_date + "/" + curr_year);
+    
     getNumTasks(curr_month + "/" + curr_date + "/" + curr_year).then((result) => {
       if (result > 0) {
         const dateContainer = document.querySelectorAll('.day > .tagContainer')[i]
@@ -99,15 +91,23 @@ function populateWeeklyTags() {
 /**
  *  USE DOM ELEMENTS TO SHOW ALL TASKS.
 */
-function createTaskContainers(rangedEntries, tagSet) {
+async function createTaskContainers() {
+  const shownDate = document.querySelector('body > div.wrapper > div.daily > div.dateRange');
+  const rangedEntries = await getCurrentEvents(shownDate.innerHTML);
+  var i = 0;
   rangedEntries.forEach((entry) => {
-    const daily = document.querySelector('.daily');
+    const daily = document.querySelector('.allTaskContainers');
     const taskContainer = document.createElement('div');
     taskContainer.setAttribute('class', 'taskContainer');
+    taskContainer.setAttribute('id', '324890');
+    i = i+1;
     daily.appendChild(taskContainer);
 
     const task = document.createElement('div');
     task.setAttribute('class', 'task');
+
+    //task.setAttribute('id', 'blueDone');
+    
     taskContainer.appendChild(task);
 
     const topLine = document.createElement('div');
@@ -131,19 +131,18 @@ function createTaskContainers(rangedEntries, tagSet) {
     task.appendChild(taskDescription);
     // WILL CHANGE BASED ON JOURNAL's TEAMS RESPONSE
     const tempList = document.createElement('li');
-    tempList.innerHTMLentry.description;
+    tempList.innerHTML = entry.description;
     taskDescription.appendChild(tempList);
 
     const tagContainer = document.createElement('div');
     tagContainer.setAttribute('class', 'tagContainer');
     taskDescription.appendChild(tagContainer);
 
-    const { tags } = entries;
-    let i;
-    for (i = 0; i < tags.length; i += 1) {
+    const tags = entry.tags;
+    for (let i = 0; i < tags.length; i += 1) {
       const tag = document.createElement('div');
       tag.setAttribute('class', 'tag');
-      // tag.setAttribute('id', 'red')
+      //tag.setAttribute('id', 'red')
       const text = document.createElement('text');
       text.innerHTML = tags[i];
       tag.appendChild(text);
@@ -210,10 +209,8 @@ function changeDatesOfTheWeek() {
     day[i].innerHTML = `${currentDate.getMonth() + 1}/${currentDate.getDate()}/${currentDate.getFullYear()}`;
     currentDate.setDate(currentDate.getDate() + 1);
   }
-  /* TODO: CHANGE THE TAGS/TASKS INVOLVED BASED ON INFO FROM DATABASE */
+  
 }
-
-/** FUNCTION TODO: CHANGE TAGS/TASKS INVOLVED FOR EACH DAY OF WEEK BASED ON INFO FROM DATABASE */
 
 /**  Changes the Weekly Date Range if necessary when reloading the page (and it's a different week)
  *   If changing the date range is necessary, then change the dates next to each day of the week
@@ -244,6 +241,14 @@ function changeWeeklyDates() {
   dateRange.innerHTML = `${sundayDate} - ${saturdayDate}`;
 }
 
+
+function clearTaskContainers() {
+  const removeTaskContainers = document.querySelectorAll('.taskContainer');
+    removeTaskContainers.forEach((container) => {
+        container.parentNode.removeChild(container);
+  })
+}
+
 /** Changes the Daily Todo Tasks and Date
  * Also checks to see if the weekly date range needs to be changed
  */
@@ -259,8 +264,8 @@ function changeDailyTodo() {
     /* TODO: IMPLEMENT SOME FUNCTIONALITY TO SHOW THAT DAY'S TASKS UNDER DAILY */
     changeWeeklyDates();
     changeDatesOfTheWeek();
-    // const tagsAndEntries = getCurrentEvents(shownDate.innerHTML);
-    // createTaskContainer(tagsAndEntries[1]);
+    clearTaskContainers();
+    
   }
 }
 /**
@@ -268,6 +273,7 @@ function changeDailyTodo() {
  */
 window.addEventListener('load', (event) => {
   changeDailyTodo();
+  createTaskContainers();
   // for (var i = 0; i < 7; i += 1) {
   //   document.querySelectorAll('.day > .tagContainer')[i].innerHTML = "";
   //   document.querySelectorAll('.day > .topLine > .tasks > span')[i].innerHTML = "0 ";
@@ -297,8 +303,6 @@ weekButton[1].addEventListener('click', () => {
  * This event listener will move the week range back by 7 days
  */
 weekButton[0].addEventListener('click', () => {
-
-
   const dateRange = document.querySelector('.dateRange');
   const dates = dateRange.innerHTML;
   const splitDates = dates.split(' - ');
@@ -324,142 +328,8 @@ journalsPage.addEventListener('click', () => {
   window.location = '../My-Journals/my-journals.html';
 });
 
-const newTaskButton = document.querySelector('body > div > div.sidebar > a:nth-child(3)');
-newTaskButton.addEventListener('click', () => {
-  const wrapper = document.querySelector('.wrapper');
-  const dailyPage = document.querySelector('body > div > div.daily');
-  dailyPage.style.display = 'none';
-
-  const addTask = document.createElement('div');
-  addTask.setAttribute('class', 'addTask');
-  wrapper.appendChild(addTask);
-
-  const header = document.createElement('h1');
-  header.innerHTML = 'Task';
-  addTask.appendChild(header);
-
-  const inputInfo = document.createElement('div');
-  inputInfo.setAttribute('class', 'inputInfo');
-  inputInfo.innerHTML = 'Fill in the Boxes';
-  addTask.appendChild(inputInfo);
-
-  //--------------------------------------------------------------
-  const taskEditor = document.createElement('div');
-  taskEditor.setAttribute('class', 'taskEditor');
-  addTask.appendChild(taskEditor);
-
-  const taskForm = document.createElement('form');
-  taskForm.setAttribute('class', 'taskEditorForm');
-  taskEditor.appendChild(taskForm);
-
-  const editNamesAndTags = document.createElement('div');
-  editNamesAndTags.setAttribute('class', 'editNamesAndTags');
-  taskForm.appendChild(editNamesAndTags);
-
-  const editName = document.createElement('div');
-  editName.setAttribute('class', 'editName');
-  editNamesAndTags.appendChild(editName);
-
-  const editTaskName = document.createElement('label');
-  editTaskName.setAttribute('for', 'editTaskName');
-  editName.appendChild(editTaskName);
-  const nameOfEditTask = document.createElement('h3');
-  nameOfEditTask.innerHTML = 'Edit name';
-  editTaskName.appendChild(nameOfEditTask);
-
-  const inputTaskName = document.createElement('input');
-  inputTaskName.setAttribute('type', 'text');
-  inputTaskName.setAttribute('id', 'editTaskName');
-  inputTaskName.setAttribute('name', 'editTaskName');
-  inputTaskName.setAttribute('value', '');
-
-  editName.appendChild(inputTaskName);
-
-  const editTags = document.createElement('div');
-  editTags.setAttribute('class', 'editTags');
-  editNamesAndTags.appendChild(editTags);
-  const displayTagName = document.createElement('h3');
-  displayTagName.innerHTML = 'Select Tags';
-  editTags.appendChild(displayTagName);
-  const tagSelector = document.createElement('select');
-  tagSelector.setAttribute('id', 'tagSelector');
-  tagSelector.setAttribute('multiple', 'true');
-  editTags.appendChild(tagSelector);
-  const instructionsForTags = document.createElement('option');
-  instructionsForTags.setAttribute('value', '0');
-  instructionsForTags.innerHTML = 'Hold Ctrl/Command for multiple';
-  tagSelector.appendChild(instructionsForTags);
-
-  const editDate = document.createElement('div');
-  editDate.setAttribute('class', 'editDate');
-  taskForm.appendChild(editDate);
-  const editTaskStart = document.createElement('label');
-  editTaskStart.setAttribute('for', 'editTaskStart');
-  editDate.appendChild(editTaskStart);
-  const nameOfEditDate = document.createElement('h3');
-  nameOfEditDate.innerHTML = 'Edit Date';
-  editTaskStart.appendChild(nameOfEditDate);
-
-  const infoForTaskStart = document.createElement('input');
-  infoForTaskStart.setAttribute('type', 'date');
-  infoForTaskStart.setAttribute('id', 'editTaskStart');
-  infoForTaskStart.setAttribute('name', 'editTaskStart');
-  infoForTaskStart.setAttribute('value', '');
-  editDate.appendChild(infoForTaskStart);
-  const filler = document.createElement('h3');
-  filler.innerHTML = 'to';
-  editDate.appendChild(filler);
-  const infoForTaskEnd = document.createElement('input');
-  infoForTaskEnd.setAttribute('type', 'date');
-  infoForTaskEnd.setAttribute('id', 'editTaskEnd');
-  infoForTaskEnd.setAttribute('name', 'editTaskEnd');
-  infoForTaskEnd.setAttribute('value', '');
-  editDate.appendChild(infoForTaskEnd);
-
-  const editDescription = document.createElement('div');
-  editDescription.setAttribute('class', 'editDescription');
-  taskForm.appendChild(editDescription);
-  const editTaskDescription = document.createElement('label');
-  editTaskDescription.setAttribute('for', 'editTaskDescription');
-  editDescription.appendChild(editTaskDescription);
-  const nameOfEditDescription = document.createElement('h3');
-  nameOfEditDescription.innerHTML = 'Edit Description';
-  editTaskDescription.appendChild(nameOfEditDescription);
-
-  const textAreaForInfo = document.createElement('textarea');
-  textAreaForInfo.setAttribute('id', 'editTaskDescription');
-  textAreaForInfo.setAttribute('name', 'editTaskDescription');
-
-  editDescription.appendChild(textAreaForInfo);
-
-  const submitButton = document.createElement('input');
-  submitButton.setAttribute('type', 'submit');
-  submitButton.setAttribute('value', 'Submit');
-  taskForm.appendChild(submitButton);
-
-  submitButton.addEventListener('click', () => {
-    /** INPUT THINGS INTO DATABASE */
-
-    /* currentTaskName.innerHTML = inputTaskName.value;
-
-    currentTaskDates.innerHTML = infoForTaskStart.value + " - " + infoForTaskEnd.value;
-
-    const newText = textAreaForInfo.value.split("\n");
-    const newTaskDescription = item.querySelector('.taskDescription');
-    for(var i = 0; i<newText.length; i+= 1){
-      console.log(newText[i]);
-      let newList = document.createElement('li');
-      newList.innerHTML = newText[i];
-      newTaskDescription.appendChild(newList);
-    }
-    */
-    /** STORE IN DATABASE AND ADD THIS TASK FOR EVERY DAY BASED ON currentTaskDates */
-    wrapper.removeChild(addTask);
-    dailyPage.style.display = 'block';
-    changeDailyTodo();
-    changeWeeklyDates();
-    changeDatesOfTheWeek();
-  });
+const entriesPage = document.querySelector('body > div > div.sidebar > a:nth-child(2)');
+entriesPage.addEventListener('click', {
 });
 
 /** EVENTLISTENERS for button(Sunday, Monday, Tuesday, etc.) */
@@ -469,163 +339,176 @@ const shownDate = document.querySelector('body > div > div.daily > div.dateRange
 days.forEach((day) => {
   day.addEventListener('click', () => {
     shownDate.innerHTML = day.querySelector('.date').innerHTML;
-    // const tagsAndEntries = getCurrentEvents(shownDate.innerHTML);
     /** show entries for this day on the right side (get from database and create dom elements) */
-    // createTaskContainer(tagsAndEntries[1]);
+    clearTaskContainers();
+    createTaskContainers();
   });
 });
 
 /** Double click on a task to edit (edit screen shows up)
  *  Once user presses submit, database should update existing info with what was just inputted
  */
-const tasks = document.querySelectorAll('.taskContainer');
+
 let currentItem;
-tasks.forEach((item) => {
-  item.addEventListener('dblclick', () => {
-    currentItem = item;
-    const currentTaskName = item.querySelector('.taskName');
-    const currentTaskDescription = item.querySelectorAll('.taskDescription > li');
-    let convertedList = '';
-    for (let j = 0; j < currentTaskDescription.length; j += 1) {
-      convertedList += `${currentTaskDescription[j].innerHTML}\n`;
-    }
-    const currentTaskDates = item.querySelector('#daily');
-    const currentDates = currentTaskDates.innerHTML.split(' - ');
-    const currentTaskFirstDate = currentDates[0];
-    const currentTaskSecondDate = currentDates[1];
-
-    const daily = document.querySelector('.daily');
-    const taskEditor = document.createElement('div');
-    taskEditor.setAttribute('class', 'taskEditor');
-    daily.appendChild(taskEditor);
-
-    currentItem.style.display = 'none';
-    const taskForm = document.createElement('form');
-    taskForm.setAttribute('class', 'taskEditorForm');
-    taskEditor.appendChild(taskForm);
-
-    const editNamesAndTags = document.createElement('div');
-    editNamesAndTags.setAttribute('class', 'editNamesAndTags');
-    taskForm.appendChild(editNamesAndTags);
-
-    const editName = document.createElement('div');
-    editName.setAttribute('class', 'editName');
-    editNamesAndTags.appendChild(editName);
-
-    const editTaskName = document.createElement('label');
-    editTaskName.setAttribute('for', 'editTaskName');
-    editName.appendChild(editTaskName);
-    const nameOfEditTask = document.createElement('h3');
-    nameOfEditTask.innerHTML = 'Edit name';
-    editTaskName.appendChild(nameOfEditTask);
-
-    const inputTaskName = document.createElement('input');
-    inputTaskName.setAttribute('type', 'text');
-    inputTaskName.setAttribute('id', 'editTaskName');
-    inputTaskName.setAttribute('name', 'editTaskName');
-    inputTaskName.setAttribute('value', '');
-    inputTaskName.value = currentTaskName.innerHTML;
-
-    editName.appendChild(inputTaskName);
-
-    const editTags = document.createElement('div');
-    editTags.setAttribute('class', 'editTags');
-    editNamesAndTags.appendChild(editTags);
-    const displayTagName = document.createElement('h3');
-    displayTagName.innerHTML = 'Select Tags';
-    editTags.appendChild(displayTagName);
-    const tagSelector = document.createElement('select');
-    tagSelector.setAttribute('id', 'tagSelector');
-    tagSelector.setAttribute('multiple', 'true');
-    editTags.appendChild(tagSelector);
-    const instructionsForTags = document.createElement('option');
-    instructionsForTags.setAttribute('value', '0');
-    instructionsForTags.innerHTML = 'Hold Ctrl/Command for multiple';
-    tagSelector.appendChild(instructionsForTags);
-
-    const editDate = document.createElement('div');
-    editDate.setAttribute('class', 'editDate');
-    taskForm.appendChild(editDate);
-    const editTaskStart = document.createElement('label');
-    editTaskStart.setAttribute('for', 'editTaskStart');
-    editDate.appendChild(editTaskStart);
-    const nameOfEditDate = document.createElement('h3');
-    nameOfEditDate.innerHTML = 'Edit Date';
-    editTaskStart.appendChild(nameOfEditDate);
-
-    const infoForTaskStart = document.createElement('input');
-    infoForTaskStart.setAttribute('type', 'date');
-    infoForTaskStart.setAttribute('id', 'editTaskStart');
-    infoForTaskStart.setAttribute('name', 'editTaskStart');
-    infoForTaskStart.setAttribute('value', '');
-    infoForTaskStart.value = currentTaskFirstDate;
-    editDate.appendChild(infoForTaskStart);
-    const filler = document.createElement('h3');
-    filler.innerHTML = 'to';
-    editDate.appendChild(filler);
-    const infoForTaskEnd = document.createElement('input');
-    infoForTaskEnd.setAttribute('type', 'date');
-    infoForTaskEnd.setAttribute('id', 'editTaskEnd');
-    infoForTaskEnd.setAttribute('name', 'editTaskEnd');
-    infoForTaskEnd.setAttribute('value', '');
-    infoForTaskEnd.value = currentTaskSecondDate;
-    editDate.appendChild(infoForTaskEnd);
-
-    const editDescription = document.createElement('div');
-    editDescription.setAttribute('class', 'editDescription');
-    taskForm.appendChild(editDescription);
-    const editTaskDescription = document.createElement('label');
-    editTaskDescription.setAttribute('for', 'editTaskDescription');
-    editDescription.appendChild(editTaskDescription);
-    const nameOfEditDescription = document.createElement('h3');
-    nameOfEditDescription.innerHTML = 'Edit Description';
-    editTaskDescription.appendChild(nameOfEditDescription);
-
-    const textAreaForInfo = document.createElement('textarea');
-    textAreaForInfo.setAttribute('id', 'editTaskDescription');
-    textAreaForInfo.setAttribute('name', 'editTaskDescription');
-    textAreaForInfo.innerHTML = convertedList;
-
-    editDescription.appendChild(textAreaForInfo);
-
-    const submitButton = document.createElement('input');
-    submitButton.setAttribute('type', 'submit');
-    submitButton.setAttribute('value', 'Submit');
-    taskForm.appendChild(submitButton);
-
-    submitButton.addEventListener('click', () => {
-      currentItem.style.display = 'flex';
-      currentTaskName.innerHTML = inputTaskName.value;
-      console.log(`${infoForTaskStart.value} - ${infoForTaskEnd.value}`);
-      currentTaskDates.innerHTML = `${infoForTaskStart.value} - ${infoForTaskEnd.value}`;
-
-      console.log(textAreaForInfo.value);
-      const newText = textAreaForInfo.value.split('\n');
-      const newTaskDescription = item.querySelector('.taskDescription');
-      let i;
-      for (i = 0; i < currentTaskDescription.length; i += 1) {
-        newTaskDescription.removeChild(currentTaskDescription[i]);
-      }
-      let j;
-      for (j = 0; j < newText.length; j += 1) {
-        if (newText[j] !== '') {
-          const newList = document.createElement('li');
-          newList.innerHTML = newText[j];
-          newTaskDescription.appendChild(newList);
+//console.log(tasks);
+const allTaskContainers = document.querySelector('.allTaskContainers');
+allTaskContainers.addEventListener('click', function(e) {
+    const allTasks = allTaskContainers.querySelectorAll('.task');
+    allTasks.forEach((item) => {
+      item.addEventListener('click', () =>{
+        currentItem = item;
+       /* allTasks.forEach((item) => {
+          item.style.display = 'none';
+        });
+        */
+        //currentItem.style.display = 'none';
+        const currentTaskName = item.querySelector('.taskName');
+        const currentTaskDescription = item.querySelectorAll('.taskDescription > li');
+        let convertedList = '';
+        for (let j = 0; j < currentTaskDescription.length; j += 1) {
+          convertedList += `${currentTaskDescription[j].innerHTML}\n`;
         }
-      }
-      /** STORE IN DATABASE AND ADD THIS TASK FOR EVERY DAY BASED ON currentTaskDates */
-      // USE GETALLJOURNALS FUNCTION AND ITERATE THROUGH THEM AND CHECK FOR THE ORIGINAL journal
-      daily.removeChild(taskEditor);
-    });
-  });
-});
+        const currentTaskDates = item.querySelector('#daily');
+        const currentDates = currentTaskDates.innerHTML.split(' - ');
+        const currentTaskFirstDate = currentDates[0];
+        const currentTaskSecondDate = currentDates[1];
 
+        const daily = document.querySelector('.daily');
+        const taskEditor = document.createElement('div');
+        taskEditor.setAttribute('class', 'taskEditor');
+        daily.appendChild(taskEditor);
+
+        const taskForm = document.createElement('form');
+        taskForm.setAttribute('class', 'taskEditorForm');
+        taskEditor.appendChild(taskForm);
+
+        const editNamesAndTags = document.createElement('div');
+        editNamesAndTags.setAttribute('class', 'editNamesAndTags');
+        taskForm.appendChild(editNamesAndTags);
+
+        const editName = document.createElement('div');
+        editName.setAttribute('class', 'editName');
+        editNamesAndTags.appendChild(editName);
+
+        const editTaskName = document.createElement('label');
+        editTaskName.setAttribute('for', 'editTaskName');
+        editName.appendChild(editTaskName);
+        const nameOfEditTask = document.createElement('h3');
+        nameOfEditTask.innerHTML = 'Edit name';
+        editTaskName.appendChild(nameOfEditTask);
+
+        const inputTaskName = document.createElement('input');
+        inputTaskName.setAttribute('type', 'text');
+        inputTaskName.setAttribute('id', 'editTaskName');
+        inputTaskName.setAttribute('name', 'editTaskName');
+        inputTaskName.setAttribute('value', '');
+        inputTaskName.value = currentTaskName.innerHTML;
+
+        editName.appendChild(inputTaskName);
+
+        const editTags = document.createElement('div');
+        editTags.setAttribute('class', 'editTags');
+        editNamesAndTags.appendChild(editTags);
+        const displayTagName = document.createElement('h3');
+        displayTagName.innerHTML = 'Select Tags';
+        editTags.appendChild(displayTagName);
+        const tagSelector = document.createElement('select');
+        tagSelector.setAttribute('id', 'tagSelector');
+        tagSelector.setAttribute('multiple', 'true');
+        editTags.appendChild(tagSelector);
+        const instructionsForTags = document.createElement('option');
+        instructionsForTags.setAttribute('value', '0');
+        instructionsForTags.innerHTML = 'Hold Ctrl/Command for multiple';
+        tagSelector.appendChild(instructionsForTags);
+
+        const editDate = document.createElement('div');
+        editDate.setAttribute('class', 'editDate');
+        taskForm.appendChild(editDate);
+        const editTaskStart = document.createElement('label');
+        editTaskStart.setAttribute('for', 'editTaskStart');
+        editDate.appendChild(editTaskStart);
+        const nameOfEditDate = document.createElement('h3');
+        nameOfEditDate.innerHTML = 'Edit Date';
+        editTaskStart.appendChild(nameOfEditDate);
+
+        const infoForTaskStart = document.createElement('input');
+        infoForTaskStart.setAttribute('type', 'date');
+        infoForTaskStart.setAttribute('id', 'editTaskStart');
+        infoForTaskStart.setAttribute('name', 'editTaskStart');
+        infoForTaskStart.setAttribute('value', '');
+        infoForTaskStart.value = currentTaskFirstDate;
+        editDate.appendChild(infoForTaskStart);
+        const filler = document.createElement('h3');
+        filler.innerHTML = 'to';
+        editDate.appendChild(filler);
+        const infoForTaskEnd = document.createElement('input');
+        infoForTaskEnd.setAttribute('type', 'date');
+        infoForTaskEnd.setAttribute('id', 'editTaskEnd');
+        infoForTaskEnd.setAttribute('name', 'editTaskEnd');
+        infoForTaskEnd.setAttribute('value', '');
+        infoForTaskEnd.value = currentTaskSecondDate;
+        editDate.appendChild(infoForTaskEnd);
+
+        const editDescription = document.createElement('div');
+        editDescription.setAttribute('class', 'editDescription');
+        taskForm.appendChild(editDescription);
+        const editTaskDescription = document.createElement('label');
+        editTaskDescription.setAttribute('for', 'editTaskDescription');
+        editDescription.appendChild(editTaskDescription);
+        const nameOfEditDescription = document.createElement('h3');
+        nameOfEditDescription.innerHTML = 'Edit Description';
+        editTaskDescription.appendChild(nameOfEditDescription);
+
+        const textAreaForInfo = document.createElement('textarea');
+        textAreaForInfo.setAttribute('id', 'editTaskDescription');
+        textAreaForInfo.setAttribute('name', 'editTaskDescription');
+        textAreaForInfo.innerHTML = convertedList;
+
+        editDescription.appendChild(textAreaForInfo);
+
+        const submitButton = document.createElement('input');
+        submitButton.setAttribute('type', 'submit');
+        submitButton.setAttribute('value', 'Submit');
+        taskForm.appendChild(submitButton);
+
+        submitButton.addEventListener('click', () => {
+         // currentItem.style.display = 'flex';
+          currentTaskName.innerHTML = inputTaskName.value;
+          console.log(`${infoForTaskStart.value} - ${infoForTaskEnd.value}`);
+          currentTaskDates.innerHTML = `${infoForTaskStart.value} - ${infoForTaskEnd.value}`;
+
+          console.log(textAreaForInfo.value);
+          const newText = textAreaForInfo.value.split('\n');
+          const newTaskDescription = item.querySelector('.taskDescription');
+          let i;
+          for (i = 0; i < currentTaskDescription.length; i += 1) {
+            newTaskDescription.removeChild(currentTaskDescription[i]);
+          }
+          let j;
+          for (j = 0; j < newText.length; j += 1) {
+            if (newText[j] !== '') {
+              const newList = document.createElement('li');
+              newList.innerHTML = newText[j];
+              newTaskDescription.appendChild(newList);
+            }
+          }
+          //STORE IN DATABASE AND ADD THIS TASK FOR EVERY DAY BASED ON currentTaskDates 
+          // USE GETALLJOURNALS FUNCTION AND ITERATE THROUGH THEM AND CHECK FOR THE ORIGINAL journal
+          daily.removeChild(taskEditor);
+          /*allTasks.forEach((item) => {
+            item.style.display = 'flex';
+          });
+          */
+        })
+      });
+    })
+  });
 /** MARK AS DONE: NOT DELETE TASKS */
-tasks.forEach((item) => {
+/*tasks.forEach((item) => {
   item.addEventListener('contextmenu', (e) => {
     e.preventDefault();
     alert('DO YOU WANT TO MARK THIS TASK AS DONE? THIS CANNOT BE UNDONE');
     // DO SOMETHING THAT SHOWS THAT THIS TASK IS DONE
   });
 });
+*/
