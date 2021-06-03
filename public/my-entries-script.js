@@ -99,14 +99,14 @@ async function createTaskContainers() {
     const daily = document.querySelector('.allTaskContainers');
     const taskContainer = document.createElement('div');
     taskContainer.setAttribute('class', 'taskContainer');
-    taskContainer.setAttribute('id', '324890');
+    taskContainer.setAttribute('id', '' + i + '');
     i = i+1;
     daily.appendChild(taskContainer);
 
     const task = document.createElement('div');
     task.setAttribute('class', 'task');
 
-    //task.setAttribute('id', 'blueDone');
+    //task.setAttribute('id', 'blueNotDone');
     
     taskContainer.appendChild(task);
 
@@ -349,19 +349,18 @@ days.forEach((day) => {
  *  Once user presses submit, database should update existing info with what was just inputted
  */
 
-let currentItem;
-//console.log(tasks);
 const allTaskContainers = document.querySelector('.allTaskContainers');
 allTaskContainers.addEventListener('click', function(e) {
-    const allTasks = allTaskContainers.querySelectorAll('.task');
-    allTasks.forEach((item) => {
-      item.addEventListener('click', () =>{
-        currentItem = item;
-       /* allTasks.forEach((item) => {
-          item.style.display = 'none';
+    if(e.target.className !=="taskContainer"){
+        let event = e.target;
+        while(event.className != 'taskContainer'){
+            event = event.parentNode;
+        }
+        const allTasks = document.querySelectorAll('.taskContainer');
+          allTasks.forEach((task) => {
+          task.style.display = 'none';
         });
-        */
-        //currentItem.style.display = 'none';
+        let item = event;
         const currentTaskName = item.querySelector('.taskName');
         const currentTaskDescription = item.querySelectorAll('.taskDescription > li');
         let convertedList = '';
@@ -472,7 +471,6 @@ allTaskContainers.addEventListener('click', function(e) {
         taskForm.appendChild(submitButton);
 
         submitButton.addEventListener('click', () => {
-         // currentItem.style.display = 'flex';
           currentTaskName.innerHTML = inputTaskName.value;
           console.log(`${infoForTaskStart.value} - ${infoForTaskEnd.value}`);
           currentTaskDates.innerHTML = `${infoForTaskStart.value} - ${infoForTaskEnd.value}`;
@@ -495,20 +493,27 @@ allTaskContainers.addEventListener('click', function(e) {
           //STORE IN DATABASE AND ADD THIS TASK FOR EVERY DAY BASED ON currentTaskDates 
           // USE GETALLJOURNALS FUNCTION AND ITERATE THROUGH THEM AND CHECK FOR THE ORIGINAL journal
           daily.removeChild(taskEditor);
-          /*allTasks.forEach((item) => {
-            item.style.display = 'flex';
-          });
-          */
-        })
-      });
-    })
-  });
-/** MARK AS DONE: NOT DELETE TASKS */
-/*tasks.forEach((item) => {
-  item.addEventListener('contextmenu', (e) => {
-    e.preventDefault();
-    alert('DO YOU WANT TO MARK THIS TASK AS DONE? THIS CANNOT BE UNDONE');
-    // DO SOMETHING THAT SHOWS THAT THIS TASK IS DONE
-  });
+          allTasks.forEach((task) => {
+            task.style.display = 'flex';
+          })
+        });
+  }
 });
-*/
+/** MARK AS DONE: NOT DELETE TASKS */
+allTaskContainers.addEventListener('contextmenu', function(e) {
+    // DO SOMETHING THAT SHOWS THAT THIS TASK IS DONE
+    if(e.target.className !=="taskContainer"){
+      let event = e.target;
+      while(event.className != 'taskContainer'){
+          event = event.parentNode;
+      }
+      e.preventDefault();
+      alert('DO YOU WANT TO MARK THIS TASK AS DONE? THIS CANNOT BE UNDONE');
+      var item = event;
+      const task = item.querySelector('.task');
+      var splitUp = task.id.split('Not');
+      task.id = splitUp[0] + splitUp[1];
+      console.log(task.id);
+    }
+});
+
