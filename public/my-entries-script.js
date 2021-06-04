@@ -94,6 +94,7 @@ async function populateWeeklyTags() {
 async function createTaskContainers() {
   const shownDate = document.querySelector('body > div.wrapper > div.daily > div.dateRange');
   const rangedEntries = await getCurrentEvents(shownDate.innerHTML);
+  const currJournals = await getCurrentJournals(shownDate.innerHTML);
   var i = 0;
   rangedEntries.forEach((entry) => {
     const daily = document.querySelector('.allTaskContainers');
@@ -106,8 +107,6 @@ async function createTaskContainers() {
     const task = document.createElement('div');
     task.setAttribute('class', 'task');
 
-    //task.setAttribute('id', 'blueNotDone');
-    
     taskContainer.appendChild(task);
 
     const topLine = document.createElement('div');
@@ -139,15 +138,32 @@ async function createTaskContainers() {
     taskDescription.appendChild(tagContainer);
 
     const tags = entry.tags;
-    for (let i = 0; i < tags.length; i += 1) {
-      const tag = document.createElement('div');
-      tag.setAttribute('class', 'tag');
-      //tag.setAttribute('id', 'red')
-      const text = document.createElement('text');
-      text.innerHTML = tags[i];
-      tag.appendChild(text);
-      tagContainer.appendChild(tag);
-    }
+
+    // COLORS
+    currJournals.forEach((journal) => {
+      getEntries('User1', journal[0]).then((result) => {
+        const obj = Object.keys(result)
+        obj.forEach((object) => {
+          if (result[object].description == entry.description) {
+            for (let i = 0; i < tags.length; i += 1) {
+              const tag = document.createElement('div');
+              tag.setAttribute('class', 'tag');
+              tag.setAttribute('id', journal[1])
+              const text = document.createElement('text');
+              text.innerHTML = tags[i];
+              tag.appendChild(text);
+              tagContainer.appendChild(tag);
+            }
+            if (result[object].isDone) {
+              task.setAttribute('id', journal[1] + "Done");
+            } else {
+              task.setAttribute('id', journal[1] + "NotDone");
+            }
+          }
+        })
+      })
+    })
+    
   });
 }
 
