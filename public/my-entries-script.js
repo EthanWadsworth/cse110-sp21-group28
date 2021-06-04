@@ -139,8 +139,20 @@ async function createTaskContainers() {
 
     const tags = entry.tags;
 
-    // COLORS
+    let dupCheck = new Set();
     currJournals.forEach((journal) => {
+      dupCheck.add(journal[0]);
+    })
+    let uniqueJournals = []
+    currJournals.forEach((journal) => {
+      if (dupCheck.has(journal[0])) {
+        uniqueJournals.push(journal);
+        dupCheck.delete(journal[0]);
+      }
+    })
+
+    // COLORS
+    uniqueJournals.forEach((journal) => {
       getEntries('User1', journal[0]).then((result) => {
         const obj = Object.keys(result)
         obj.forEach((object) => {
@@ -163,7 +175,7 @@ async function createTaskContainers() {
         })
       })
     })
-    
+
   });
 }
 
