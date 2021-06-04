@@ -370,6 +370,10 @@ days.forEach((day) => {
     /** show entries for this day on the right side (get from database and create dom elements) */
     clearTaskContainers();
     createTaskContainers();
+
+    const daily = document.querySelector('.daily');
+    const taskEditor = document.querySelector('.daily > .taskEditor');
+    if (taskEditor != null) daily.removeChild(taskEditor);
   });
 });
 
