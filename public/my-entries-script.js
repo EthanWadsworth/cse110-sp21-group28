@@ -403,6 +403,7 @@ allTaskContainers.addEventListener('click', function(e) {
         const daily = document.querySelector('.daily');
         const taskEditor = document.createElement('div');
         taskEditor.setAttribute('class', 'taskEditor');
+        taskEditor.setAttribute('id', event.childNodes[0].getAttribute('id'));
         daily.appendChild(taskEditor);
 
         const taskForm = document.createElement('form');

@@ -318,6 +318,15 @@ body, html {
     padding: 10px;
 }
 
+.taskEditor[id="greenNotDone"] {background:#74B9A8}
+.taskEditor[id="greenDone"] {background:#74B9A8}
+.taskEditor[id="blueNotDone"] {background:#5D93E3}
+.taskEditor[id="blueDone"] {background:#5D93E3}
+.taskEditor[id="purpleNotDone"] {background:#A374F0}
+.taskEditor[id="purpleDone"] {background:#A374F0}
+.taskEditor[id="redNotDone"] {background:#EF6666}
+.taskEditor[id="redDone"] {background:#EF6666}
+
 .taskEditor h3 {
     padding: 5px 5px 5px;
     color: white;
