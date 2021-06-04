@@ -151,6 +151,7 @@ function createNewEntry(user, todoName, todoDesc, start, end, todotags, journalI
     end_date: end,
     tags: todotags,
     isDone: false,
+    parentJournal: journalId,
   });
   todotags.forEach((tag) => {
     newTag(user, journalId, tag);
