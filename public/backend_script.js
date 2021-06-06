@@ -269,6 +269,16 @@ async function getAllJournalsAsync(user) {
       });
   });
 }
+
+function getAllTags(user, journalId) {
+  let blogs = [];
+  return database.ref().child(`users/${user}/journals/${journalId}/tags`).get()
+    .then((snapshot) => {
+      blogs = snapshot.val();
+    })
+    .then(() => blogs);
+}
+
 // function getAllEntries(user) {
 //   const blogs = [];
 //   const journals = database.ref().child(`users/${user}/journals/`).get()
@@ -292,4 +302,5 @@ export {
   deleteJournal, editJournal, newTag, deleteTag,
   getNewTodoId, createNewEntry, deleteTodo, editTodo,
   getAllJournals, getEntries, getAllEntries, getAllJournalsAsync,
+  getAllTags,
 };
