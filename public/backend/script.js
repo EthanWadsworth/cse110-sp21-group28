@@ -220,9 +220,9 @@ async function getAllEntries(user) {
   });
 }
 
-/*  Function to get all entries specified by journal and user
+/*  Function to get all tags specified by journal
     Parameters: journalId: id of the journal for reference in backend
-    Returns a list of entry objects
+    Returns a list of tags associated with journal
 */
 async function getAllTags(user, journalId) {
   return new Promise((resolve) => {
