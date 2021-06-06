@@ -1,7 +1,7 @@
 import { createNewUser, getNewJournalId, createNewJournal,
   deleteJournal, editJournal, newTag, deleteTag,
   getNewTodoId, createNewEntry, deleteTodo, editTodo,
-  getAllJournals, getEntries, getAllEntries, getAllJournalsAsync, getAllTags} from './backend_script.js?2';
+  getAllJournals, getEntries, getAllEntries, getAllJournalsAsync, getAllTags} from './backend_script.js?3';
 
 // createNewEntry('User1', 'Finish Lab 3', 'Fork Github repo', '5/6/2021', '5/11/2021', ['Lab', 'Github', 'CSE110'], 'CSE110');
 
@@ -92,6 +92,7 @@ async function createTaskContainers() {
   const shownDate = document.querySelector('body > div.wrapper > div.daily > div.dateRange');
   const rangedEntries = await getCurrentEvents(shownDate.innerHTML);
   const currJournals = await getCurrentJournals(shownDate.innerHTML);
+
   var i = 0;
   rangedEntries.forEach((entry) => {
     const daily = document.querySelector('.allTaskContainers');

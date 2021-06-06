@@ -45,15 +45,6 @@ function getNewJournalId(user) {
                 user: user
 */
 function createNewJournal(user, journalName, journalDesc) {
-  // const newJournId = getNewJournalId();
-  // newJournId.then((result) => {
-  //   firebase.database().ref(`${user}/journals/${result}`).set({
-  //     journalTitle: journalName,
-  //     journalDescription: journalDesc,
-  //     id: result,
-  //     postId: 0,
-  //   });
-  // });
   firebase.database().ref(`users/${user}/journals/${journalName}`).set({
     journalDescription: journalDesc,
     color: '#FFFFFF',
@@ -63,7 +54,6 @@ function createNewJournal(user, journalName, journalDesc) {
 /*  Function to delete a Journal
     Parameters: journal_id: name of the journal for reference in backend
                 user: user
-
 */
 function deleteJournal(user, journalId) {
   database.ref(`users/${user}/journals/${journalId}`).remove();
@@ -148,22 +138,9 @@ function getNewTodoId(user, journalId) {
                 tags: list of tags
                 journalId: journal the new todo belongs to
                 callback: function to re-render views of todos
-
                 NOTE: need to add the callback functionality after making renderTodos
 */
 function createNewEntry(user, todoName, todoDesc, start, end, todotags, journalId) {
-  // const newTodoId = getNewTodoId(journalId);
-  // newTodoId.then((result) => {
-  //   firebase.database().ref(`users/${user}/journals/${journalId}/entries/${result}`).set({
-  //     id: result,
-  //     title: todoName,
-  //     description: todoDesc,
-  //     start_date: start,
-  //     end_date: end,
-  //     tags: todotags,
-  //     isDone: false
-  //   });
-  // });
   const todoId = todoName.replace(/\s+/g, '').toLowerCase();
   firebase.database().ref(`users/${user}/journals/${journalId}/entries/${todoId}`).set({
     title: todoName,
@@ -172,6 +149,7 @@ function createNewEntry(user, todoName, todoDesc, start, end, todotags, journalI
     end_date: end,
     tags: todotags,
     isDone: false,
+    parentJournal: journalId,
   });
   todotags.forEach((tag) => {
     newTag(user, journalId, tag);
@@ -198,7 +176,6 @@ function editTodo(user, journalId, entryId, specChange, spec) {
 
 /*  Function to get all journal objects of a user
     Parameters: user: userId
-
     Returns a list of journal objects
 */
 function getAllJournals(user) {
@@ -209,64 +186,37 @@ function getAllJournals(user) {
       return journal;
     });
 }
+
 /*  Function to get all entries specified by journal and user
     Parameters: journalId: id of the journal for reference in backend
-
     Returns a list of entry objects
 */
-function getEntries(user, journalId) {
-  let blogs = [];
-  return database.ref().child(`users/${user}/journals/${journalId}/entries`).get()
-    .then((snapshot) => {
-      blogs = snapshot.val();
-    })
-    .then(() => blogs);
+async function getEntries(user, journalId) {
+  return new Promise((resolve) => {
+    const blogs = [];
+    database.ref().child(`users/${user}/journals/${journalId}/entries`).get()
+      .then((snapshot) => {
+        resolve(snapshot.val());
+      });
+  });
 }
+
 /*  Function to get all Todos of a user REGARDLESS of journal
     Parameters: journalId: id of the journal for reference in backend
-
     Returns a list of entry objects
 */
 async function getAllEntries(user) {
   return new Promise((resolve) => {
     const blogs = [];
     database.ref().child(`users/${user}/journals/`).on('value', (snapshot) => {
-      Object.keys(snapshot.val()).forEach((journId) => {
-        getEntries(user, journId)
-          .then((entries) => {
-            for (const [key, value] of Object.entries(entries)) {
-              blogs.push({ [key]: value });
-            }
-          })
-          .then(() => {
-            resolve(blogs);
-          });
+      Object.keys(snapshot.val()).forEach(async (journId) => {
+        const entries = await getEntries(user, journId);
+        for (const [key, value] of Object.entries(entries)) {
+          blogs.push({ [key]: value });
+        }
+        resolve(blogs);
       });
     });
-  });
-
-  //   .then((snapshot) => {
-  //     const journal = snapshot.val();
-  //     Object.keys(journal).forEach((journId) => {
-  //       getEntries(user, journId)
-  //         .then((entries) => {
-  //           for (const [key, value] of Object.entries(entries)) {
-  //             blogs.push({ [key]: value });
-  //           }
-  //         });
-  //     });
-  //   });
-  // return blogs;
-}
-async function getAllJournalsAsync(user) {
-  const blogs = [];
-  let journals = '';
-  return new Promise((resolve) => {
-    database.ref().child(`users/${user}/journals/`).get()
-      .then((snapshot) => {
-        journals = snapshot.val();
-        resolve(journals);
-      });
   });
 }
 
@@ -279,22 +229,17 @@ function getAllTags(user, journalId) {
     .then(() => blogs);
 }
 
-// function getAllEntries(user) {
-//   const blogs = [];
-//   const journals = database.ref().child(`users/${user}/journals/`).get()
-//     .then((snapshot) => {
-//       const journal = snapshot.val();
-//       Object.keys(journal).forEach((journId) => {
-//         getEntries(user, journId)
-//           .then((entries) => {
-//             for (const [key, value] of Object.entries(entries)) {
-//               blogs.push({ [key]: value });
-//             }
-//           });
-//       });
-//     });
-//   return blogs;
-// }
+async function getAllJournalsAsync(user) {
+  const blogs = [];
+  let journals = '';
+  return new Promise((resolve) => {
+    database.ref().child(`users/${user}/journals/`).get()
+      .then((snapshot) => {
+        journals = snapshot.val();
+        resolve(journals);
+      });
+  });
+}
 
 // Export functions
 export {
