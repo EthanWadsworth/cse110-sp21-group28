@@ -3,6 +3,8 @@ import { createNewUser, getNewJournalId, createNewJournal,
   getNewTodoId, createNewEntry, deleteTodo, editTodo,
   getAllJournals, getEntries, getAllEntries, getAllJournalsAsync, getAllTags} from './backend_script.js?2';
 
+createNewEntry('User1', 'Finish Lab 3', 'Fork Github repo', '5/6/2021', '5/11/2021', ['Lab', 'Github', 'CSE110'], 'CSE110');
+
 // Function to get NAMES of journals that have tasks at CURRENT date (for Weekly Panel "Tags")
 async function getCurrentJournals(currentDate) {
   const currJournals = [];
@@ -576,41 +578,38 @@ allTaskContainers.addEventListener('click', function(e) {
       //   }
       // }
       daily.removeChild(taskEditor);
-      allTasks.forEach((task) => {
-        allTaskContainers.removeChild(task)
-      });
-
+    
       let startDay = new Date(infoForTaskStart.value);
       let endDay = new Date(infoForTaskEnd.value);
       startDay.setDate(startDay.getDate() + 1);
       endDay.setDate(endDay.getDate() + 1);
 
       // editTodo('User1', currJournal, taskId, {title : inputTaskName.value});
-      editTodo('User1', currJournal, taskId, {description : newText[0]});
-      editTodo('User1', currJournal, taskId, {start_date : startDay.toLocaleDateString('en-US')});
-      editTodo('User1', currJournal, taskId, {end_date : endDay.toLocaleDateString('en-US')});
+      // editTodo('User1', currJournal, taskId, {description : newText[0]});
+      // editTodo('User1', currJournal, taskId, {start_date : startDay.toLocaleDateString('en-US')});
+      // editTodo('User1', currJournal, taskId, {end_date : endDay.toLocaleDateString('en-US')});
       
       const selectedTags = getSelectValues(tagSelector);
-      // getEntries('User1', currJournal).then((entries) => {
-      //   const obj = Object.keys(entries);
-      //   obj.forEach((object) => {
-      //     if (entries[object].title == currentTaskName.innerHTML) {
-      //       const currTags = entries[object].tags;
-      //       selectedTags.forEach((tag) => {
-      //         if (!currTags.includes(tag)) {
-
-      //         }
-      //       })
-      //     }
-      //   })
-      // })
-
-      createTaskContainers();
+      getEntries('User1', currJournal).then((entries) => {
+        const obj = Object.keys(entries);
+        obj.forEach((object) => {
+          if (entries[object].title == currentTaskName.innerHTML) {
+            createNewEntry('User1', currentTaskName.innerHTML, newText[0], startDay.toLocaleDateString('en-US'), endDay.toLocaleDateString('en-US'), selectedTags, currJournal);
+          }
+        })
+      })
       const tagContainers = document.querySelectorAll('.tagContainer');
       tagContainers.forEach((tag) => {
         tag.innerHTML = "";
       })
+      allTasks.forEach((task) => {
+        allTaskContainers.removeChild(task)
+      });
       populateWeeklyTags();
+
+      setTimeout(function(){
+        createTaskContainers();
+      }, 10); 
     });
   }
 });
