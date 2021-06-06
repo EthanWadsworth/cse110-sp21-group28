@@ -3,7 +3,7 @@ import { createNewUser, getNewJournalId, createNewJournal,
   getNewTodoId, createNewEntry, deleteTodo, editTodo,
   getAllJournals, getEntries, getAllEntries, getAllJournalsAsync, getAllTags} from './backend_script.js?2';
 
-createNewEntry('User1', 'Finish Lab 3', 'Fork Github repo', '5/6/2021', '5/11/2021', ['Lab', 'Github', 'CSE110'], 'CSE110');
+// createNewEntry('User1', 'Finish Lab 3', 'Fork Github repo', '5/6/2021', '5/11/2021', ['Lab', 'Github', 'CSE110'], 'CSE110');
 
 // Function to get NAMES of journals that have tasks at CURRENT date (for Weekly Panel "Tags")
 async function getCurrentJournals(currentDate) {
@@ -557,26 +557,7 @@ allTaskContainers.addEventListener('click', function(e) {
     taskForm.appendChild(submitButton);
 
     submitButton.addEventListener('click', () => {
-      // currentTaskName.innerHTML = inputTaskName.value;
-      // console.log(`${infoForTaskStart.value} - ${infoForTaskEnd.value}`);
-      // currentTaskDates.innerHTML = `${infoForTaskStart.value} - ${infoForTaskEnd.value}`;
-
-      // console.log(textAreaForInfo.value);
       const newText = textAreaForInfo.value.split('\n');
-      // const newTaskDescription = item.querySelector('.taskDescription');
-      // console.log(daily.querySelectorAll('.task'))
-      // let i;
-      // for (i = 0; i < currentTaskDescription.length; i += 1) {
-      //   newTaskDescription.removeChild(currentTaskDescription[i]);
-      // }
-      // let j;
-      // for (j = 0; j < newText.length; j += 1) {
-      //   if (newText[j] !== '') {
-      //     const newList = document.createElement('li');
-      //     newList.innerHTML = newText[j];
-      //     newTaskDescription.appendChild(newList);
-      //   }
-      // }
       daily.removeChild(taskEditor);
     
       let startDay = new Date(infoForTaskStart.value);
@@ -584,11 +565,6 @@ allTaskContainers.addEventListener('click', function(e) {
       startDay.setDate(startDay.getDate() + 1);
       endDay.setDate(endDay.getDate() + 1);
 
-      // editTodo('User1', currJournal, taskId, {title : inputTaskName.value});
-      // editTodo('User1', currJournal, taskId, {description : newText[0]});
-      // editTodo('User1', currJournal, taskId, {start_date : startDay.toLocaleDateString('en-US')});
-      // editTodo('User1', currJournal, taskId, {end_date : endDay.toLocaleDateString('en-US')});
-      
       const selectedTags = getSelectValues(tagSelector);
       getEntries('User1', currJournal).then((entries) => {
         const obj = Object.keys(entries);
