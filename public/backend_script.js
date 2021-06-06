@@ -220,13 +220,18 @@ async function getAllEntries(user) {
   });
 }
 
-function getAllTags(user, journalId) {
-  let blogs = [];
-  return database.ref().child(`users/${user}/journals/${journalId}/tags`).get()
-    .then((snapshot) => {
-      blogs = snapshot.val();
-    })
-    .then(() => blogs);
+/*  Function to get all entries specified by journal and user
+    Parameters: journalId: id of the journal for reference in backend
+    Returns a list of entry objects
+*/
+async function getAllTags(user, journalId) {
+  return new Promise((resolve) => {
+    const blogs = [];
+    database.ref().child(`users/${user}/journals/${journalId}/tags`).get()
+      .then((snapshot) => {
+        resolve(snapshot.val());
+      });
+  });
 }
 
 async function getAllJournalsAsync(user) {
