@@ -54,7 +54,6 @@ function createNewJournal(user, journalName, journalDesc) {
 /*  Function to delete a Journal
     Parameters: journal_id: name of the journal for reference in backend
                 user: user
-
 */
 function deleteJournal(user, journalId) {
   database.ref(`users/${user}/journals/${journalId}`).remove();
@@ -139,7 +138,6 @@ function getNewTodoId(user, journalId) {
                 tags: list of tags
                 journalId: journal the new todo belongs to
                 callback: function to re-render views of todos
-
                 NOTE: need to add the callback functionality after making renderTodos
 */
 function createNewEntry(user, todoName, todoDesc, start, end, todotags, journalId) {
@@ -178,7 +176,6 @@ function editTodo(user, journalId, entryId, specChange, spec) {
 
 /*  Function to get all journal objects of a user
     Parameters: user: userId
-
     Returns a list of journal objects
 */
 function getAllJournals(user) {
@@ -192,7 +189,6 @@ function getAllJournals(user) {
 
 /*  Function to get all entries specified by journal and user
     Parameters: journalId: id of the journal for reference in backend
-
     Returns a list of entry objects
 */
 async function getEntries(user, journalId) {
@@ -207,7 +203,6 @@ async function getEntries(user, journalId) {
 
 /*  Function to get all Todos of a user REGARDLESS of journal
     Parameters: journalId: id of the journal for reference in backend
-
     Returns a list of entry objects
 */
 async function getAllEntries(user) {
@@ -224,6 +219,21 @@ async function getAllEntries(user) {
     });
   });
 }
+
+/*  Function to get all entries specified by journal and user
+    Parameters: journalId: id of the journal for reference in backend
+    Returns a list of entry objects
+*/
+async function getAllTags(user, journalId) {
+  return new Promise((resolve) => {
+    const blogs = [];
+    database.ref().child(`users/${user}/journals/${journalId}/tags`).get()
+      .then((snapshot) => {
+        resolve(snapshot.val());
+      });
+  });
+}
+
 async function getAllJournalsAsync(user) {
   const blogs = [];
   let journals = '';
@@ -241,5 +251,6 @@ export {
   createNewUser, getNewJournalId, createNewJournal,
   deleteJournal, editJournal, newTag, deleteTag,
   getNewTodoId, createNewEntry, deleteTodo, editTodo,
-  getAllJournals, getEntries, getAllEntries,
+  getAllJournals, getEntries, getAllEntries, getAllJournalsAsync,
+  getAllTags,
 };
