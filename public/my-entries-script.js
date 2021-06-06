@@ -3,9 +3,6 @@ import { createNewUser, getNewJournalId, createNewJournal,
   getNewTodoId, createNewEntry, deleteTodo, editTodo,
   getAllJournals, getEntries, getAllEntries, getAllJournalsAsync } from './backend_script.js';
 
-// createNewJournal('User1', "CSE140", 'Components and Design Techniques for Digital Systems')
-// createNewEntry('User1', 'Homework 4', 'Final homework of the quarter, decoders and multiplexers...', '6/1/21', '6/3/21', ['Homework', 'CSE 140', 'Hard'], 'CSE140')
-
 // Function to get NAMES of journals that have tasks at CURRENT date (for Weekly Panel "Tags")
 async function getCurrentJournals(currentDate) {
   const currJournals = [];
@@ -27,8 +24,6 @@ async function getCurrentJournals(currentDate) {
 }
 
 // Test
-// console.log(getCurrentJournals('5/9/21'));
-// var getAllTaskContainers = document.querySelector(".taskContainer");
 // Function to get all the entries that are still active at CURRENT date (for Daily Panel)
 async function getCurrentEvents(currentDate) {
   const rangedEntries = [];
@@ -156,7 +151,7 @@ async function createTaskContainers() {
       getEntries('User1', journal[0]).then((result) => {
         const obj = Object.keys(result)
         obj.forEach((object) => {
-          if (result[object].description == entry.description) {
+          if (result[object].description == entry.description && result[object].title == entry.title) {
             for (let i = 0; i < tags.length; i += 1) {
               const tag = document.createElement('div');
               tag.setAttribute('class', 'tag');
@@ -171,6 +166,7 @@ async function createTaskContainers() {
             } else {
               task.setAttribute('id', journal[1] + "NotDone");
             }
+            topLine.setAttribute('id', journal[0]);
           }
         })
       })
@@ -382,7 +378,7 @@ days.forEach((day) => {
  */
 
 const allTaskContainers = document.querySelector('.allTaskContainers');
-allTaskContainers.addEventListener('click', function(e) {
+allTaskContainers.addEventListener('dblclick', function(e) {
     if(e.target.className !=="taskContainer"){
         let event = e.target;
         while(event.className != 'taskContainer'){
@@ -532,6 +528,7 @@ allTaskContainers.addEventListener('click', function(e) {
         });
   }
 });
+
 /** MARK AS DONE: NOT DELETE TASKS */
 allTaskContainers.addEventListener('contextmenu', function(e) {
     // DO SOMETHING THAT SHOWS THAT THIS TASK IS DONE
@@ -541,12 +538,29 @@ allTaskContainers.addEventListener('contextmenu', function(e) {
           event = event.parentNode;
       }
       e.preventDefault();
-      alert('DO YOU WANT TO MARK THIS TASK AS DONE? THIS CANNOT BE UNDONE');
+      //alert('DO YOU WANT TO MARK THIS TASK AS DONE? THIS CANNOT BE UNDONE');
       var item = event;
       const task = item.querySelector('.task');
-      var splitUp = task.id.split('Not');
-      task.id = splitUp[0] + splitUp[1];
-      console.log(task.id);
+      const taskJournal = item.querySelector('.task > .topLine').id;
+      const todoName = item.querySelector('.task > .topLine > .taskName').innerHTML;
+      const taskId = todoName.replace(/\s+/g, '').toLowerCase();
+      console.log(task.id)
+      if (task.id.includes('NotDone')) {
+        editTodo('User1', taskJournal, taskId, {isDone: true});
+        var splitUp = task.id.split('Not');
+        task.id = splitUp[0] + splitUp[1];
+      } else {
+        editTodo('User1', taskJournal, taskId, {isDone: false});
+        if (task.id.includes('blue')) {
+          task.id = "blueNotDone";
+        } else if (task.id.includes('red')) {
+          task.id = "redNotDone";
+        } else if (task.id.includes('green')) {
+          task.id = "greenNotDone";
+        } else if (task.id.includes('purple')) {
+          task.id = "purpleNotDone";
+        }
+      }
     }
 });
 
