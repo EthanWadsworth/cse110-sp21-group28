@@ -570,7 +570,10 @@ allTaskContainers.addEventListener('click', function(e) {
         const obj = Object.keys(entries);
         obj.forEach((object) => {
           if (entries[object].title == currentTaskName.innerHTML) {
-            createNewEntry('User1', currentTaskName.innerHTML, newText[0], startDay.toLocaleDateString('en-US'), endDay.toLocaleDateString('en-US'), selectedTags, currJournal);
+            if (currentTaskName.innerHTML != inputTaskName.value) {
+              deleteTodo('User1', currJournal, taskId);
+            }
+            createNewEntry('User1', inputTaskName.value, newText[0], startDay.toLocaleDateString('en-US'), endDay.toLocaleDateString('en-US'), selectedTags, currJournal);
           }
         })
       })
@@ -581,11 +584,11 @@ allTaskContainers.addEventListener('click', function(e) {
       allTasks.forEach((task) => {
         allTaskContainers.removeChild(task)
       });
-      populateWeeklyTags();
 
       setTimeout(function(){
+        populateWeeklyTags();
         createTaskContainers();
-      }, 10); 
+      }, 5); 
     });
   }
 });
