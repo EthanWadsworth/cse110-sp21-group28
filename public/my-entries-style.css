@@ -1,0 +1,389 @@
+* {
+    margin:0px;
+    padding:0px;
+    font-family:"Montserrat", sans-serif;
+}
+
+body, html {
+    height:  100%;
+    margin:  0px auto;
+    padding: 0px auto;
+}
+
+/* Wrapper */
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+}
+
+/* Sidebar rectangle */
+.sidebar {
+    z-index: 1;
+    width: 302px;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+    background:#FF0031;
+    border-radius: 0px 20px 20px 0px;
+}
+
+/* Sidebar Elements */
+/* Jocelot Logo Container */
+.logo {
+    display: flex;
+    flex-direction: row;
+    width: auto;
+    height: auto;
+    justify-content: center;
+    padding: 20px 0px 20px 0px;
+}
+
+/* Jocelot Text */
+.logo h1 {
+    color:white;
+    font-weight: bolder;
+    font-size: 48px;
+    text-align: center;
+}
+
+/* Jocelot Logo */
+.logo img {
+    width: 59px;
+    height: 100%;
+    left: 4px;
+}
+
+/* Page Container */
+.sidebar a {
+    display: block;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 16px 0px 16px 36px;
+}
+
+.sidebar a:hover {
+    background-color:#A4001F;
+    transition: 0.5s;
+}
+
+/* Journal Icon */
+#journal-logo {
+    list-style-image: url("album.svg");
+}
+
+/* Entries Icon */
+#entries-logo {
+    list-style-image: url("list.svg");
+}
+
+/* Log Out Icon */
+#log-out-logo {
+    list-style-image: url("enter.svg");
+}
+
+.weekly {
+    z-index: 0;
+    left: -20px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-basis: 0;
+    height: 100%;
+    top: 0px;
+    background: #e7e7e7;
+    border-radius: 0px 20px 20px 0px;
+}
+
+.weekly h1, .daily h1, .addTask h1 {
+    padding: 20px 0px 0px;
+    text-align: center;
+    font-weight: 700;
+    color: #4f4f4f
+}
+
+.dateChangeContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.dateRange, #currentDate, .inputInfo {
+    padding: 20px 0 35px;
+    text-align: center;
+    font-weight: 500;
+    font-size: 40px;
+    color: #4f4f4f
+}
+
+.dateContainer, .entryContainer {  
+    /* border: 1px solid rgb(111,41,97); */
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.dateContainer > div {
+    margin: 10px;
+}
+
+.day {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 80%;
+    background: #c4c4c4;
+    border-radius: 20px 20px 20px 20px;
+    padding: 10px;
+}
+
+.day:hover {
+    background-color: #7C7C7C;
+    transition: 0.5s;
+}
+
+.day:hover .tasks {
+    color: black;
+    transition: 0.5s;
+}
+
+.topLine h3 {
+    padding: 5px 5px 5px;
+    color: white;
+    font-weight: 800;
+}
+
+
+.topLine {
+    display: flex;
+    align-items: right;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.date {
+    font-weight: 400;
+    color: white;
+}
+
+.tasks {
+    font-size: large;
+    padding: 5px 5px 5px;
+    font-weight: 700;
+    color: #7c7c7c;
+}
+
+.tagContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding: 5px 5px 5px;
+}
+
+.tagContainer > div {
+    margin: 3px;
+}
+
+.tag {
+    background: #A3EFDD;
+    border-radius: 20px;
+    padding: 2px;
+}
+
+.tag[id="green"] {background:#A3EFDD}
+.tag[id="blue"] {background: #84B5FF}
+.tag[id="purple"] {background: #C099FF}
+.tag[id="red"] {background: #FF9797}
+
+.tag text {
+    padding: 7px 7px;
+    opacity: 0.2;
+    font-weight: 700;
+    color: black;
+}
+
+.daily, .addTask {
+    flex-grow: 1;
+    flex-basis: 0;
+    height: 100%;
+    top: 0px;
+    background: white;
+    border-radius: 0px 20px 20px 0px;
+}
+
+.daily h1, .addTask h1 {
+    padding: 20px 0px 0px;
+    text-align: center;
+    font-weight: 700;
+    color: #4f4f4f
+}
+
+.taskContainer {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.taskContainer > div {
+    margin: 10px;
+}
+
+.task {
+    border-right: 10px solid #33FF9D;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 80%;
+    background: #c4c4c4;
+    border-radius: 20px 20px 20px 20px;
+    padding: 10px;
+}
+
+.task[id="greenNotDone"] {
+    background:#74B9A8;
+    border-color: #FFDE33;
+}
+.task[id="greenDone"] {
+    background:#74B9A8;
+    border-color: #33FF9D;
+}
+.task[id="blueNotDone"] {
+    background: #5D93E3;
+    border-color: #FFDE33;
+}
+.task[id="blueDone"] {
+    background: #5D93E3;
+    border-color: #33FF9D;
+}
+.task[id="purpleNotDone"] {
+    background: #A374F0;
+    border-color: #FFDE33;
+}
+.task[id="purpleDone"] {
+    background: #A374F0;
+    border-color: #33FF9D;
+}
+.task[id="redNotDone"] {
+    background: #EF6666;
+    border-color: #FFDE33;
+}
+.task[id="redDone"] {
+    background: #EF6666;
+    border-color: #33FF9D;
+}
+
+.taskName {
+    padding: 5px 5px 5px;
+    color: white;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.dateRange[id="daily"] {
+    padding: 5px 5px 5px;
+    font-weight: 700;
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+    opacity: 80%;
+}
+
+.taskDescription li {
+    font-size: 17px;
+    padding: 3px 10px;
+    color: white;
+}
+
+.entryEditor {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 80%;
+    background: #c4c4c4;
+    border-radius: 20px 20px 20px 20px;
+    padding: 10px;
+}
+
+.taskEditor {
+    margin: auto;
+    margin-top: 10px;
+    flex-direction: row;
+    width: 80%;
+    height: 450px;
+    background: #c4c4c4;
+    border-radius: 20px 20px 20px 20px;
+    padding: 10px;
+}
+
+.taskEditor[id="greenNotDone"] {background:#74B9A8}
+.taskEditor[id="greenDone"] {background:#74B9A8}
+.taskEditor[id="blueNotDone"] {background:#5D93E3}
+.taskEditor[id="blueDone"] {background:#5D93E3}
+.taskEditor[id="purpleNotDone"] {background:#A374F0}
+.taskEditor[id="purpleDone"] {background:#A374F0}
+.taskEditor[id="redNotDone"] {background:#EF6666}
+.taskEditor[id="redDone"] {background:#EF6666}
+
+.taskEditor h3 {
+    padding: 5px 5px 5px;
+    color: white;
+    font-weight: 800;
+}
+
+.taskEditorForm {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    width: 100%;
+}
+.taskEditor form input[type=text], input[type=date] {
+    background:white;
+    border-radius: 20px;
+    outline: none;
+    border: none;
+
+    padding: 7px 0px;
+    color: black;
+    font-weight: bold;
+}
+
+.editNameAndTags {
+    flex-grow: 1;
+    width: 50%;
+    height: 170px;
+}
+
+.editDate {
+    flex-grow: 1;
+    width: 50%;
+    height: 170px;
+}
+
+.break {
+    flex-basis: 100%;
+    height: 0;
+}
+.editDescription {
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+}
+#editTaskDescription {
+    width: 100%;
+    height: 200px;
+    margin: auto;
+    resize: none;
+
+    background:white;
+    border-radius: 20px;
+    outline: none;
+    border: none;
+
+    padding: 7px 0px;
+    color: black;
+    font-weight: bold;
+}
