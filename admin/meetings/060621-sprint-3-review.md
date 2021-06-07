@@ -48,6 +48,7 @@ Time Started: 6 PM.
 - What is our plan for the sign in and signout functionality? Right now ,we havent connected it with anything and we need to get the username that the user enters
     - Ans: If we have time, we will implement this but it would require time (functionailty to connect to the backend already exists but it would require getting the username within every single file).
 
-##Plans for this week
- - Hopefully finish all the project by Tuesday and being making our videos on Tuesday and Wednesday.     
+## Plans for this week
+ - Hopefully finish all the project by Tuesday and being making our videos on Tuesday and Wednesday.   
+ - Team Sprint on Monday June 7th at 3 PM  
 Finish Time: 7 PM.   
