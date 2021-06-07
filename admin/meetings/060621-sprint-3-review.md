@@ -1,5 +1,5 @@
 # Notes from the Third Sprint Review Meeting
-Date: Sunday, June 7th, 2021.      
+Date: Sunday, June 6th, 2021.      
 Members Present: Everyone except Dave (Edward joined late because of CSE 101 Final)     
 Time Started: 6 PM.   
 
