@@ -4,18 +4,19 @@ body {
 }
 
 journal-collection {
-    border: solid #4f4f4f 2px;
-    border-radius: 3px;
+    border-radius: 25px;
     color: white;
-    background-color: #c4c4c4;
+    background-color: #FF0031;
     margin: 10px
 }
 journal-collection:hover {
-    background-color: #7C7C7C;
+    background-color: #A4001F;
     transition: 0.5s;
 }
 
+
 .entry {
+    
     border: solid black 2px;
     display: inline-block;
     white-space: nowrap;
@@ -38,7 +39,7 @@ journal-collection:hover {
 .new-journal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    z-index: 2; /* Sit on top */
     left: 0;
     top: 0;
     width: 100%; /* Full width */
@@ -132,6 +133,7 @@ h1 {
 
 #create-button:hover {
     background-color: #A4001F;
+    transition: 0.5s;
 }
 
 /* Sidebar */

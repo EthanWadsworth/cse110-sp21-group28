@@ -9,6 +9,9 @@ class journalWC extends HTMLElement {
                 .entry {
                     border-radius: 3px;
                 }
+                .title {
+                  text-align: center;
+                }
             </style>
             <article class="entry">
                 <h1 class="title"></h1>
