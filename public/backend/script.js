@@ -44,7 +44,7 @@ function getNewJournalId(user) {
                 journalDesc: journal description
                 user: user
 */
-function createNewJournal(user, journalName, journalDesc) {
+function createNewJournal(user, journalName, journalDesc, color) {
   // const newJournId = getNewJournalId();
   // newJournId.then((result) => {
   //   firebase.database().ref(`${user}/journals/${result}`).set({
@@ -56,7 +56,7 @@ function createNewJournal(user, journalName, journalDesc) {
   // });
   firebase.database().ref(`users/${user}/journals/${journalName}`).set({
     journalDescription: journalDesc,
-    color: '#FFFFFF',
+    color: color,
   });
 }
 
@@ -291,5 +291,5 @@ export {
   createNewUser, getNewJournalId, createNewJournal,
   deleteJournal, editJournal, newTag, deleteTag,
   getNewTodoId, createNewEntry, deleteTodo, editTodo,
-  getAllJournals, getEntries, getAllEntries,
+  getAllJournals, getEntries, getAllEntries, getAllJournalsAsync
 };

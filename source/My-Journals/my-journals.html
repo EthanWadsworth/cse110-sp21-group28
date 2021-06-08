@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="./my-journals-style.css">
     <link rel="stylesheet" href="./main.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&display=swap');
+    </style>
     <title>My Journals</title>
 </head>
 <body>
@@ -17,10 +20,26 @@
         <!-- Modal content -->
         <div class="journal-content">
             <span class="close">&times;</span>
-            <p>Would you like to create a new journal?</p>
+            <p>Create New Journal</p>
             <div id = "button-group">
-                <input type="button" id ="cancel" value="Cancel" class="button">
-                <input type="button" id ="create" value="Create" class="button">
+                <!-- <form id="create-journal-form"> -->
+                    <label for="colors">Choose a color: </label>
+
+                    <select name="colors" id="colors">
+                        <option value="red" style="color: #EF6666;">Red</option>
+                        <option value="green" style="color: #74B9A8;">Green</option>
+                        <option value="blue" style="color: #5D93E3;">Blue</option>
+                        <option value="purple" style="color: #A374F0;">Purple</option>
+                    </select>
+                    <br>
+                    
+                    <label>Enter Journal Name: </label>
+                    <input type="text" id="journal-name" placeholder="Journal Name">
+                    <br><br>
+
+                    <input type="button" id ="cancel" value="Cancel" class="button">
+                    <input type="submit" id ="create" value="Create" class="button">
+                <!-- </form> -->
             </div>
        </div>
   
@@ -37,7 +56,7 @@
             <a href="#"><i class="material-icons">logout</i>Log Out</a>
         </div>
         <div id = journal-entries-wrapper>
-            <h2 id="create-button">Add Journal</h2>
+            <h2 id="add-journal">Add Journal</h2>
             <h1>My Journals</h1>
             <div id="journal-entries" class="container"></div>
 
