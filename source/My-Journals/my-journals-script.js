@@ -21,6 +21,19 @@ const cancelBtn = document.getElementById('cancel');
 
 const closeSpan = document.querySelector('.close');
 
+// for adding a tag 
+const tagBtn = document.getElementById('tag-btn');
+
+tagBtn.addEventListener('click', (e) => {
+  const tagTextField = document.getElementById('tag-name');
+  if (tagTextField.value != '') {  
+    const tagsList = document.getElementById('tags-list');
+    let newTag = document.createElement('li');
+    newTag.appendChild(document.createTextNode(tagTextField.value));
+    tagsList.appendChild(newTag);
+  }
+});
+
 //prompts new journal
 addJournal.addEventListener('click', () => {
     modal.style.display = 'block';
@@ -49,6 +62,26 @@ createBtn.addEventListener('click', () => {
 //   console.log(data);
 // });
 
+/**
+ * Resets the modal to default values on create journal cancels
+ */
+function resetModal() {
+  // wipe out data in tags list
+  const tagsList = document.getElementById('tags-list');
+  tagsList.innerHTML = '';
+
+  // wipe out any data in the tags text field
+  const tagTextField = document.getElementById('tag-name');
+  tagTextField.value = '';
+
+  // wipe out text in the journal name field
+  const journalNameField = document.getElementById('journal-name');
+  journalNameField.value = '';
+
+  // set default select color back to red
+  const colorSelect = document.getElementById('colors');
+  colorSelect.value = 'red';
+}
 
 
 closeSpan.addEventListener('click', () => {
@@ -57,11 +90,13 @@ closeSpan.addEventListener('click', () => {
 
 cancelBtn.addEventListener('click', () => {
   modal.style.display = 'none';
+  resetModal();
 });
 
 window.addEventListener('click', (event) => {
   if (event.target === modal) {
     modal.style.display = 'none';
+    resetModal();
   }
 });
 
@@ -171,4 +206,37 @@ renderJournals('User2');
 //   //   .then(() => blogs);
 // }
 
-// console.log(getEntries('User1', 'CSE110'));
+function newTag(user, journalId, tag) {
+  const tags = database.ref().child(`users/${user}/journals/${journalId}/tags/`);
+  let seen = false;
+  database.ref().child(`users/${user}/journals/${journalId}/tags`).get()
+    .then((snapshot) => {
+      snapshot.forEach((tagSnap) => {
+        const val = tagSnap.val();
+        if (val === tag) {
+          // Tag already exists
+          seen = true;
+        }
+      });
+    })
+    .then(() => {
+      if (!seen) {
+        tags.push(tag);
+      } else {
+        console.error('Tag already exists in this journal!');
+      }
+    });
+}
+
+async function insertTagsMany() {
+  return new Promise(resolve => {
+
+  })
+}
+
+function getAllJournalTags(user, journalId) {
+  const tags = database.ref().child(`users/${user}/journals/${journalId}/tags/`);
+  console.log(tags);
+}
+
+getAllJournalTags('User1', 'CSE110');

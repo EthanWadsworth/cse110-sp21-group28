@@ -266,3 +266,14 @@ h1 {
 #log-out-logo {
     list-style-image: url("enter.svg");
 }
+
+/* Tags List  */
+#tags-list {
+    list-style-type: none;
+}
+
+/* Tags List Items  */
+#tags-list li {
+    display: inline;
+    border: 2px solid black;
+}
