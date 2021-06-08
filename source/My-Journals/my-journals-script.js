@@ -26,11 +26,21 @@ const tagBtn = document.getElementById('tag-btn');
 
 tagBtn.addEventListener('click', (e) => {
   const tagTextField = document.getElementById('tag-name');
-  if (tagTextField.value != '') {  
-    const tagsList = document.getElementById('tags-list');
+  const tagsList = document.getElementById('tags-list');
+
+  let addTag = true;
+  for (let i = 0; i < tagsList.childNodes.length; i++) {
+    if (tagTextField.value === tagsList.childNodes[i].textContent) {
+      addTag=false;
+      break;
+    }
+  }
+
+  if (tagTextField.value != '' && addTag) {      
     let newTag = document.createElement('li');
     newTag.appendChild(document.createTextNode(tagTextField.value));
     tagsList.appendChild(newTag);
+    tagTextField.value = '';
   }
 });
 
@@ -135,6 +145,12 @@ async function renderJournals(user) {
   for (let item in journals) {
     journals[item].title = item;
     newJournal = document.createElement('journal-collection');
+    
+    // delete journal button
+    //const closeJournal = newJournal.querySelector('span');
+    //closeJournal.addEventListener('click', () => {
+      //console.log('temp');
+    //});
 
     // add color to journal
     // newJournal.style.background = addJournalColor(journals[item].color);
@@ -218,25 +234,56 @@ function newTag(user, journalId, tag) {
           seen = true;
         }
       });
+      
     })
     .then(() => {
       if (!seen) {
         tags.push(tag);
+        resolve(tags);
       } else {
         console.error('Tag already exists in this journal!');
       }
     });
 }
 
-async function insertTagsMany() {
-  return new Promise(resolve => {
+// async function insertTagsMany(user, journalId, journalTags) {
+//   const tags = database.ref().child(`users/${user}/journals/${journalId}/tags/`);
+//   let postKey = database.ref().child(`users/${user}/journals/${journalId}/tags/`).push().key;
 
-  })
-}
+//   let updates = {};
+//   updates[`users/${user}/journals/${journalId}/tags/` + key] = journalTags[0];
+//   // await tags.push(journalTags[0]);
+//   return firebase.database().ref().update(updates);
+//   // console.log(journalTags);
+//   // return new Promise(resolve => {
+//   //   const tags = database.ref().child(`users/${user}/journals/${journalId}/tags/`);
+//   //   journalTags.forEach(async tag => {
+//   //     console.log(tag);
+//   //     await tags.push(tag);
+//   //   });
+  
+//   //   resolve(journalTags);
+//   // });
+// }
+//   return new Promise(resolve => {
+//     database.ref().child(`users/${user}/journals/${journalId}/tags`).get()
+//     .then((snapshot) => {
+//       snapshot.forEach((tagSnap) => {
+//         const val = tagSnap.val();
+//         if (val === tag) {
+//           // Tag already exists
+//           seen = true;
+//         }
+//       });
+//     })
+//     .then(() => {
+//       if (!seen) {
+//         tags.push(tag);
+//       } else {
+//         console.error('Tag already exists in this journal!');
+//       }
+//     });
+// })
+// }
 
-function getAllJournalTags(user, journalId) {
-  const tags = database.ref().child(`users/${user}/journals/${journalId}/tags/`);
-  console.log(tags);
-}
-
-getAllJournalTags('User1', 'CSE110');
+// insertTagsMany('User2', 'COGS 108', ['Done']);

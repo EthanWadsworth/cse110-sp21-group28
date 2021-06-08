@@ -13,13 +13,26 @@ class journalWC extends HTMLElement {
                   text-align: center;
                 }
 
+                .close {
+                  color: #aaa;
+                  float: right;
+                  font-size: 28px;
+                  font-weight: bold;
+                }
+
+                .close:hover,
+                .close:focus {
+                  color: gainsboro;
+                  text-decoration: none;
+                  cursor: pointer;
+                }
               
             </style>
+
+            <span class="close">&times;</span>
+            
             <article class="entry">
                 <h1 class="title"></h1>
-                <h1 class="date"></h1>
-                <ul class="tags-list">
-                </ul>
             </article>`;
 
     // create a shadow root for this web component

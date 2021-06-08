@@ -17,6 +17,9 @@ class entryWC extends HTMLElement {
                     padding-left: 5px;
                     padding-right: 5px;
                 }
+                .h1 {
+                  
+                }
 
                 .tags-list {
                   padding-left: 0;
@@ -34,11 +37,8 @@ class entryWC extends HTMLElement {
 
               </style>
               <article class="entry">
-                  <h1 class="title"></h1>
-                  <h1 class="date"></h1>
-                  <p class="description"></p>
-                  <ul class="tags-list">
-                  </ul>
+                <h3 class="delete">X</h3>
+                <h1 class="title"></h1>
               </article>`;
 
     // create a shadow root for this web component

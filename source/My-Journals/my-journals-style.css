@@ -62,22 +62,30 @@ journal-collection:hover {
     padding: 20px;
     border: 1px solid #888;
     width: 30%; /* Could be more or less, depending on screen size */
+    min-width: 300px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
     -webkit-animation-name: animatetop;
     -webkit-animation-duration: 0.4s;
     animation-name: animatetop;
     animation-duration: 0.4s;
-  
+}
 
+.journal-content h2 {
+    white-space: nowrap;
 }
 
 #set-new-journal {
-    display: grid;
     column-gap: 100px;
     padding: 4px;
-    
+    width: 95%;
+    max-width: 95%;
+    margin: auto;
 }
 
+#set-new-journal input, #set-new-journal select {
+    box-sizing: border-box;
+    width: 100%;
+}
 /* start Buttons */
 
 #button-group {
@@ -122,15 +130,18 @@ journal-collection:hover {
     background-color:gainsboro;
 }
 
-.button:active {
-    background-color: orangered;
+#create:hover {
+    background-color:#A4001F;
 }
+
+
 
 .close {
     color: #aaa;
     float: right;
     font-size: 28px;
     font-weight: bold;
+    
   }
   
 .close:hover,
@@ -307,6 +318,21 @@ h1 {
 
 /* Tags List Items  */
 #tags-list li {
-    display: inline;
-    border: 2px solid black;
+    display: inline-block;
+    max-width: 25%;
+    background: #A3EFDD;
+    border-radius: 20px;
+    padding: 2px;
+    margin: 3px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
+
+#tags-list li text {
+    padding: 7px 7px;
+    opacity: 0.2;
+    font-weight: 700;
+    color: black;
+}
+
