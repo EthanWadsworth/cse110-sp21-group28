@@ -58,32 +58,65 @@ journal-collection:hover {
 .journal-content {
     position: relative;
     background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
+    margin: 5% auto; /* 5% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
+    width: 30%; /* Could be more or less, depending on screen size */
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
     -webkit-animation-name: animatetop;
     -webkit-animation-duration: 0.4s;
     animation-name: animatetop;
-    animation-duration: 0.4s
+    animation-duration: 0.4s;
+  
+
 }
 
-.cancel, .create {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
+#set-new-journal {
+    display: grid;
+    column-gap: 100px;
+    padding: 4px;
+    
+}
+
+/* start Buttons */
+
+#button-group {
+    display: flex;
+    justify-content: center;
+}
+
+#cancel {
+    display: inline-block;
+    padding: 0.7em 1.7em;
+    margin: 0 0.3em 0.3em 0;
+    border-radius: 0.2em;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'Roboto',sans-serif;
+    color: #4f4f4f;
+    box-shadow: inset 0 -0.6em 1em -0.35em rgba(0,0,0,0.17),inset 0 0.6em 2em -0.3em rgba(255,255,255,0.15),inset 0 0 0em 0.05em rgba(255,255,255,0.12);
+    text-align:center;
+    position: relative;
     font-weight: bold;
 }
 
-#button-group {
-    display: table;
-    
-    column-gap: 100px;
-    
-    padding: 4px;
-    justify-content: space-evenly;
+#create {
+    display: inline-block;
+    padding: 0.7em 1.7em;
+    margin: 0 0.3em 0.3em 0;
+    border-radius: 0.2em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family: 'Roboto',sans-serif;
+    color:#FFFFFF;
+    background-color: #FF0031;
+    box-shadow: inset 0 -0.6em 1em -0.35em rgba(0,0,0,0.17),inset 0 0.6em 2em -0.3em rgba(255,255,255,0.15),inset 0 0 0em 0.05em rgba(255,255,255,0.12);
+    text-align: center;
+    position: relative;
+    font-weight: bold;
 }
+
+/* end Buttons */
 
 .button:hover {
     background-color:gainsboro;

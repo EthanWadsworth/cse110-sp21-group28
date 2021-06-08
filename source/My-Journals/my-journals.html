@@ -20,8 +20,8 @@
         <!-- Modal content -->
         <div class="journal-content">
             <span class="close">&times;</span>
-            <p>Create New Journal</p>
-            <div id = "button-group">
+            <h2 style="text-align: center">New Journal</h2>
+            <div id = "set-new-journal">
                 <!-- <form id="create-journal-form"> -->
                     <label for="colors">Choose a color: </label>
 
@@ -47,6 +47,10 @@
                     <input type="button" id ="create" value="Create" class="button">
                 <!-- </form> -->
             </div>
+            <div id = 'button-group'>
+                <input type="button" id ="cancel" value="Cancel" class="button">
+                <input type="submit" id ="create" value="Create" class="button">
+            </div>
        </div>
   
   </div>
@@ -62,7 +66,7 @@
             <a href="#"><i class="material-icons">logout</i>Log Out</a>
         </div>
         <div id = journal-entries-wrapper>
-            <h2 id="add-journal">Add Journal</h2>
+            <h3 id="add-journal">New Journal</h3>
             <h1>My Journals</h1>
             <div id="journal-entries" class="container"></div>
 

@@ -79,7 +79,7 @@ function editJournal(user, journalId, spec, specChange) {
 function newTag(user, journalId, tag) {
   const tags = database.ref().child(`users/${user}/journals/${journalId}/tags/`);
   let seen = false;
-  database.ref().child(`users/${user}/journals/${journalId}/tags`).get()
+  database.ref().child(`users/${user}/journals/'${journalId}/tags`).get()
     .then((snapshot) => {
       snapshot.forEach((tagSnap) => {
         const val = tagSnap.val();
@@ -151,9 +151,9 @@ function createNewEntry(user, todoName, todoDesc, start, end, todotags, journalI
     isDone: false,
     parentJournal: journalId,
   });
-  todotags.forEach((tag) => {
-    newTag(user, journalId, tag);
-  });
+  // todotags.forEach((tag) => {
+  //   newTag(user, journalId, tag);
+  // });
 }
 
 /*  Function to delete a todo
@@ -246,11 +246,21 @@ async function getAllJournalsAsync(user) {
   });
 }
 
+async function getJournal(user, journal) { 
+  return new Promise((resolve) => { 
+    database.ref().child(`users/${user}/journals/${journal}`).get() 
+    .then((snapshot) => { 
+      journal = snapshot.val()
+      resolve(journal);
+    })
+  })
+}
+
 // Export functions
 export {
   createNewUser, getNewJournalId, createNewJournal,
   deleteJournal, editJournal, newTag, deleteTag,
   getNewTodoId, createNewEntry, deleteTodo, editTodo,
   getAllJournals, getEntries, getAllEntries, getAllJournalsAsync,
-  getAllTags,
+  getAllTags, getJournal,
 };
