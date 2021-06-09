@@ -127,9 +127,37 @@ async function createTaskContainers() {
     taskDescription.setAttribute('class', 'taskDescription');
     task.appendChild(taskDescription);
     // WILL CHANGE BASED ON JOURNAL's TEAMS RESPONSE
-    const tempList = document.createElement('li');
-    tempList.innerHTML = entry.description;
-    taskDescription.appendChild(tempList);
+    const string = entry.description;
+    const list = string.split('\n');
+    var i = 0;
+    var listOfItems;
+    listOfItems = document.createElement('ul');
+    listOfItems.setAttribute('id', 'items');
+    taskDescription.appendChild(listOfItems);
+    let previous;
+    var i = 0;
+    list.forEach(element=>{
+      if(element != "" && element != "\t"){
+        if(i == 0 || element[0] != '\t'){
+          const tempList = document.createElement('li');
+          tempList.innerHTML = element;
+          listOfItems.appendChild(tempList);
+          previous = tempList;
+        }
+        else{
+            const tabSplit = element.split('\t');
+            const tempList = document.createElement('ul');
+            previous.appendChild(tempList);
+            const newList = document.createElement('li');
+            newList.innerHTML = tabSplit[1];
+            tempList.appendChild(newList);
+            
+        }
+        i++;
+    }
+    })
+    
+
 
     const tagContainer = document.createElement('div');
     tagContainer.setAttribute('class', 'tagContainer');
@@ -419,11 +447,16 @@ allTaskContainers.addEventListener('click', function(e) {
     });
     let item = event;
     const currentTaskName = item.querySelector('.taskName');
-    const currentTaskDescription = item.querySelectorAll('.taskDescription > li');
-    let convertedList = '';
-    for (let j = 0; j < currentTaskDescription.length; j += 1) {
-      convertedList += `${currentTaskDescription[j].innerHTML}\n`;
-    }
+    const currentTaskDescription = item.querySelectorAll('.taskDescription > ul > li');
+      let convertedList = '';
+      for (let j = 0; j < currentTaskDescription.length; j += 1) {
+        const split = currentTaskDescription[j].innerHTML.split('<ul>');
+        convertedList += `${split[0]}\n`;
+        currentTaskDescription[j].querySelectorAll("ul > li").forEach(line => {
+
+            convertedList += `\t${line.innerHTML}\n`
+        })
+      }
     const currentTaskDates = item.querySelector('#daily');
     const currentDates = currentTaskDates.innerHTML.split(' - ');
     const currentTaskFirstDate = currentDates[0];
@@ -548,6 +581,21 @@ allTaskContainers.addEventListener('click', function(e) {
     const textAreaForInfo = document.createElement('textarea');
     textAreaForInfo.setAttribute('id', 'editTaskDescription');
     textAreaForInfo.setAttribute('name', 'editTaskDescription');
+    textAreaForInfo.addEventListener('keydown', function(e){
+      if (e.key == 'Tab') {
+        e.preventDefault();
+        var start = this.selectionStart;
+        var end = this.selectionEnd;
+    
+        // set textarea value to: text before caret + tab + text after caret
+        this.value = this.value.substring(0, start) +
+          "\t" + this.value.substring(end);
+    
+        // put caret at right position again
+        this.selectionStart =
+          this.selectionEnd = start + 1;
+      }
+    });
     textAreaForInfo.innerHTML = convertedList;
 
     editDescription.appendChild(textAreaForInfo);
@@ -558,7 +606,7 @@ allTaskContainers.addEventListener('click', function(e) {
     taskForm.appendChild(submitButton);
 
     submitButton.addEventListener('click', () => {
-      const newText = textAreaForInfo.value.split('\n');
+      const newText = textAreaForInfo.value;
       daily.removeChild(taskEditor);
     
       let startDay = new Date(infoForTaskStart.value);
@@ -567,14 +615,27 @@ allTaskContainers.addEventListener('click', function(e) {
       endDay.setDate(endDay.getDate() + 1);
 
       const selectedTags = getSelectValues(tagSelector);
+      var createEntry = true;
       getEntries('User1', currJournal).then((entries) => {
         const obj = Object.keys(entries);
         obj.forEach((object) => {
           if (entries[object].title == currentTaskName.innerHTML) {
+            if (inputTaskName.value == '') {
+              alert("Entry title must not be empty!");
+              createEntry = false;
+            } else if (startDay > endDay) {
+              alert("Start Date must be before End Date");
+              createEntry = false;
+            } else if (!infoForTaskStart.value || !infoForTaskEnd.value) {
+              alert("The Start and End dates must be valid");
+              createEntry = false;
+            }
             if (currentTaskName.innerHTML != inputTaskName.value) {
               deleteTodo('User1', currJournal, taskId);
             }
-            createNewEntry('User1', inputTaskName.value, newText[0], startDay.toLocaleDateString('en-US'), endDay.toLocaleDateString('en-US'), selectedTags, currJournal);
+            if(createEntry){
+              createNewEntry('User1', inputTaskName.value, newText, startDay.toLocaleDateString('en-US'), endDay.toLocaleDateString('en-US'), selectedTags, currJournal);
+            }
           }
         })
       })
@@ -609,7 +670,7 @@ allTaskContainers.addEventListener('contextmenu', function(e) {
       const taskJournal = item.querySelector('.task > .topLine').id;
       const todoName = item.querySelector('.task > .topLine > .taskName').innerHTML;
       const taskId = todoName.replace(/\s+/g, '').toLowerCase();
-      // console.log(task.id)
+     
       if (task.id.includes('NotDone')) {
         editTodo('User1', taskJournal, taskId, {isDone: true});
         var splitUp = task.id.split('Not');
@@ -628,4 +689,5 @@ allTaskContainers.addEventListener('contextmenu', function(e) {
       }
     }
 });
+
 
