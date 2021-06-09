@@ -61,8 +61,7 @@ if (btnLogin != null) {
     promise.catch((ex) => {
       if (ex.message === 'There is no user record corresponding to this identifier. The user may have been deleted.') {
         alert('Account with this email address does not exist.');
-      }
-      else {
+      } else {
         alert(ex.message);
       }
     });
