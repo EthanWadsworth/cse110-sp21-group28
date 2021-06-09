@@ -5,6 +5,7 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
+
 const firebaseConfig = {
   apiKey: 'AIzaSyB8xbOp9a5gOZPhAu1DePXimXbJG1RRCeE',
   authDomain: 'bullet-journal-110.firebaseapp.com',

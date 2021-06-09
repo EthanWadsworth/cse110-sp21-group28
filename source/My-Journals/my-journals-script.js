@@ -249,19 +249,6 @@ async function renderJournals(user) {
   }
 }
 
-/**
- * 
- * @param {*} entries entries to render
- */
-function renderEntries(entries) {
-  const entriesContainer = document.querySelector('.entries-container');
-  // iterate through object
-  // each entry is an object
-  for (let entry in entries) {
-    
-  }
-}
-
-
-
 renderJournals('User2');
+
+export {parseColor};
