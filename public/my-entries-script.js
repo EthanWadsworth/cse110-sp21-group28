@@ -1,9 +1,7 @@
-import { createNewUser, getNewJournalId, createNewJournal,
-  deleteJournal, editJournal, newTag, deleteTag,
-  getNewTodoId, createNewEntry, deleteTodo, editTodo,
-  getAllJournals, getEntries, getAllEntries, getAllJournalsAsync, getAllTags} from './backend_script.js?4';
-
-// createNewEntry('User1', 'Finish Lab 3', 'Fork Github repo', '5/6/2021', '5/11/2021', ['Lab', 'Github', 'CSE110'], 'CSE110');
+import {
+  createNewEntry, deleteTodo, editTodo,
+  getEntries, getAllEntries, getAllJournalsAsync, getAllTags,
+} from './backend_script.js';
 
 // Function to get NAMES of journals that have tasks at CURRENT date (for Weekly Panel "Tags")
 async function getCurrentJournals(currentDate) {
@@ -20,8 +18,8 @@ async function getCurrentJournals(currentDate) {
       if (startDate <= currDate && currDate <= endDate) {
         currJournals.push([name, journals[name].color]);
       }
-    })
-  })
+    });
+  });
   return currJournals;
 }
 
@@ -53,35 +51,34 @@ async function populateWeeklyTags() {
   const weekRange = document.querySelector('.dateRange');
   const dates = weekRange.innerHTML;
   const splitDates = dates.split(' - ');
-  const firstDate = new Date(splitDates[0].split('/'))
-  const endDate = new Date(splitDates[1].split('/'))
-  let currDate = firstDate;
+  const firstDate = new Date(splitDates[0].split('/'));
+  const currDate = firstDate;
   for (let i = 0; i < 7; i += 1) {
-    var curr_date = currDate.getDate();
-    var curr_month = currDate.getMonth();
-    curr_month += 1;
-    var curr_year = currDate.getFullYear();
-    const currJournals = await getCurrentJournals(curr_month + "/" + curr_date + "/" + curr_year);
-    
-    getNumTasks(curr_month + "/" + curr_date + "/" + curr_year).then((result) => {
+    const tempDate = currDate.getDate();
+    let tempMonth = currDate.getMonth();
+    tempMonth += 1;
+    const tempYear = currDate.getFullYear();
+    const currJournals = await getCurrentJournals(`${tempMonth}/${tempDate}/${tempYear}`);
+
+    getNumTasks(`${tempMonth}/${tempDate}/${tempYear}`).then((result) => {
       if (result > 0) {
-        const dateContainer = document.querySelectorAll('.day > .tagContainer')[i]
-        let dupCheck = new Set();
+        const dateContainer = document.querySelectorAll('.day > .tagContainer')[i];
+        const dupCheck = new Set();
         currJournals.forEach((journal) => {
           if (!dupCheck.has(journal[0])) {
             const newTag = document.createElement('div');
             newTag.setAttribute('class', 'tag');
             newTag.setAttribute('id', journal[1]);
-            newTag.innerHTML = "<text>" + journal[0] + "</text>";
+            newTag.innerHTML = `<text>${journal[0]}</text>`;
             dateContainer.appendChild(newTag);
-            dupCheck.add(journal[0])
+            dupCheck.add(journal[0]);
           }
-        })
-      }  
+        });
+      }
       const taskNum = document.querySelectorAll('.day > .topLine > .tasks > span');
-      taskNum[i].innerHTML = result + " ";
+      taskNum[i].innerHTML = `${result} `;
     });
-    currDate.setDate(currDate.getDate() + 1)
+    currDate.setDate(currDate.getDate() + 1);
   }
 }
 
@@ -93,13 +90,15 @@ async function createTaskContainers() {
   const rangedEntries = await getCurrentEvents(shownDate.innerHTML);
   const currJournals = await getCurrentJournals(shownDate.innerHTML);
 
-  var k = 0;
+  let k = 0;
   rangedEntries.forEach((entry) => {
+    let i = 0;
+
     const daily = document.querySelector('.allTaskContainers');
     const taskContainer = document.createElement('div');
     taskContainer.setAttribute('class', 'taskContainer');
-    taskContainer.setAttribute('id', '' + k + '');
-    k = k+1;
+    taskContainer.setAttribute('id', `${k}`);
+    k += 1;
     daily.appendChild(taskContainer);
 
     const task = document.createElement('div');
@@ -129,83 +128,75 @@ async function createTaskContainers() {
     // WILL CHANGE BASED ON JOURNAL's TEAMS RESPONSE
     const string = entry.description;
     const list = string.split('\n');
-    var i = 0;
-    var listOfItems;
-    listOfItems = document.createElement('ul');
+    const listOfItems = document.createElement('ul');
     listOfItems.setAttribute('id', 'items');
     taskDescription.appendChild(listOfItems);
     let previous;
-    var i = 0;
-    list.forEach(element=>{
-      if(element != "" && element != "\t"){
-        if(i == 0 || element[0] != '\t'){
+    list.forEach((element) => {
+      if (element !== '' && element !== '\t') {
+        if (i === 0 || element[0] !== '\t') {
           const tempList = document.createElement('li');
           tempList.innerHTML = element;
           listOfItems.appendChild(tempList);
           previous = tempList;
+        } else {
+          const tabSplit = element.split('\t');
+          const tempList = document.createElement('ul');
+          previous.appendChild(tempList);
+          const newList = document.createElement('li');
+          newList.innerHTML = tabSplit[tabSplit.length - 1];
+          tempList.appendChild(newList);
         }
-        else{
-            const tabSplit = element.split('\t');
-            const tempList = document.createElement('ul');
-            previous.appendChild(tempList);
-            const newList = document.createElement('li');
-            newList.innerHTML = tabSplit[1];
-            tempList.appendChild(newList);
-            
-        }
-        i++;
-    }
-    })
-    
-
+        i += 1;
+      }
+    });
 
     const tagContainer = document.createElement('div');
     tagContainer.setAttribute('class', 'tagContainer');
     taskDescription.appendChild(tagContainer);
 
-    const tags = entry.tags;
+    const { tags } = entry;
 
-    let dupCheck = new Set();
+    const dupCheck = new Set();
     currJournals.forEach((journal) => {
       dupCheck.add(journal[0]);
-    })
-    let uniqueJournals = []
+    });
+    const uniqueJournals = [];
     currJournals.forEach((journal) => {
       if (dupCheck.has(journal[0])) {
         uniqueJournals.push(journal);
         dupCheck.delete(journal[0]);
       }
-    })
+    });
 
     // COLORS
     uniqueJournals.forEach((journal) => {
       getEntries('User1', journal[0]).then((result) => {
-        const obj = Object.keys(result)
+        const obj = Object.keys(result);
         obj.forEach((object) => {
-          if (result[object].description == entry.description && result[object].title == entry.title) {
-            if(tags != null){
-            for (let i = 0; i < tags.length; i += 1) {
-              const tag = document.createElement('div');
-              tag.setAttribute('class', 'tag');
-              tag.setAttribute('id', journal[1])
-              const text = document.createElement('text');
-              text.innerHTML = tags[i];
-              tag.appendChild(text);
-              tagContainer.appendChild(tag);
+          if (result[object].description === entry.description
+            && result[object].title === entry.title) {
+            if (tags != null) {
+              for (let y = 0; y < tags.length; y += 1) {
+                const tag = document.createElement('div');
+                tag.setAttribute('class', 'tag');
+                tag.setAttribute('id', journal[1]);
+                const text = document.createElement('text');
+                text.innerHTML = tags[y];
+                tag.appendChild(text);
+                tagContainer.appendChild(tag);
+              }
             }
-          }
             if (result[object].isDone) {
-              task.setAttribute('id', journal[1] + "Done");
+              task.setAttribute('id', `${journal[1]}Done`);
             } else {
-              task.setAttribute('id', journal[1] + "NotDone");
+              task.setAttribute('id', `${journal[1]}NotDone`);
             }
             topLine.setAttribute('id', journal[0]);
           }
-        
-        })
-      })
-    })
-
+        });
+      });
+    });
   });
 }
 
@@ -267,7 +258,6 @@ function changeDatesOfTheWeek() {
     day[i].innerHTML = `${currentDate.getMonth() + 1}/${currentDate.getDate()}/${currentDate.getFullYear()}`;
     currentDate.setDate(currentDate.getDate() + 1);
   }
-  
 }
 
 /**  Changes the Weekly Date Range if necessary when reloading the page (and it's a different week)
@@ -299,12 +289,11 @@ function changeWeeklyDates() {
   dateRange.innerHTML = `${sundayDate} - ${saturdayDate}`;
 }
 
-
 function clearTaskContainers() {
   const removeTaskContainers = document.querySelectorAll('.taskContainer');
-    removeTaskContainers.forEach((container) => {
-        container.parentNode.removeChild(container);
-  })
+  removeTaskContainers.forEach((container) => {
+    container.parentNode.removeChild(container);
+  });
 }
 
 /** Changes the Daily Todo Tasks and Date
@@ -323,19 +312,14 @@ function changeDailyTodo() {
     changeWeeklyDates();
     changeDatesOfTheWeek();
     clearTaskContainers();
-    
   }
 }
 /**
  * When the page loads, check to make sure that the day has been updated and is correctly showing
  */
-window.addEventListener('load', (event) => {
+window.addEventListener('load', () => {
   changeDailyTodo();
   createTaskContainers();
-  // for (var i = 0; i < 7; i += 1) {
-  //   document.querySelectorAll('.day > .tagContainer')[i].innerHTML = "";
-  //   document.querySelectorAll('.day > .topLine > .tasks > span')[i].innerHTML = "0 ";
-  // }
   populateWeeklyTags();
 });
 
@@ -349,11 +333,10 @@ weekButton[1].addEventListener('click', () => {
   const splitDates = dates.split(' - ');
   const firstDate = splitDates[0].split('/');
   const secondDate = splitDates[1].split('/');
-  // const dateContainer = document.querySelector('.dateContainer');
   findNextWeeklyDates(Number(firstDate[0]), Number(firstDate[1]),
     Number(firstDate[2]), Number(secondDate[0]), Number(secondDate[1]), Number(secondDate[2]), 'forward');
   changeDatesOfTheWeek();
-  for (var i = 0; i < 7; i += 1) document.querySelectorAll('.day > .tagContainer')[i].innerHTML = "";
+  for (let i = 0; i < 7; i += 1) document.querySelectorAll('.day > .tagContainer')[i].innerHTML = '';
   populateWeeklyTags();
 });
 
@@ -370,9 +353,9 @@ weekButton[0].addEventListener('click', () => {
   findNextWeeklyDates(Number(firstDate[0]), Number(firstDate[1]),
     Number(firstDate[2]), Number(secondDate[0]), Number(secondDate[1]), Number(secondDate[2]), 'backward');
   changeDatesOfTheWeek();
-  document.querySelectorAll('.day > .taskContainer').innerHTML = "";
+  document.querySelectorAll('.day > .taskContainer').innerHTML = '';
   // const dateContainer = document.querySelector('.dateContainer');
-  for (var i = 0; i < 7; i += 1) document.querySelectorAll('.day > .tagContainer')[i].innerHTML = "";
+  for (let i = 0; i < 7; i += 1) document.querySelectorAll('.day > .tagContainer')[i].innerHTML = '';
   populateWeeklyTags();
 });
 
@@ -413,22 +396,19 @@ days.forEach((day) => {
 
 function formatDate(date) {
   const d = new Date(date);
-  var month = '' + (d.getMonth() + 1);
-  var day = '' + d.getDate();
-  var year = d.getFullYear();
-  if (month.length < 2) 
-      month = '0' + month;
-  if (day.length < 2) 
-      day = '0' + day;
+  let month = `${d.getMonth() + 1}`;
+  let day = `${d.getDate()}`;
+  const year = d.getFullYear();
+  if (month.length < 2) month = `0${month}`;
+  if (day.length < 2) day = `0${day}`;
   return [year, month, day].join('-');
 }
 
-// From StackOverflow
 function getSelectValues(select) {
-  var result = [];
-  var options = select && select.options;
-  var opt;
-  for (var i = 0; i < options.length; i += 1) {
+  const result = [];
+  const options = select && select.options;
+  let opt;
+  for (let i = 0; i < options.length; i += 1) {
     opt = options[i];
     if (opt.selected) {
       result.push(opt.value || opt.text);
@@ -438,33 +418,33 @@ function getSelectValues(select) {
 }
 
 const allTaskContainers = document.querySelector('.allTaskContainers');
-allTaskContainers.addEventListener('click', function(e) {
-  if(e.target.className !=="taskContainer"){
+allTaskContainers.addEventListener('click', (e) => {
+  if (e.target.className !== 'taskContainer') {
     let event = e.target;
-    while(event.className != 'taskContainer'){
-        event = event.parentNode;
+    while (event.className !== 'taskContainer') {
+      event = event.parentNode;
     }
     const allTasks = document.querySelectorAll('.taskContainer');
     allTasks.forEach((task) => {
-      task.style.display = 'none';
+      const temp = task;
+      temp.style.display = 'none';
     });
-    let item = event;
+    const item = event;
     const currentTaskName = item.querySelector('.taskName');
     const currentTaskDescription = item.querySelectorAll('.taskDescription > ul > li');
-      let convertedList = '';
-      for (let j = 0; j < currentTaskDescription.length; j += 1) {
-        const split = currentTaskDescription[j].innerHTML.split('<ul>');
-        convertedList += `${split[0]}\n`;
-        currentTaskDescription[j].querySelectorAll("ul > li").forEach(line => {
-
-            convertedList += `\t${line.innerHTML}\n`
-        })
-      }
+    let convertedList = '';
+    for (let j = 0; j < currentTaskDescription.length; j += 1) {
+      const split = currentTaskDescription[j].innerHTML.split('<ul>');
+      convertedList += `${split[0]}\n`;
+      currentTaskDescription[j].querySelectorAll('ul > li').forEach((line) => {
+        convertedList += `\t${line.innerHTML}\n`;
+      });
+    }
     const currentTaskDates = item.querySelector('#daily');
     const currentDates = currentTaskDates.innerHTML.split(' - ');
     const currentTaskFirstDate = currentDates[0];
     const currentTaskSecondDate = currentDates[1];
-    const currJournal = item.querySelector(".task > .topLine").id;
+    const currJournal = item.querySelector('.task > .topLine').id;
     const todoName = item.querySelector('.task > .topLine > .taskName').innerHTML;
     const taskId = todoName.replace(/\s+/g, '').toLowerCase();
 
@@ -521,11 +501,11 @@ allTaskContainers.addEventListener('click', function(e) {
     instructionsForTags.innerHTML = 'Hold Ctrl/Command for multiple';
     tagSelector.appendChild(instructionsForTags);
     const currentTags = item.querySelectorAll('.task > .taskDescription > .tagContainer > .tag > text');
-    const currTagList = []
+    const currTagList = [];
     currentTags.forEach((tag) => {
       currTagList.push(tag.innerHTML);
-    })
-    
+    });
+
     getAllTags('User1', currJournal).then((tags) => {
       const allTags = Object.values(tags);
       allTags.forEach((tag) => {
@@ -535,13 +515,13 @@ allTaskContainers.addEventListener('click', function(e) {
           appendTag.setAttribute('selected', 'selected');
         }
         tagSelector.appendChild(appendTag);
-      })
-    })
-  
+      });
+    });
+
     const editDate = document.createElement('div');
     editDate.setAttribute('class', 'editDate');
     taskForm.appendChild(editDate);
-    
+
     const editTaskStart = document.createElement('label');
     editTaskStart.setAttribute('for', 'editTaskStart');
     editDate.appendChild(editTaskStart);
@@ -584,19 +564,19 @@ allTaskContainers.addEventListener('click', function(e) {
     const textAreaForInfo = document.createElement('textarea');
     textAreaForInfo.setAttribute('id', 'editTaskDescription');
     textAreaForInfo.setAttribute('name', 'editTaskDescription');
-    textAreaForInfo.addEventListener('keydown', function(e){
-      if (e.key == 'Tab') {
-        e.preventDefault();
-        var start = this.selectionStart;
-        var end = this.selectionEnd;
-    
+    textAreaForInfo.addEventListener('keydown', function (f) {
+      if (f.key === 'Tab') {
+        f.preventDefault();
+        const start = this.selectionStart;
+        const end = this.selectionEnd;
+
         // set textarea value to: text before caret + tab + text after caret
-        this.value = this.value.substring(0, start) +
-          "\t" + this.value.substring(end);
-    
+        this.value = `${this.value.substring(0, start)
+        }\t${this.value.substring(end)}`;
+
         // put caret at right position again
-        this.selectionStart =
-          this.selectionEnd = start + 1;
+        this.selectionStart = start + 1;
+        this.selectionEnd = start + 1;
       }
     });
     textAreaForInfo.innerHTML = convertedList;
@@ -611,88 +591,84 @@ allTaskContainers.addEventListener('click', function(e) {
     submitButton.addEventListener('click', () => {
       const newText = textAreaForInfo.value;
       daily.removeChild(taskEditor);
-    
-      let startDay = new Date(infoForTaskStart.value);
-      let endDay = new Date(infoForTaskEnd.value);
+
+      const startDay = new Date(infoForTaskStart.value);
+      const endDay = new Date(infoForTaskEnd.value);
       startDay.setDate(startDay.getDate() + 1);
       endDay.setDate(endDay.getDate() + 1);
 
       const selectedTags = getSelectValues(tagSelector);
-      var createEntry = true;
+      let createEntry = true;
       getEntries('User1', currJournal).then((entries) => {
         const obj = Object.keys(entries);
         obj.forEach((object) => {
-          if (entries[object].title == currentTaskName.innerHTML) {
-            if (inputTaskName.value == '') {
-              alert("Entry title must not be empty!");
+          if (entries[object].title === currentTaskName.innerHTML) {
+            if (inputTaskName.value === '') {
+              alert('Entry title must not be empty!');
               createEntry = false;
             } else if (startDay > endDay) {
-              alert("Start Date must be before End Date");
+              alert('Start Date must be before End Date');
               createEntry = false;
             } else if (!infoForTaskStart.value || !infoForTaskEnd.value) {
-              alert("The Start and End dates must be valid");
+              alert('The Start and End dates must be valid');
               createEntry = false;
             }
-            if (currentTaskName.innerHTML != inputTaskName.value) {
+            if (currentTaskName.innerHTML !== inputTaskName.value) {
               deleteTodo('User1', currJournal, taskId);
             }
-            if(createEntry){
+            if (createEntry) {
               createNewEntry('User1', inputTaskName.value, newText, startDay.toLocaleDateString('en-US'), endDay.toLocaleDateString('en-US'), selectedTags, currJournal);
             }
           }
-        })
-      })
+        });
+      });
       const tagContainers = document.querySelectorAll('.tagContainer');
       tagContainers.forEach((tag) => {
-        tag.innerHTML = "";
-      })
+        tag.innerHTML = '';
+      });
       allTasks.forEach((task) => {
-        allTaskContainers.removeChild(task)
+        allTaskContainers.removeChild(task);
       });
 
-      setTimeout(function(){
+      setTimeout(() => {
         populateWeeklyTags();
         createTaskContainers();
-      }, 5); 
+      }, 5);
     });
   }
 });
 
 /** MARK AS DONE: NOT DELETE TASKS */
-allTaskContainers.addEventListener('contextmenu', function(e) {
-    // DO SOMETHING THAT SHOWS THAT THIS TASK IS DONE
-    if(e.target.className !=="taskContainer"){
-      let event = e.target;
-      while(event.className != 'taskContainer'){
-          event = event.parentNode;
-      }
-      e.preventDefault();
-      //alert('DO YOU WANT TO MARK THIS TASK AS DONE? THIS CANNOT BE UNDONE');
-      var item = event;
-      const task = item.querySelector('.task');
-      const taskJournal = item.querySelector('.task > .topLine').id;
-      const todoName = item.querySelector('.task > .topLine > .taskName').innerHTML;
-      const taskId = todoName.replace(/\s+/g, '').toLowerCase();
-     
-      if (task.id.includes('NotDone')) {
-        editTodo('User1', taskJournal, taskId, {isDone: true});
-        var splitUp = task.id.split('Not');
-        task.id = splitUp[0] + splitUp[1];
-      } else {
-        editTodo('User1', taskJournal, taskId, {isDone: false});
-        if (task.id.includes('blue')) {
-          task.id = "blueNotDone";
-        } else if (task.id.includes('red')) {
-          task.id = "redNotDone";
-        } else if (task.id.includes('green')) {
-          task.id = "greenNotDone";
-        } else if (task.id.includes('purple')) {
-          task.id = "purpleNotDone";
-        }
+allTaskContainers.addEventListener('contextmenu', (e) => {
+  // DO SOMETHING THAT SHOWS THAT THIS TASK IS DONE
+  if (e.target.className !== 'taskContainer') {
+    let event = e.target;
+    while (event.className !== 'taskContainer') {
+      event = event.parentNode;
+    }
+    e.preventDefault();
+    // alert('DO YOU WANT TO MARK THIS TASK AS DONE? THIS CANNOT BE UNDONE');
+    const item = event;
+    const task = item.querySelector('.task');
+    const taskJournal = item.querySelector('.task > .topLine').id;
+    const todoName = item.querySelector('.task > .topLine > .taskName').innerHTML;
+    const taskId = todoName.replace(/\s+/g, '').toLowerCase();
+
+    if (task.id.includes('NotDone')) {
+      editTodo('User1', taskJournal, taskId, { isDone: true });
+      const splitUp = task.id.split('Not');
+      task.id = splitUp[0] + splitUp[1];
+    } else {
+      editTodo('User1', taskJournal, taskId, { isDone: false });
+      if (task.id.includes('blue')) {
+        task.id = 'blueNotDone';
+      } else if (task.id.includes('red')) {
+        task.id = 'redNotDone';
+      } else if (task.id.includes('green')) {
+        task.id = 'greenNotDone';
+      } else if (task.id.includes('purple')) {
+        task.id = 'purpleNotDone';
       }
     }
+  }
 });
-
-
-
-

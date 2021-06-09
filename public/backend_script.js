@@ -126,7 +126,6 @@ function newTag(user, journalId, tag) {
           seen = true;
         }
       });
-      
     })
     .then(() => {
       if (!seen) {
@@ -298,16 +297,15 @@ async function getAllJournalsAsync(user) {
   });
 }
 
-async function getJournal(user, journal) { 
-  return new Promise((resolve) => { 
-    database.ref().child(`users/${user}/journals/${journal}`).get() 
-    .then((snapshot) => { 
-      journal = snapshot.val()
-      resolve(journal);
-    })
-  })
+async function getJournal(user, journal) {
+  return new Promise((resolve) => {
+    database.ref().child(`users/${user}/journals/${journal}`).get()
+      .then((snapshot) => {
+        journal = snapshot.val();
+        resolve(journal);
+      });
+  });
 }
-
 
 // Export functions
 export {
@@ -317,4 +315,3 @@ export {
   getAllJournals, getEntries, getAllEntries, getAllJournalsAsync,
   getAllTags, getJournal,
 };
-

@@ -19,14 +19,23 @@ body, html {
 }
 
 /* Sidebar rectangle */
-.sidebar {
-    z-index: 1;
-    width: 302px;
+.sidebar, .sidebarBackground {
+    width: 20%;
     height: 100%;
     left: 0px;
     top: 0px;
+}
+.sidebar{
+    position: absolute;
+    z-index: 1;
     background:#FF0031;
     border-radius: 0px 20px 20px 0px;
+}
+
+.sidebarBackground {
+    flex-shrink: 0;
+    z-index: 0;
+    background: #e7e7e7
 }
 
 /* Sidebar Elements */
@@ -44,13 +53,13 @@ body, html {
 .logo h1 {
     color:white;
     font-weight: bolder;
-    font-size: 48px;
+    font-size: 3vw;
     text-align: center;
 }
 
 /* Jocelot Logo */
 .logo img {
-    width: 59px;
+    width: 3vw;
     height: 100%;
     left: 4px;
 }
@@ -59,7 +68,7 @@ body, html {
 .sidebar a {
     display: block;
     color: white;
-    font-size: 24px;
+    font-size: 2vw;
     font-weight: bold;
     text-decoration: none;
     padding: 16px 0px 16px 36px;
@@ -87,7 +96,6 @@ body, html {
 
 .weekly {
     z-index: 0;
-    left: -20px;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -315,14 +323,12 @@ body, html {
 .taskEditor {
     margin: auto;
     margin-top: 10px;
-    flex-direction: row;
     width: 80%;
-    height: 450px;
+    height: auto;
     background: #c4c4c4;
     border-radius: 20px 20px 20px 20px;
     padding: 10px;
 }
-
 .taskEditor[id="greenNotDone"] {background:#74B9A8}
 .taskEditor[id="greenDone"] {background:#74B9A8}
 .taskEditor[id="blueNotDone"] {background:#5D93E3}
@@ -339,45 +345,45 @@ body, html {
 }
 
 .taskEditorForm {
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
+    display: inline-block;
     width: 100%;
+    min-width: 280px;
 }
 .taskEditor form input[type=text], input[type=date] {
+
     background:white;
     border-radius: 20px;
     outline: none;
     border: none;
 
-    padding: 7px 0px;
+    padding: 7px 15px 7px 15px;
     color: black;
     font-weight: bold;
 }
 
-.editNameAndTags {
-    flex-grow: 1;
-    width: 50%;
+.editNamesAndTags {
+    display: block;
     height: 170px;
+    float: left;
+    padding-right: 5%;
 }
 
 .editDate {
-    flex-grow: 1;
-    width: 50%;
+    display: inline-block;
     height: 170px;
 }
 
-.break {
-    flex-basis: 100%;
-    height: 0;
-}
 .editDescription {
+    min-width: 220px;
     width: 100%;
     margin: 0px;
     padding: 0px;
     overflow: hidden;
+    min-width: 280px;
 }
 #editTaskDescription {
+    box-sizing: border-box;
+    min-width: 20px;
     width: 100%;
     height: 200px;
     margin: auto;
@@ -388,7 +394,7 @@ body, html {
     outline: none;
     border: none;
 
-    padding: 7px 0px;
+    padding: 15px 15px 15px 15px;
     color: black;
     font-weight: bold;
 }
