@@ -45,15 +45,9 @@ function getNewJournalId(user) {
                 user: user
 */
 function createNewJournal(user, journalName, journalDesc) {
-  // const newJournId = getNewJournalId();
-  // newJournId.then((result) => {
-  //   firebase.database().ref(`${user}/journals/${result}`).set({
-  //     journalTitle: journalName,
-  //     journalDescription: journalDesc,
-  //     id: result,
-  //     postId: 0,
-  //   });
-  // });
+  if (user === '' || journalName === '') {
+    throw new Error('error');
+  }
   firebase.database().ref(`users/${user}/journals/${journalName}`).set({
     journalDescription: journalDesc,
     color: '#FFFFFF',
@@ -63,10 +57,13 @@ function createNewJournal(user, journalName, journalDesc) {
 /*  Function to delete a Journal
     Parameters: journal_id: name of the journal for reference in backend
                 user: user
-
 */
 function deleteJournal(user, journalId) {
-  database.ref(`users/${user}/journals/${journalId}`).remove();
+  if (user === '' || journalId === '') {
+    throw new Error('error');
+  } else {
+    database.ref(`users/${user}/journals/${journalId}`).remove();
+  }
 }
 
 /*  Function to edit a journal (name/description)
@@ -78,13 +75,44 @@ function deleteJournal(user, journalId) {
 */
 function editJournal(user, journalId, spec, specChange) {
   // console.log(`Editing journal ${journalId}'s ${spec}`);
-  database.ref(`users/${user}/journals/${journalId}`).update({ [spec]: specChange });
+  if (user === '' || journalId === '' || spec === '' || specChange === '') {
+    throw new Error('error');
+  } else {
+    database.ref(`users/${user}/journals/${journalId}`).update({ [spec]: specChange });
+  }
 }
 
 /*  Function to insert new tag into the journal
     Parameters: journal_id: id of the journal for reference for which post id we're making
                 user: user
                 tag: tag to be inserted into tag array for this journal
+*/
+/*
+function newTag(user, journalId, tag) {
+  if (user === '' || journalId === '') {
+    throw new Error('error');
+  }
+  const tags = database.ref().child(`users/${user}/journals/${journalId}/tags/`);
+  let seen = false;
+  database.ref().child(`users/${user}/journals/'${journalId}/tags`).get()
+    .then((snapshot) => {
+      snapshot.forEach((tagSnap) => {
+        const val = tagSnap.val();
+        console.log(val);
+        if (val === tag) {
+          // Tag already exists
+          seen = true;
+        }
+      });
+    })
+    .then(() => {
+      if (!seen) {
+        tags.push(tag);
+      } else {
+        console.error('Tag already exists in this journal!');
+      }
+    });
+}
 */
 function newTag(user, journalId, tag) {
   const tags = database.ref().child(`users/${user}/journals/${journalId}/tags/`);
@@ -102,6 +130,7 @@ function newTag(user, journalId, tag) {
     .then(() => {
       if (!seen) {
         tags.push(tag);
+        resolve(tags);
       } else {
         console.error('Tag already exists in this journal!');
       }
@@ -114,6 +143,9 @@ function newTag(user, journalId, tag) {
                 tag: tag to be deleted from the journal
 */
 function deleteTag(user, journalId, tag) {
+  if (user === '' || journalId === '') {
+    throw new Error('error');
+  }
   const tags = database.ref().child(`users/${user}/journals/${journalId}/tags/`);
   database.ref().child(`users/${user}/journals/${journalId}/tags`).get()
     .then((snapshot) => {
@@ -148,22 +180,12 @@ function getNewTodoId(user, journalId) {
                 tags: list of tags
                 journalId: journal the new todo belongs to
                 callback: function to re-render views of todos
-
                 NOTE: need to add the callback functionality after making renderTodos
 */
 function createNewEntry(user, todoName, todoDesc, start, end, todotags, journalId) {
-  // const newTodoId = getNewTodoId(journalId);
-  // newTodoId.then((result) => {
-  //   firebase.database().ref(`users/${user}/journals/${journalId}/entries/${result}`).set({
-  //     id: result,
-  //     title: todoName,
-  //     description: todoDesc,
-  //     start_date: start,
-  //     end_date: end,
-  //     tags: todotags,
-  //     isDone: false
-  //   });
-  // });
+  if (user === '' || journalId === '' || todoName === '') {
+    throw new Error('error');
+  }
   const todoId = todoName.replace(/\s+/g, '').toLowerCase();
   firebase.database().ref(`users/${user}/journals/${journalId}/entries/${todoId}`).set({
     title: todoName,
@@ -172,10 +194,11 @@ function createNewEntry(user, todoName, todoDesc, start, end, todotags, journalI
     end_date: end,
     tags: todotags,
     isDone: false,
+    parentJournal: journalId,
   });
-  todotags.forEach((tag) => {
-    newTag(user, journalId, tag);
-  });
+  // todotags.forEach((tag) => {
+  //   newTag(user, journalId, tag);
+  // });
 }
 
 /*  Function to delete a todo
@@ -183,6 +206,9 @@ function createNewEntry(user, todoName, todoDesc, start, end, todotags, journalI
                 todo_id: id of the todo for deletion
 */
 function deleteTodo(user, journalId, entryId) {
+  if (user === '' || journalId === '' || entryId === '') {
+    throw new Error('error');
+  }
   database.ref(`users/${user}/journals/${journalId}/entries/${entryId}`).remove();
 }
 
@@ -193,12 +219,14 @@ function deleteTodo(user, journalId, entryId) {
                   (DONT EDIT TAGS AS TAG EDITING HAS ITS OWN PROPERTY)
 */
 function editTodo(user, journalId, entryId, specChange, spec) {
+  if (user === '' || journalId === '' || entryId === '' || specChange === '') {
+    throw new Error('error');
+  }
   database.ref(`users/${user}/journals/${journalId}/entries/${entryId}`).update(specChange);
 }
 
 /*  Function to get all journal objects of a user
     Parameters: user: userId
-
     Returns a list of journal objects
 */
 function getAllJournals(user) {
@@ -209,56 +237,54 @@ function getAllJournals(user) {
       return journal;
     });
 }
+
 /*  Function to get all entries specified by journal and user
     Parameters: journalId: id of the journal for reference in backend
-
     Returns a list of entry objects
 */
-function getEntries(user, journalId) {
-  let blogs = [];
-  return database.ref().child(`users/${user}/journals/${journalId}/entries`).get()
-    .then((snapshot) => {
-      blogs = snapshot.val();
-    })
-    .then(() => blogs);
+async function getEntries(user, journalId) {
+  return new Promise((resolve) => {
+    const blogs = [];
+    database.ref().child(`users/${user}/journals/${journalId}/entries`).get()
+      .then((snapshot) => {
+        resolve(snapshot.val());
+      });
+  });
 }
+
 /*  Function to get all Todos of a user REGARDLESS of journal
     Parameters: journalId: id of the journal for reference in backend
-
     Returns a list of entry objects
 */
 async function getAllEntries(user) {
   return new Promise((resolve) => {
     const blogs = [];
     database.ref().child(`users/${user}/journals/`).on('value', (snapshot) => {
-      Object.keys(snapshot.val()).forEach((journId) => {
-        getEntries(user, journId)
-          .then((entries) => {
-            for (const [key, value] of Object.entries(entries)) {
-              blogs.push({ [key]: value });
-            }
-          })
-          .then(() => {
-            console.log(blogs, 'this is blogs :) ');
-            resolve(blogs);
-          });
+      Object.keys(snapshot.val()).forEach(async (journId) => {
+        const entries = await getEntries(user, journId);
+        for (const [key, value] of Object.entries(entries)) {
+          blogs.push({ [key]: value });
+        }
+        resolve(blogs);
       });
     });
   });
-
-  //   .then((snapshot) => {
-  //     const journal = snapshot.val();
-  //     Object.keys(journal).forEach((journId) => {
-  //       getEntries(user, journId)
-  //         .then((entries) => {
-  //           for (const [key, value] of Object.entries(entries)) {
-  //             blogs.push({ [key]: value });
-  //           }
-  //         });
-  //     });
-  //   });
-  // return blogs;
 }
+
+/*  Function to get all tags specified by journal
+    Parameters: journalId: id of the journal for reference in backend
+    Returns a list of tags associated with journal
+*/
+async function getAllTags(user, journalId) {
+  return new Promise((resolve) => {
+    const blogs = [];
+    database.ref().child(`users/${user}/journals/${journalId}/tags`).get()
+      .then((snapshot) => {
+        resolve(snapshot.val());
+      });
+  });
+}
+
 async function getAllJournalsAsync(user) {
   const blogs = [];
   let journals = '';
@@ -270,27 +296,22 @@ async function getAllJournalsAsync(user) {
       });
   });
 }
-// function getAllEntries(user) {
-//   const blogs = [];
-//   const journals = database.ref().child(`users/${user}/journals/`).get()
-//     .then((snapshot) => {
-//       const journal = snapshot.val();
-//       Object.keys(journal).forEach((journId) => {
-//         getEntries(user, journId)
-//           .then((entries) => {
-//             for (const [key, value] of Object.entries(entries)) {
-//               blogs.push({ [key]: value });
-//             }
-//           });
-//       });
-//     });
-//   return blogs;
-// }
+
+async function getJournal(user, journal) {
+  return new Promise((resolve) => {
+    database.ref().child(`users/${user}/journals/${journal}`).get()
+      .then((snapshot) => {
+        journal = snapshot.val();
+        resolve(journal);
+      });
+  });
+}
 
 // Export functions
 export {
   createNewUser, getNewJournalId, createNewJournal,
   deleteJournal, editJournal, newTag, deleteTag,
   getNewTodoId, createNewEntry, deleteTodo, editTodo,
-  getAllJournals, getEntries, getAllEntries,
+  getAllJournals, getEntries, getAllEntries, getAllJournalsAsync,
+  getAllTags, getJournal,
 };

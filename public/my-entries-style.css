@@ -1,0 +1,524 @@
+* {
+    margin:0px;
+    padding:0px;
+    font-family:"Montserrat", sans-serif;
+}
+
+body, html {
+    height:  100%;
+    margin:  0px auto;
+    padding: 0px auto;
+}
+
+/* Wrapper */
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+}
+
+/* Sidebar rectangle */
+.sidebar, .sidebarBackground {
+    width: 20%;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+}
+.sidebar{
+    position: absolute;
+    z-index: 1;
+    background:#FF0031;
+    border-radius: 0px 20px 20px 0px;
+}
+
+.sidebarBackground {
+    flex-shrink: 0;
+    z-index: 0;
+    background: #e7e7e7
+}
+
+/* Sidebar Elements */
+/* Jocelot Logo Container */
+.logo {
+    display: flex;
+    flex-direction: row;
+    width: auto;
+    height: auto;
+    justify-content: center;
+    padding: 20px 0px 20px 0px;
+}
+
+/* Jocelot Text */
+.logo h1 {
+    color:white;
+    font-weight: bolder;
+    font-size: 3vw;
+    text-align: center;
+}
+
+/* Jocelot Logo */
+.logo img {
+    width: 3vw;
+    height: 100%;
+    left: 4px;
+}
+
+/* Page Container */
+.sidebar a {
+    display: block;
+    color: white;
+    font-size: 2vw;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 16px 0px 16px 36px;
+}
+
+.sidebar a:hover {
+    background-color:#A4001F;
+    transition: 0.5s;
+}
+
+/* Journal Icon */
+#journal-logo {
+    list-style-image: url("album.svg");
+}
+
+/* Entries Icon */
+#entries-logo {
+    list-style-image: url("list.svg");
+}
+
+/* Log Out Icon */
+#log-out-logo {
+    list-style-image: url("enter.svg");
+}
+
+.weekly {
+    z-index: 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-basis: 0;
+    height: 100%;
+    top: 0px;
+    background: #e7e7e7;
+    border-radius: 0px 20px 20px 0px;
+}
+
+.weekly h1, .daily h1, .addTask h1 {
+    padding: 20px 0px 0px;
+    text-align: center;
+    font-weight: 700;
+    color: #4f4f4f
+}
+
+.dateChangeContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.dateRange, #currentDate, .inputInfo {
+    padding: 20px 0 35px;
+    text-align: center;
+    font-weight: 500;
+    font-size: 40px;
+    color: #4f4f4f
+}
+
+.dateContainer, .entryContainer {  
+    /* border: 1px solid rgb(111,41,97); */
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.dateContainer > div {
+    margin: 10px;
+}
+
+.day {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 80%;
+    background: #c4c4c4;
+    border-radius: 20px 20px 20px 20px;
+    padding: 10px;
+}
+
+.day:hover {
+    background-color: #7C7C7C;
+    transition: 0.5s;
+}
+
+.day:hover .tasks {
+    color: black;
+    transition: 0.5s;
+}
+
+.topLine h3 {
+    padding: 5px 5px 5px;
+    color: white;
+    font-weight: 800;
+}
+
+
+.topLine {
+    display: flex;
+    align-items: right;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.date {
+    font-weight: 400;
+    color: white;
+}
+
+.tasks {
+    font-size: large;
+    padding: 5px 5px 5px;
+    font-weight: 700;
+    color: #7c7c7c;
+}
+
+.tagContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding: 5px 5px 5px;
+}
+
+.tagContainer > div {
+    margin: 3px;
+}
+
+.tag {
+    background: #A3EFDD;
+    border-radius: 20px;
+    padding: 2px;
+}
+
+.tag[id="green"] {background:#A3EFDD}
+.tag[id="blue"] {background: #84B5FF}
+.tag[id="purple"] {background: #C099FF}
+.tag[id="red"] {background: #FF9797}
+
+.tag text {
+    padding: 7px 7px;
+    opacity: 0.2;
+    font-weight: 700;
+    color: black;
+}
+
+.daily, .addTask {
+    flex-grow: 1;
+    flex-basis: 0;
+    height: 100%;
+    top: 0px;
+    background: white;
+    border-radius: 0px 20px 20px 0px;
+}
+
+.daily h1, .addTask h1 {
+    padding: 20px 0px 0px;
+    text-align: center;
+    font-weight: 700;
+    color: #4f4f4f
+}
+
+.taskContainer {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.taskContainer > div {
+    margin: 10px;
+}
+
+.task {
+    border-right: 10px solid #33FF9D;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 80%;
+    background: #c4c4c4;
+    border-radius: 20px 20px 20px 20px;
+    padding: 10px;
+}
+
+.task[id="greenNotDone"] {
+    background:#74B9A8;
+    border-color: #FFDE33;
+}
+.task[id="greenDone"] {
+    background:#74B9A8;
+    border-color: #33FF9D;
+}
+.task[id="blueNotDone"] {
+    background: #5D93E3;
+    border-color: #FFDE33;
+}
+.task[id="blueDone"] {
+    background: #5D93E3;
+    border-color: #33FF9D;
+}
+.task[id="purpleNotDone"] {
+    background: #A374F0;
+    border-color: #FFDE33;
+}
+.task[id="purpleDone"] {
+    background: #A374F0;
+    border-color: #33FF9D;
+}
+.task[id="redNotDone"] {
+    background: #EF6666;
+    border-color: #FFDE33;
+}
+.task[id="redDone"] {
+    background: #EF6666;
+    border-color: #33FF9D;
+}
+
+.taskName {
+    padding: 5px 5px 5px;
+    color: white;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.dateRange[id="daily"] {
+    padding: 5px 5px 5px;
+    font-weight: 700;
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+    opacity: 80%;
+}
+
+.taskDescription ul {
+    font-size: 17px;
+    padding: 2px 20px;
+    color: white;
+}
+.taskDescription li {
+    font-size: 17px;
+    padding: 2px 10px;
+    color: white;
+}
+
+.entryEditor {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 80%;
+    background: #c4c4c4;
+    border-radius: 20px 20px 20px 20px;
+    padding: 10px;
+}
+
+.taskEditor {
+    margin: auto;
+    margin-top: 10px;
+    width: 80%;
+    height: auto;
+    background: #c4c4c4;
+    border-radius: 20px 20px 20px 20px;
+    padding: 10px;
+}
+.taskEditor[id="greenNotDone"] {background:#74B9A8}
+.taskEditor[id="greenDone"] {background:#74B9A8}
+.taskEditor[id="blueNotDone"] {background:#5D93E3}
+.taskEditor[id="blueDone"] {background:#5D93E3}
+.taskEditor[id="purpleNotDone"] {background:#A374F0}
+.taskEditor[id="purpleDone"] {background:#A374F0}
+.taskEditor[id="redNotDone"] {background:#EF6666}
+.taskEditor[id="redDone"] {background:#EF6666}
+
+.taskEditor h3 {
+    padding: 5px 5px 5px;
+    color: white;
+    font-weight: 800;
+}
+
+.taskEditorForm {
+    display: inline-block;
+    width: 100%;
+    min-width: 280px;
+}
+.taskEditor form input[type=text], input[type=date] {
+
+    background:white;
+    border-radius: 20px;
+    outline: none;
+    border: none;
+
+    padding: 7px 15px 7px 15px;
+    color: black;
+    font-weight: bold;
+}
+
+.editNamesAndTags {
+    display: block;
+    height: 170px;
+    float: left;
+    padding-right: 5%;
+}
+
+.editDate {
+    display: inline-block;
+    height: 170px;
+}
+
+.editDescription {
+    min-width: 220px;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+    min-width: 280px;
+}
+#editTaskDescription {
+    box-sizing: border-box;
+    min-width: 20px;
+    width: 100%;
+    height: 200px;
+    margin: auto;
+    resize: none;
+
+    background:white;
+    border-radius: 20px;
+    outline: none;
+    border: none;
+
+    padding: 15px 15px 15px 15px;
+    color: black;
+    font-weight: bold;
+}
+
+.new-journal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 2; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+
+.journal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: 5% auto; /* 5% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%; /* Could be more or less, depending on screen size */
+    min-width: 300px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+}
+
+.journal-content h2 {
+    white-space: nowrap;
+}
+
+#set-new-journal {
+    column-gap: 100px;
+    padding: 4px;
+    width: 95%;
+    max-width: 95%;
+    margin: auto;
+}
+
+#set-new-journal input, #set-new-journal select {
+    box-sizing: border-box;
+    width: 100%;
+}
+/* start Buttons */
+
+#button-group {
+    display: flex;
+    justify-content: center;
+}
+
+#cancel {
+    display: inline-block;
+    padding: 0.7em 1.7em;
+    margin: 0 0.6em 0.6em 0;
+    border-radius: 0.2em;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family:"Montserrat", sans-serif;
+    color: #4f4f4f;
+    box-shadow: inset 0 -0.6em 1em -0.35em rgba(0,0,0,0.17),inset 0 0.6em 2em -0.3em rgba(255,255,255,0.15),inset 0 0 0em 0.05em rgba(255,255,255,0.12);
+    text-align:center;
+    position: relative;
+    font-weight: bold;
+}
+
+#create {
+    display: inline-block;
+    padding: 0.7em 1.7em;
+    margin: 0 0.3em 0.3em 0;
+    border-radius: 0.2em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:"Montserrat", sans-serif;
+    color:#FFFFFF;
+    background-color: #FF0031;
+    box-shadow: inset 0 -0.6em 1em -0.35em rgba(0,0,0,0.17),inset 0 0.6em 2em -0.3em rgba(255,255,255,0.15),inset 0 0 0em 0.05em rgba(255,255,255,0.12);
+    text-align: center;
+    position: relative;
+    font-weight: bold;
+}
+
+/* end Buttons */
+
+.button:hover {
+    background-color:gainsboro;
+}
+
+.button[id='tag-btn'] {
+    margin: 0 0.7em 0.7em 0;
+    padding: 0.3em 1.3em;
+}
+
+
+#create:hover {
+    background-color:#A4001F;
+}
+
+/* Tags List  */
+#tags-list {
+    list-style-type: none;
+}
+
+/* Tags List Items  */
+#tags-list li {
+    font-family:"Montserrat", sans-serif;
+    display: inline-block;
+    max-width: 25%;
+    background: #A3EFDD;
+    border-radius: 20px;
+    padding: 2px;
+    margin: 3px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#tags-list li text {
+    padding: 7px 7px;
+    opacity: 0.2;
+    font-weight: 700;
+    color: black;
+}
