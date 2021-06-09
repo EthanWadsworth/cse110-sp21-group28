@@ -22,3 +22,39 @@ window.addEventListener('click', (event) => {
     modal.style.display = 'none';
   }
 });
+
+const sampleJournals = [
+  {
+    title: 'Journal1',
+    date: Date.now(),
+    todos: ['todo1', 'todo2'],
+  },
+  {
+    title: 'Journal2',
+    date: Date.now(),
+    todos: ['todo1'],
+  },
+  {
+    title: 'Journal3',
+    date: Date.now(),
+    todos: ['todo1', 'todo2', 'todo3', 'todo4'],
+  },
+];
+
+function renderJournals() {
+  // const reponse = await firebaseGetReuest();
+  const journalContainer = document.getElementById('journal-entries');
+  let newJournal = {};
+
+  sampleJournals.forEach((sample) => {
+    newJournal = document.createElement('journal-collection');
+    newJournal.entry = sample;
+    newJournal.addEventListener('click', () => {
+      window.location.href = './../Journal-Entries/entries.html';
+    });
+
+    journalContainer.appendChild(newJournal);
+  });
+}
+
+renderJournals();

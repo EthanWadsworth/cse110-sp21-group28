@@ -5,17 +5,17 @@ class journalWC extends HTMLElement {
     const template = document.createElement('template');
 
     template.innerHTML = `
-              <style>
-                  .entry {
-                      border-radius: 3px;
-                  }
-              </style>
-              <article class="entry">
-                  <h1 class="title"></h1>
-                  <h1 class="date"></h1>
-                  <ul class="tags-list">
-                  </ul>
-              </article>`;
+            <style>
+                .entry {
+                    border-radius: 3px;
+                }
+            </style>
+            <article class="entry">
+                <h1 class="title"></h1>
+                <h1 class="date"></h1>
+                <ul class="tags-list">
+                </ul>
+            </article>`;
 
     // create a shadow root for this web component
     this.attachShadow({ mode: 'open' });
@@ -42,4 +42,4 @@ class journalWC extends HTMLElement {
   }
 }
 
-customElements.define('journal-entry', journalWC);
+customElements.define('journal-collection', journalWC);
