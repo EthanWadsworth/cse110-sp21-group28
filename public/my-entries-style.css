@@ -291,9 +291,14 @@ body, html {
     opacity: 80%;
 }
 
+.taskDescription ul {
+    font-size: 17px;
+    padding: 2px 20px;
+    color: white;
+}
 .taskDescription li {
     font-size: 17px;
-    padding: 3px 10px;
+    padding: 2px 10px;
     color: white;
 }
 
@@ -386,4 +391,128 @@ body, html {
     padding: 7px 0px;
     color: black;
     font-weight: bold;
+}
+
+.new-journal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 2; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+
+.journal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: 5% auto; /* 5% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%; /* Could be more or less, depending on screen size */
+    min-width: 300px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+}
+
+.journal-content h2 {
+    white-space: nowrap;
+}
+
+#set-new-journal {
+    column-gap: 100px;
+    padding: 4px;
+    width: 95%;
+    max-width: 95%;
+    margin: auto;
+}
+
+#set-new-journal input, #set-new-journal select {
+    box-sizing: border-box;
+    width: 100%;
+}
+/* start Buttons */
+
+#button-group {
+    display: flex;
+    justify-content: center;
+}
+
+#cancel {
+    display: inline-block;
+    padding: 0.7em 1.7em;
+    margin: 0 0.6em 0.6em 0;
+    border-radius: 0.2em;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family:"Montserrat", sans-serif;
+    color: #4f4f4f;
+    box-shadow: inset 0 -0.6em 1em -0.35em rgba(0,0,0,0.17),inset 0 0.6em 2em -0.3em rgba(255,255,255,0.15),inset 0 0 0em 0.05em rgba(255,255,255,0.12);
+    text-align:center;
+    position: relative;
+    font-weight: bold;
+}
+
+#create {
+    display: inline-block;
+    padding: 0.7em 1.7em;
+    margin: 0 0.3em 0.3em 0;
+    border-radius: 0.2em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:"Montserrat", sans-serif;
+    color:#FFFFFF;
+    background-color: #FF0031;
+    box-shadow: inset 0 -0.6em 1em -0.35em rgba(0,0,0,0.17),inset 0 0.6em 2em -0.3em rgba(255,255,255,0.15),inset 0 0 0em 0.05em rgba(255,255,255,0.12);
+    text-align: center;
+    position: relative;
+    font-weight: bold;
+}
+
+/* end Buttons */
+
+.button:hover {
+    background-color:gainsboro;
+}
+
+.button[id='tag-btn'] {
+    margin: 0 0.7em 0.7em 0;
+    padding: 0.3em 1.3em;
+}
+
+
+#create:hover {
+    background-color:#A4001F;
+}
+
+/* Tags List  */
+#tags-list {
+    list-style-type: none;
+}
+
+/* Tags List Items  */
+#tags-list li {
+    font-family:"Montserrat", sans-serif;
+    display: inline-block;
+    max-width: 25%;
+    background: #A3EFDD;
+    border-radius: 20px;
+    padding: 2px;
+    margin: 3px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#tags-list li text {
+    padding: 7px 7px;
+    opacity: 0.2;
+    font-weight: 700;
+    color: black;
 }
