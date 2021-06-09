@@ -93,13 +93,13 @@ async function createTaskContainers() {
   const rangedEntries = await getCurrentEvents(shownDate.innerHTML);
   const currJournals = await getCurrentJournals(shownDate.innerHTML);
 
-  var i = 0;
+  var k = 0;
   rangedEntries.forEach((entry) => {
     const daily = document.querySelector('.allTaskContainers');
     const taskContainer = document.createElement('div');
     taskContainer.setAttribute('class', 'taskContainer');
-    taskContainer.setAttribute('id', '' + i + '');
-    i = i+1;
+    taskContainer.setAttribute('id', '' + k + '');
+    k = k+1;
     daily.appendChild(taskContainer);
 
     const task = document.createElement('div');
@@ -183,6 +183,7 @@ async function createTaskContainers() {
         const obj = Object.keys(result)
         obj.forEach((object) => {
           if (result[object].description == entry.description && result[object].title == entry.title) {
+            if(tags != null){
             for (let i = 0; i < tags.length; i += 1) {
               const tag = document.createElement('div');
               tag.setAttribute('class', 'tag');
@@ -192,6 +193,7 @@ async function createTaskContainers() {
               tag.appendChild(text);
               tagContainer.appendChild(tag);
             }
+          }
             if (result[object].isDone) {
               task.setAttribute('id', journal[1] + "Done");
             } else {
@@ -199,6 +201,7 @@ async function createTaskContainers() {
             }
             topLine.setAttribute('id', journal[0]);
           }
+        
         })
       })
     })
@@ -689,5 +692,7 @@ allTaskContainers.addEventListener('contextmenu', function(e) {
       }
     }
 });
+
+
 
 
