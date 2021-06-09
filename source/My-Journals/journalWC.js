@@ -54,21 +54,6 @@ class journalWC extends HTMLElement {
   set entry(entry) {
     const article = this.shadowRoot.querySelector('article');
     article.querySelector('.title').textContent = entry.title;
-    //article.querySelector('.date').textContent = Date.now(); // dummy date
-    const tagsList = article.querySelector('.tags-list');
-    
-
-    // render list of todos - assumes todos is a list
-    //for (let key in entry.tags) {
-    //  const newLi = document.createElement('li');
-    //  newLi.textContent = entry.tags[key];
-    //  tagsList.appendChild(newLi);
-    //}
-    // entry.tags.forEach((tag) => {
-    //   const newLi = document.createElement('li');
-    //   newLi.textContent = tag;
-    //   tagsList.appendChild(newLi);
-    // });
   }
 }
 

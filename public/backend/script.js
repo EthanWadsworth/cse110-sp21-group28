@@ -57,7 +57,7 @@ function createNewJournal(user, journalName, journalDesc, color) {
   // });
   firebase.database().ref(`users/${user}/journals/${journalName}`).set({
     journalDescription: journalDesc,
-    color: color,
+    color,
   });
 }
 
@@ -111,14 +111,14 @@ function newTag(user, journalId, tag) {
 
 /**
  * Inserts all tags into the specified journal attached to the specified user
- * 
+ *
  * @param {string} user user id to add journal tags for
- * @param {string} journalId The name of the journal to add tags for 
- * @param {Array} journalTags list of tags to add 
+ * @param {string} journalId The name of the journal to add tags for
+ * @param {Array} journalTags list of tags to add
  */
 function insertTagsMany(user, journalId, journalTags) {
   const tags = database.ref().child(`users/${user}/journals/${journalId}/tags/`);
-  journalTags.forEach(tag => {
+  journalTags.forEach((tag) => {
     newTag(user, journalId, tag);
   });
 }
@@ -307,5 +307,5 @@ export {
   deleteJournal, editJournal, newTag, deleteTag,
   getNewTodoId, createNewEntry, deleteTodo, editTodo,
   getAllJournals, getEntries, getAllEntries, getAllJournalsAsync,
-  insertTagsMany
+  insertTagsMany,
 };

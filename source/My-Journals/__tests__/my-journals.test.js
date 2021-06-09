@@ -11,6 +11,6 @@
 //     expect(color).toBe('#EF6666');
 // })
 
-// test('test', () => {
-//     expect(2).toBe(2);
-// })
+test('test', () => {
+  expect(2).toBe(2);
+});
