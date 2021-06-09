@@ -45,6 +45,9 @@ function getNewJournalId(user) {
                 user: user
 */
 function createNewJournal(user, journalName, journalDesc) {
+  if (user === '' || journalName === '') {
+    throw new Error('error');
+  }
   firebase.database().ref(`users/${user}/journals/${journalName}`).set({
     journalDescription: journalDesc,
     color: '#FFFFFF',
@@ -56,7 +59,11 @@ function createNewJournal(user, journalName, journalDesc) {
                 user: user
 */
 function deleteJournal(user, journalId) {
-  database.ref(`users/${user}/journals/${journalId}`).remove();
+  if (user === '' || journalId === '') {
+    throw new Error('error');
+  } else {
+    database.ref(`users/${user}/journals/${journalId}`).remove();
+  }
 }
 
 /*  Function to edit a journal (name/description)
@@ -68,7 +75,11 @@ function deleteJournal(user, journalId) {
 */
 function editJournal(user, journalId, spec, specChange) {
   // console.log(`Editing journal ${journalId}'s ${spec}`);
-  database.ref(`users/${user}/journals/${journalId}`).update({ [spec]: specChange });
+  if (user === '' || journalId === '' || spec === '' || specChange === '') {
+    throw new Error('error');
+  } else {
+    database.ref(`users/${user}/journals/${journalId}`).update({ [spec]: specChange });
+  }
 }
 
 /*  Function to insert new tag into the journal
@@ -76,13 +87,18 @@ function editJournal(user, journalId, spec, specChange) {
                 user: user
                 tag: tag to be inserted into tag array for this journal
 */
+/*
 function newTag(user, journalId, tag) {
+  if (user === '' || journalId === '') {
+    throw new Error('error');
+  }
   const tags = database.ref().child(`users/${user}/journals/${journalId}/tags/`);
   let seen = false;
-  database.ref().child(`users/${user}/journals/${journalId}/tags`).get()
+  database.ref().child(`users/${user}/journals/'${journalId}/tags`).get()
     .then((snapshot) => {
       snapshot.forEach((tagSnap) => {
         const val = tagSnap.val();
+        console.log(val);
         if (val === tag) {
           // Tag already exists
           seen = true;
@@ -97,6 +113,30 @@ function newTag(user, journalId, tag) {
       }
     });
 }
+*/
+function newTag(user, journalId, tag) {
+  const tags = database.ref().child(`users/${user}/journals/${journalId}/tags/`);
+  let seen = false;
+  database.ref().child(`users/${user}/journals/${journalId}/tags`).get()
+    .then((snapshot) => {
+      snapshot.forEach((tagSnap) => {
+        const val = tagSnap.val();
+        if (val === tag) {
+          // Tag already exists
+          seen = true;
+        }
+      });
+      
+    })
+    .then(() => {
+      if (!seen) {
+        tags.push(tag);
+        resolve(tags);
+      } else {
+        console.error('Tag already exists in this journal!');
+      }
+    });
+}
 
 /*  Function to delete tag from the journal
     Parameters: journal_id: name of the journal for reference for which post id we're making
@@ -104,6 +144,9 @@ function newTag(user, journalId, tag) {
                 tag: tag to be deleted from the journal
 */
 function deleteTag(user, journalId, tag) {
+  if (user === '' || journalId === '') {
+    throw new Error('error');
+  }
   const tags = database.ref().child(`users/${user}/journals/${journalId}/tags/`);
   database.ref().child(`users/${user}/journals/${journalId}/tags`).get()
     .then((snapshot) => {
@@ -141,6 +184,9 @@ function getNewTodoId(user, journalId) {
                 NOTE: need to add the callback functionality after making renderTodos
 */
 function createNewEntry(user, todoName, todoDesc, start, end, todotags, journalId) {
+  if (user === '' || journalId === '' || todoName === '') {
+    throw new Error('error');
+  }
   const todoId = todoName.replace(/\s+/g, '').toLowerCase();
   firebase.database().ref(`users/${user}/journals/${journalId}/entries/${todoId}`).set({
     title: todoName,
@@ -151,9 +197,9 @@ function createNewEntry(user, todoName, todoDesc, start, end, todotags, journalI
     isDone: false,
     parentJournal: journalId,
   });
-  todotags.forEach((tag) => {
-    newTag(user, journalId, tag);
-  });
+  // todotags.forEach((tag) => {
+  //   newTag(user, journalId, tag);
+  // });
 }
 
 /*  Function to delete a todo
@@ -161,6 +207,9 @@ function createNewEntry(user, todoName, todoDesc, start, end, todotags, journalI
                 todo_id: id of the todo for deletion
 */
 function deleteTodo(user, journalId, entryId) {
+  if (user === '' || journalId === '' || entryId === '') {
+    throw new Error('error');
+  }
   database.ref(`users/${user}/journals/${journalId}/entries/${entryId}`).remove();
 }
 
@@ -171,6 +220,9 @@ function deleteTodo(user, journalId, entryId) {
                   (DONT EDIT TAGS AS TAG EDITING HAS ITS OWN PROPERTY)
 */
 function editTodo(user, journalId, entryId, specChange, spec) {
+  if (user === '' || journalId === '' || entryId === '' || specChange === '') {
+    throw new Error('error');
+  }
   database.ref(`users/${user}/journals/${journalId}/entries/${entryId}`).update(specChange);
 }
 
@@ -246,11 +298,23 @@ async function getAllJournalsAsync(user) {
   });
 }
 
+async function getJournal(user, journal) { 
+  return new Promise((resolve) => { 
+    database.ref().child(`users/${user}/journals/${journal}`).get() 
+    .then((snapshot) => { 
+      journal = snapshot.val()
+      resolve(journal);
+    })
+  })
+}
+
+
 // Export functions
 export {
   createNewUser, getNewJournalId, createNewJournal,
   deleteJournal, editJournal, newTag, deleteTag,
   getNewTodoId, createNewEntry, deleteTodo, editTodo,
   getAllJournals, getEntries, getAllEntries, getAllJournalsAsync,
-  getAllTags,
+  getAllTags, getJournal,
 };
+
