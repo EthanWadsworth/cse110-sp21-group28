@@ -108,6 +108,20 @@ function newTag(user, journalId, tag) {
     });
 }
 
+/**
+ * Inserts all tags into the specified journal attached to the specified user
+ * 
+ * @param {string} user user id to add journal tags for
+ * @param {string} journalId The name of the journal to add tags for 
+ * @param {Array} journalTags list of tags to add 
+ */
+function insertTagsMany(user, journalId, journalTags) {
+  const tags = database.ref().child(`users/${user}/journals/${journalId}/tags/`);
+  journalTags.forEach(tag => {
+    newTag(user, journalId, tag);
+  });
+}
+
 /*  Function to delete tag from the journal
     Parameters: journal_id: name of the journal for reference for which post id we're making
                 user: user
@@ -291,5 +305,6 @@ export {
   createNewUser, getNewJournalId, createNewJournal,
   deleteJournal, editJournal, newTag, deleteTag,
   getNewTodoId, createNewEntry, deleteTodo, editTodo,
-  getAllJournals, getEntries, getAllEntries, getAllJournalsAsync
+  getAllJournals, getEntries, getAllEntries, getAllJournalsAsync,
+  insertTagsMany
 };

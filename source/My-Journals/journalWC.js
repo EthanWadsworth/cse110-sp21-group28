@@ -30,7 +30,7 @@ class journalWC extends HTMLElement {
             </style>
 
             <span class="close">&times;</span>
-            
+
             <article class="entry">
                 <h1 class="title"></h1>
             </article>`;
@@ -41,10 +41,16 @@ class journalWC extends HTMLElement {
     this.shadowRoot.appendChild(template.content.cloneNode(true));
   }
 
+  /**
+   * Gets data stored in the 'entry' attribute of this web component
+   */
   get entry() {
     return this.getAttribute('entry');
   }
 
+  /**
+   * Used to set data for the custom web component
+   */
   set entry(entry) {
     const article = this.shadowRoot.querySelector('article');
     article.querySelector('.title').textContent = entry.title;

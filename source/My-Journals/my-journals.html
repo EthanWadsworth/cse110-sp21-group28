@@ -31,11 +31,9 @@
                         <option value="blue" style="color: #5D93E3;">Blue</option>
                         <option value="purple" style="color: #A374F0;">Purple</option>
                     </select>
-                    <br><br>
                     
                     <label>Enter Journal Name: </label>
                     <input type="textarea" id="journal-name" placeholder="Journal Name">
-                    <br><br>
 
                     <label>Add Journal Tags: </label>
                     <input type="textarea" id="tag-name" placeholder="Tag Name">
@@ -50,6 +48,19 @@
             
        </div>
   
+  </div>
+
+  <!-- The Delete Journal Modal -->
+  <div class="new-journal" id="delete-journal">
+
+        <!-- Modal content -->
+        <div class="journal-content">
+            <span class="close" id='delete-close'>&times;</span>
+            <h2 id="delete-message" style="text-align: center;">Delete this journal?</h2>
+
+            <input type="button" id ="dj-cancel" value="Cancel" class="button">
+            <input type="button" id ="dj-confirm" value="Confirm" class="button">
+        </div>
   </div>
 
   <div class="wrapper">
