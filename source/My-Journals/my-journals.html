@@ -4,7 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="./my-journals-style.css">
+    <link rel="stylesheet" href="./main.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&display=swap');
+    </style>
     <title>My Journals</title>
 </head>
 <body>
@@ -15,13 +20,47 @@
         <!-- Modal content -->
         <div class="journal-content">
             <span class="close">&times;</span>
-            <p>Would you like to create a new journal?</p>
-            <div id = "button-group">
-                <input type="button" id ="cancel" value="Cancel" class="button">
-                <input type="button" id ="create" value="Create" class="button">
+            <h2 style="text-align: center">New Journal</h2>
+            <div id = "set-new-journal">
+                <!-- <form id="create-journal-form"> -->
+                    <label for="colors">Choose a color: </label>
+
+                    <select name="colors" id="colors">
+                        <option value="red" style="color: #EF6666;">Red</option>
+                        <option value="green" style="color: #74B9A8;">Green</option>
+                        <option value="blue" style="color: #5D93E3;">Blue</option>
+                        <option value="purple" style="color: #A374F0;">Purple</option>
+                    </select>
+                    
+                    <label>Enter Journal Name: </label>
+                    <input type="textarea" id="journal-name" placeholder="Journal Name">
+
+                    <label>Add Journal Tags: </label>
+                    <input type="textarea" id="tag-name" placeholder="Tag Name">
+                    <input type="button" id ="tag-btn" value="Add Tag" class="button">
+
+                    <ul id="tags-list"></ul>
+
+                    <input type="button" id ="cancel" value="Cancel" class="button">
+                    <input type="button" id ="create" value="Create" class="button">
+                <!-- </form> -->
             </div>
+            
        </div>
   
+  </div>
+
+  <!-- The Delete Journal Modal -->
+  <div class="new-journal" id="delete-journal">
+
+        <!-- Modal content -->
+        <div class="journal-content">
+            <span class="close" id='delete-close'>&times;</span>
+            <h2 id="delete-message" style="text-align: center;">Delete this journal?</h2>
+
+            <input type="button" id ="dj-cancel" value="Cancel" class="button">
+            <input type="button" id ="dj-confirm" value="Confirm" class="button">
+        </div>
   </div>
 
   <div class="wrapper">
@@ -35,13 +74,26 @@
             <a href="#"><i class="material-icons">logout</i>Log Out</a>
         </div>
         <div id = journal-entries-wrapper>
-            <h2 id="create-button">Add Journal</h2>
+            <h3 id="add-journal">New Journal</h3>
             <h1>My Journals</h1>
-            <div id="journal-entries", class="container"></div>
+            <div id="journal-entries" class="container"></div>
+
+            <!-- section for entries display  -->
+            <div class="entries-container"></div>
         </div>
     </div>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <!-- <script src="/__/firebase/8.6.1/firebase-app.js"></script> -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
 
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-database.js"></script>
+    <!-- Initialize Firebase -->
+    <!-- <script src="/__/firebase/init.js?useEmulator=true"></script> -->
+    <script src="./../../public/backend/script.js" type="module"></script>
     <script src="./journalWC.js"></script>
-    <script src="./my-journals-script.js"></script>
+    <script src="./my-journals-script.js" type="module"></script>
 </body>
 </html>

@@ -117,7 +117,7 @@ function newTag(user, journalId, tag) {
 function newTag(user, journalId, tag) {
   const tags = database.ref().child(`users/${user}/journals/${journalId}/tags/`);
   let seen = false;
-  database.ref().child(`users/${user}/journals/${journalId}/tags`).get()
+  database.ref().child(`users/${user}/journals/'${journalId}/tags`).get()
     .then((snapshot) => {
       snapshot.forEach((tagSnap) => {
         const val = tagSnap.val();
