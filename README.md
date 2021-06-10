@@ -10,7 +10,6 @@ A bullet journal is a tool for individuals to use to organize their tasks in an 
   3. Ability to sort tasks by subject into small collections
 
 You can access our bullet journal webapp [here](https://bullet-journal-110.web.app/) 
-<<<<<<< HEAD
 
 Journal's Page
 ![Alt text](/public/images/JournalPage.png "Journal's Page")
@@ -19,11 +18,6 @@ Journal's Page
 All Entries Page
 ![Alt text](/public/images/AllEntriesPage.png "All Entries Page")
 
-=======
-
-TODO - should put a picture here of completed app
-
->>>>>>> b5a9fee90e86e3d6d5ceea2a570b00f603898a3b
 ## Introduction to our team
 [Team Page](/admin/team.md)
 
@@ -64,7 +58,6 @@ You can find all docs related to the CI/CD pipeline under /admin/cipipeline, inc
 For the video on how the CI/CD pipeline workflow works as well as an example of it in action, follow the link [here](/admin/cipipeline/phase1-update.mp4)
 
 ## Source Code
-<<<<<<< HEAD
 [/public](/public) contains all of our source code for the bullet journal project. We have separated the code into a /backend folder, /css folder, /js folder, and the index.html is in the root of /public. 
 
 For documentation, refer to the jsDocs generated in /out or click the link [here](/out)
@@ -72,8 +65,3 @@ For documentation, refer to the jsDocs generated in /out or click the link [here
 ## Testing
 
 Because the application depends on the functionality of the backend, unit tests were created to exclusively test the backend. All tests can be found in [/__tests__](/__tests__).
-=======
-[\public](/public) contains all of our source code for the bullet journal project. We have separated the code into a \backend folder, \css folder, \js folder, and the index.html is in the root of \public. 
-
-## Testing
->>>>>>> b5a9fee90e86e3d6d5ceea2a570b00f603898a3b
