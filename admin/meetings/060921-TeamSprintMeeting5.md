@@ -1,5 +1,5 @@
 # Notes from the Fifth Sprint Meeting
-Date: Wednesday, June 10th, 2021.      
+Date: Wednesday, June 9th, 2021.      
 Members Present: Everyone   
 Time Started: 2:00 PM
 
