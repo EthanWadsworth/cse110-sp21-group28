@@ -65,3 +65,4 @@ For documentation, refer to the jsDocs generated in /out or click the link [here
 ## Testing
 
 Because the application depends on the functionality of the backend, unit tests were created to exclusively test the backend. All tests can be found in [/__tests__](/__tests__).
+
