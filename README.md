@@ -44,7 +44,7 @@ All Entries Page
 ## Steps to emulate this project on your local:
   1. Git clone the entire repo into your local computer
   2. Install Node.js on your local computer via this [link](https://nodejs.org/en/)
-  3. Run `npm` from the command line in your IDE with your copy of the project open. This will download and install all the necessary node modules to your copy.
+  3. Run `npm install` from the command line in your IDE with your copy of the project open. This will download and install all the necessary node modules to your copy.
   4. Install Firrebase CI if on windows or run `npm install firebase` if on Mac/Linux
   5. Create a Firebase account, enable Firebase database and auth, and reconfigure anywhere in our JavaScript files with `firebase config` variables setup at the top with your own personal firebase config information. 
   6. Run `firebase init hosting` in the Firebase CLI if on windows, or `firebase emulators:start` in terminal if on Mac/Linux to start up a Firebase local host working website of the project 
@@ -58,6 +58,11 @@ You can find all docs related to the CI/CD pipeline under /admin/cipipeline, inc
 For the video on how the CI/CD pipeline workflow works as well as an example of it in action, follow the link [here](/admin/cipipeline/phase1-update.mp4)
 
 ## Source Code
-[\public](/public) contains all of our source code for the bullet journal project. We have separated the code into a \backend folder, \css folder, \js folder, and the index.html is in the root of \public. 
+[/public](/public) contains all of our source code for the bullet journal project. We have separated the code into a /backend folder, /css folder, /js folder, and the index.html is in the root of /public. 
+
+For documentation, refer to the jsDocs generated in /out or click the link [here](/out)
 
 ## Testing
+
+Because the application depends on the functionality of the backend, unit tests were created to exclusively test the backend. All tests can be found in [/__tests__](/__tests__).
+

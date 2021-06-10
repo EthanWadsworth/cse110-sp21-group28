@@ -16,6 +16,10 @@
         "no-await-in-loop": "off",
         "no-param-reassign": "off",
         "no-loop-func": "off",
-        "no-restricted-syntax": "off"
+        "no-restricted-syntax": "off",
+        "import/no-unresolved": "off",
+        "no-undef": "off",
+        "import/no-extraneous-dependencies": "off",
+        "no-redeclare": "off"
     }
 }
