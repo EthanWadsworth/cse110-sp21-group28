@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" type="image/png" href="./images/ocelot_note_icon.png"/>
-    <link rel="stylesheet" href="./my-entries-style.css?6">
+    <link rel="shortcut icon" type="image/png" href="../images/ocelot_note_icon.png"/>
+    <link rel="stylesheet" href="../css/my-entries-style.css?6">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&display=swap');
@@ -13,48 +13,23 @@
     <title>My Entries</title>
 </head>
 <body>
-    <div id="new-journal" class="new-journal">
-
-        <!-- Modal content -->
-        <div class="journal-content">
-           
-            <h2 style="text-align: center">New Journal Tag</h2>
-            <div id = "set-new-journal">
-                <!-- <form id="create-journal-form"> -->
-
-                    <label>Enter a new tag: </label>
-                    <input type="textarea" id="tag-name" placeholder="Tag Name">
-                    <input type="button" id ="tag-btn" value="Add Tag" class="button">
-
-                    <ul id="tags-list"></ul>
-
-                    <input type="button" id ="cancel" value="Cancel" class="button">
-                    <input type="button" id ="create" value="Create" class="button">
-                <!-- </form> -->
-            </div>
-        </div>
-       </div>
-  
-  </div>
     <div class="wrapper">
         <div class="sidebar">
             <div class="logo">
-                <img src="./images/ocelot_white.png"></a>
+                <img src="../images/ocelot_white.png"></a>
                 <h1>Jocelot</h1>
             </div>
-            <a href="#"><i class="material-icons">book</i>Journals</a>
-            <a href="#"><i class="material-icons">event</i>Entries</a>
-            <a href="#"><i class="material-icons">event</i>Add New Entry</a>
-            <a href="#"><i class="material-icons">event</i>Add New Tag</a>
-            <a href="#"><i class="material-icons">logout</i>Log Out</a>
+            <a href="my-journals.html"><i class="material-icons">book</i>Journals</a>
+            <a href="my-entries.html"><i class="material-icons">event</i>All Entries</a>
+            <a href="#" id = "logout"><i class="material-icons">logout</i>Log Out</a>
         </div>
         <div class="sidebarBackground"></div>
         <div class="weekly">
             <h1>Weekly</h1>
             <div class = dateChangeContainer>
-                <input type="image" src="./images/leftarrow.svg"/>
+                <input type="image" src="../images/leftarrow.svg"/>
                 <div class = "dateRange">5/16/2021 - 5/22/2021</div>
-                <input type="image" src="./images/rightarrow.svg"/>
+                <input type="image" src="../images/rightarrow.svg"/>
             </div>
             
             <div class = "dateContainer">
@@ -175,9 +150,10 @@
     <!-- TODO: Add SDKs for Firebase products that you want to use
         https://firebase.google.com/docs/web/setup#available-libraries -->
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
     <!-- Initialize Firebase -->
 
-    <script type="module" src="./my-journal-entries-script.js?4"></script>
+    <script type="module" src="../js/my-entries-script.js?6"></script>
 
 </body>
 </html>

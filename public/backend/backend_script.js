@@ -260,13 +260,18 @@ async function getAllEntries(user) {
   return new Promise((resolve) => {
     const blogs = [];
     database.ref().child(`users/${user}/journals/`).on('value', (snapshot) => {
+      if (snapshot.val()){
       Object.keys(snapshot.val()).forEach(async (journId) => {
         const entries = await getEntries(user, journId);
+        if (!entries) {
+          return;
+        }
         for (const [key, value] of Object.entries(entries)) {
           blogs.push({ [key]: value });
         }
         resolve(blogs);
       });
+    }
     });
   });
 }
@@ -307,11 +312,25 @@ async function getJournal(user, journal) {
   });
 }
 
+/**
+ * Inserts all tags into the specified journal attached to the specified user
+ *
+ * @param {string} user user id to add journal tags for
+ * @param {string} journalId The name of the journal to add tags for
+ * @param {Array} journalTags list of tags to add
+ */
+ function insertTagsMany(user, journalId, journalTags) {
+  const tags = database.ref().child(`users/${user}/journals/${journalId}/tags/`);
+  journalTags.forEach((tag) => {
+    newTag(user, journalId, tag);
+  });
+}
+
 // Export functions
 export {
   createNewUser, getNewJournalId, createNewJournal,
   deleteJournal, editJournal, newTag, deleteTag,
   getNewTodoId, createNewEntry, deleteTodo, editTodo,
   getAllJournals, getEntries, getAllEntries, getAllJournalsAsync,
-  getAllTags, getJournal,
+  getAllTags, getJournal, insertTagsMany
 };

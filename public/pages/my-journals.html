@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="./my-journals-style.css">
-    <link rel="stylesheet" href="./main.css">
+    <link rel="stylesheet" href="../css/my-journals-style.css?2">
+    <link rel="stylesheet" href="../css/main.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&display=swap');
     </style>
@@ -66,14 +66,15 @@
   <div class="wrapper">
         <div class="sidebar">
             <div class="logo">
-                <img src="ocelot_white.png"></a>
+                <img src="../images/ocelot_white.png"></a>
                 <h1>Jocelot</h1>
             </div>
-            <a href="#"><i class="material-icons">book</i>Journals</a>
-            <a href="#"><i class="material-icons">event</i>Add Task</a>
-            <a href="#"><i class="material-icons">logout</i>Log Out</a>
+            <a href="my-journals.html"><i class="material-icons">book</i>Journals</a>
+            <a href="my-entries.html"><i class="material-icons">event</i>All Entries</a>
+            <a href="#" id = "logout"><i class="material-icons">logout</i>Log Out</a>
         </div>
         <div id = journal-entries-wrapper>
+            <br>
             <h3 id="add-journal">New Journal</h3>
             <h1>My Journals</h1>
             <div id="journal-entries" class="container"></div>
@@ -92,8 +93,8 @@
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-database.js"></script>
     <!-- Initialize Firebase -->
     <!-- <script src="/__/firebase/init.js?useEmulator=true"></script> -->
-    <script src="./../../public/backend/script.js" type="module"></script>
-    <script src="./journalWC.js"></script>
-    <script src="./my-journals-script.js" type="module"></script>
+    <script src="../backend/backend_script.js" type="module"></script>
+    <script src="../js/journalWC.js"></script>
+    <script src="../js/my-journals-script.js" type="module"></script>
 </body>
 </html>

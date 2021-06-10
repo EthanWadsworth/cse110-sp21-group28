@@ -1,6 +1,6 @@
 import {
-  getAllJournalsAsync, createNewJournal, deleteJournal, insertTagsMany,
-} from '../../public/backend/script.js';
+  getAllJournalsAsync, createNewJournal, deleteJournal, insertTagsMany, editJournal,
+} from '../backend/backend_script.js';
 
 /**
  * Converts entered color for journals into hex color
@@ -40,7 +40,7 @@ function removeJournal(journalId) {
 
   // only delete if the journal exists
   if (journalToDelete !== '') {
-    deleteJournal('User2', journalId);
+    deleteJournal('User1', journalId);
     journalToDelete.remove();
   }
 }
@@ -81,41 +81,42 @@ async function renderJournals(user) {
   let newJournal = {};
 
   const journals = await getAllJournalsAsync(user); // dummy function for now
-  console.log(journals);
-  const keys = Object.keys(journals);
-  console.log(keys);
-  keys.forEach((key) => {
-    journals[key].title = key;
-    newJournal = document.createElement('journal-collection');
-    newJournal.id = key;
+  if(journals){
+    const keys = Object.keys(journals);
+    console.log(keys);
+    keys.forEach((key) => {
+      journals[key].title = key;
+      newJournal = document.createElement('journal-collection');
+      newJournal.id = key;
 
-    // delete journal button
-    const closeJournal = newJournal.shadowRoot.querySelector('span');
-    closeJournal.id = `${key}close`;
-    closeJournal.addEventListener('click', (event) => {
-      event.stopPropagation(); // not sure why we need this
-      deleteModal.style.display = 'block';
+      // delete journal button
+      const closeJournal = newJournal.shadowRoot.querySelector('span');
+      closeJournal.id = `${key}close`;
+      closeJournal.addEventListener('click', (event) => {
+        event.stopPropagation(); // not sure why we need this
+        deleteModal.style.display = 'block';
 
-      // sets correct journal id
-      const deleteJournalName = event.target.parentNode.getRootNode().host.id;
-      // this grabs the correct span we want and the id set for the journal
-      // associated with the delete button
-      const deleteMsg = document.getElementById('delete-message');
-      deleteMsg.textContent = `Delete Journal ${deleteJournalName}?`;
+        // sets correct journal id
+        const deleteJournalName = event.target.parentNode.getRootNode().host.id;
+        // this grabs the correct span we want and the id set for the journal
+        // associated with the delete button
+        const deleteMsg = document.getElementById('delete-message');
+        deleteMsg.textContent = `Delete Journal ${deleteJournalName}?`;
+      });
+
+      // add color to journal
+      newJournal.style.backgroundColor = parseColor(journals[key].color);
+      newJournal.entry = journals[key];
+
+      // event to send to entries page for journal clicked on
+      newJournal.addEventListener('click', (event) => {
+        const journalId = event.target.id;
+        window.location.href = `../pages/my-journal-entries.html?journal=${journalId}`;
+      });
+
+      journalContainer.appendChild(newJournal);
     });
-
-    // add color to journal
-    newJournal.style.backgroundColor = parseColor(journals[key].color);
-    newJournal.entry = journals[key];
-
-    // event to send to entries page for journal clicked on
-    newJournal.addEventListener('click', (event) => {
-      const journalId = event.target.id;
-      window.location.href = `./../Journal-Entries/entries.html?journal=${journalId}`;
-    });
-
-    journalContainer.appendChild(newJournal);
-  });
+  }
 }
 
 // const database = firebase.database();
@@ -188,10 +189,11 @@ createBtn.addEventListener('click', () => {
   }
 
   // add and then rerender
-  createNewJournal('User2', journalName.value, '', colorSelect.value);
-  addJournalTags('User2', journalName.value);
+  createNewJournal('User1', journalName.value, '', colorSelect.value);
+  editJournal('User1', journalName.value, 'color', colorSelect.value)
+  addJournalTags('User1', journalName.value);
   // call function to add tags to journal
-  renderJournals('User2');
+  renderJournals('User1');
   modal.style.display = 'none';
   resetModal();
 });
@@ -241,4 +243,15 @@ dConfirm.addEventListener('click', (event) => {
   deleteModal.style.display = 'none';
 });
 
-renderJournals('User2');
+renderJournals('User1');
+
+document.getElementById("logout").addEventListener('click', () => {
+  firebase.auth().signOut();
+  window.location = '../index.html';
+});
+
+firebase.auth().onAuthStateChanged(user => {
+  if (!user) {
+    window.location = '../index.html'; //If User is not logged in, redirect to login page
+  }
+});

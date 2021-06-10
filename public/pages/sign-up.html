@@ -5,8 +5,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" type="image/png" href="images/ocelot_note_icon.png"/>
-  <link rel="stylesheet" href="css/sign-up-style.css">
+  <link rel="shortcut icon" type="image/png" href="../images/ocelot_note_icon.png"/>
+  <link rel="stylesheet" href="../css/sign-up-style.css">
   <title>Sign Up</title>
 
 </head>
@@ -19,17 +19,17 @@
   </header>
 
   <main>
-    <img src="images/ocelot_fire.png" id="left-img">
+    <img src="../images/ocelot_fire.png" id="left-img">
     <div id="user-info-group">
         <input type="text" id="txtEmail" placeholder="Email">
         <input type="password" id="txtPassword" placeholder="Password">
         <input type="password" id="txtConfirm" placeholder="Confirm Password">
         <div id= "button-group">
           <input type="button" id="btnSignUp" value="Sign Up" class="button" > <!-- sign up should store user info and take back to login page-->
-          <input type="button" id="btnBack" value="Go Back" class="button" onclick="parent.location='index.html'">
+          <input type="button" id="btnBack" value="Go Back" class="button" onclick="parent.location='../index.html'">
         </div>
     </div>
-    <img src="images/ocelot_fire.png" id="right-img">
+    <img src="../images/ocelot_fire.png" id="right-img">
   </main>
 
   <!-- The core Firebase JS SDK is always required and must be listed first -->
@@ -43,7 +43,7 @@
 ​
   <!-- Initialize Firebase -->
   <script src="/__/firebase/init.js?useEmulator=true"></script>
-  <script src="js/login-script.js"></script>
+  <script src="../js/login-script.js"></script>
 </body>
 
 </html>

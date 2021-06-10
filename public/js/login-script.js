@@ -36,7 +36,6 @@ function testDel() {
 
 // const btnSignUp = document.getElementById('btnSignUp');
 const btnLogin = document.getElementById('btnLogin');
-const btnLogout = document.getElementById('btnLogout');
 const btnSignUp = document.getElementById('btnSignUp');
 const txtEmail = document.getElementById('txtEmail');
 const txtPassword = document.getElementById('txtPassword');
@@ -54,7 +53,7 @@ if (btnLogin != null) {
     const promise = auth.signInWithEmailAndPassword(email, pass)
       .then(() => {
         if (firebase.auth().currentUser) {
-          window.location = 'temp.html';
+          window.location = '../pages/my-journals.html';
         }
       });
 
@@ -83,7 +82,7 @@ if (btnSignUp != null) {
     const promise = auth.createUserWithEmailAndPassword(email, password)
       .then(() => {
         if (firebase.auth().currentUser) {
-          window.location = 'temp.html';
+          window.location = '../pages/my-journals.html';
         }
       });
     promise.catch((ex) => alert(ex.message));
@@ -96,11 +95,3 @@ if (btnSignUp != null) {
   }
   console.log('authChange');
 }); */
-
-// Logout function
-if (btnLogout != null) {
-  btnLogout.addEventListener('click', (e) => {
-    firebase.auth().signOut();
-    window.location = 'index.html';
-  });
-}

@@ -1,3 +1,6 @@
+* {
+    margin: 0px;
+}
 body, html {
     background-color: #e7e7e7;
     font-family:"Montserrat", sans-serif;
@@ -10,7 +13,8 @@ journal-collection {
     border-radius: 25px;
     color: white;
     /* background-color: #FF0031; */
-    margin: 10px;
+    margin-left: 4vw;
+    margin-top: 1vh;
     padding: 10px;
     width: 15vw;
     height: 15vh;
@@ -164,13 +168,13 @@ journal-collection:hover {
 }
 
 #journal-entries-wrapper {
-    margin-left: 50px;
     width: 80%;
 }
 
 #journal-entries {
     display: flex;
     justify-content: left;
+    padding-top: 6vh;
 }
 
 .wrapper{
@@ -281,7 +285,7 @@ h1 {
 
 /* Jocelot Logo */
 .logo img {
-    width: 2vw;
+    width: 3vw;
     height: 100%;
     left: 4px;
 }

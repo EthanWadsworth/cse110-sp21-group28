@@ -81,17 +81,17 @@ body, html {
 
 /* Journal Icon */
 #journal-logo {
-    list-style-image: url("album.svg");
+    list-style-image: url("../css/album.svg");
 }
 
 /* Entries Icon */
 #entries-logo {
-    list-style-image: url("list.svg");
+    list-style-image: url("../css/list.svg");
 }
 
 /* Log Out Icon */
 #log-out-logo {
-    list-style-image: url("enter.svg");
+    list-style-image: url("../css/enter.svg");
 }
 
 .weekly {
