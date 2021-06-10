@@ -593,18 +593,25 @@ allTaskContainers.addEventListener('click', (e) => {
       endDay.setDate(endDay.getDate() + 1);
 
       const selectedTags = getSelectValues(tagSelector);
+      let createEntry = true;
       getEntries('User1', currJournal).then((entries) => {
         const obj = Object.keys(entries);
         obj.forEach((object) => {
           if (entries[object].title === currentTaskName.innerHTML) {
             if (inputTaskName.value === '') {
               alert('Entry title must not be empty!');
+              createEntry = false;
             } else if (startDay > endDay) {
               alert('Start Date must be before End Date');
-            } else if (currentTaskName.innerHTML !== inputTaskName.value) {
+              createEntry = false;
+            } else if (!infoForTaskStart.value || !infoForTaskEnd.value) {
+              alert('The Start and End dates must be valid');
+              createEntry = false;
+            }
+            if (currentTaskName.innerHTML !== inputTaskName.value) {
               deleteTodo('User1', currJournal, taskId);
-              createNewEntry('User1', inputTaskName.value, newText, startDay.toLocaleDateString('en-US'), endDay.toLocaleDateString('en-US'), selectedTags, currJournal);
-            } else {
+            }
+            if (createEntry) {
               createNewEntry('User1', inputTaskName.value, newText, startDay.toLocaleDateString('en-US'), endDay.toLocaleDateString('en-US'), selectedTags, currJournal);
             }
           }
