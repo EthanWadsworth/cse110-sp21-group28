@@ -559,17 +559,14 @@ allTaskContainers.addEventListener('click', (e) => {
     const textAreaForInfo = document.createElement('textarea');
     textAreaForInfo.setAttribute('id', 'editTaskDescription');
     textAreaForInfo.setAttribute('name', 'editTaskDescription');
+    //From stack overflow
     textAreaForInfo.addEventListener('keydown', function (f) {
       if (f.key === 'Tab') {
         f.preventDefault();
         const start = this.selectionStart;
         const end = this.selectionEnd;
-
-        // set textarea value to: text before caret + tab + text after caret
         this.value = `${this.value.substring(0, start)
         }\t${this.value.substring(end)}`;
-
-        // put caret at right position again
         this.selectionStart = start + 1;
         this.selectionEnd = start + 1;
       }
@@ -824,17 +821,14 @@ newTaskButton.addEventListener('click', (e) => {
       const textAreaForInfo = document.createElement('textarea');
       textAreaForInfo.setAttribute('id', 'editTaskDescription');
       textAreaForInfo.setAttribute('name', 'editTaskDescription');
+       //From stack overflow
       textAreaForInfo.addEventListener('keydown', function (ex) {
         if (ex.key === 'Tab') {
           ex.preventDefault();
           const start = this.selectionStart;
           const end = this.selectionEnd;
-
-          // set textarea value to: text before caret + tab + text after caret
           this.value = `${this.value.substring(0, start)
           }\t${this.value.substring(end)}`;
-
-          // put caret at right position again
           this.selectionStart = start + 1;
           this.selectionEnd = start + 1;
         }
