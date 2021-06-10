@@ -1,79 +1,72 @@
 * {
-    font-family: sans-serif;
-  }
-  body{
-    background-color:  #550000;
-  }
-  header{
-      text-align: center;
-      margin-top: 15vh;
-      color: white;
-  }
-  
-    
-  #txtEmail, #txtPassword, #txtConfirm {
-    width: 80%;
-    border: 1px solid black;
-    padding: 5px;
-    margin-bottom: 5px;
-    border-radius: 8px;
-  }
-  .button{
-    border: 1px solid black;
-    border-radius: 5px;
-
-  }
-  .button{
-    border: 1px solid black;
-    border-radius: 5px;
-  }
-  .button:hover{
-    background-color:gainsboro;
+  font-family:"Montserrat", sans-serif;
 }
-  .button:active{
-      background-color: orangered;
-  }
-  #button-group{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 10px;
-    width: 80%;
-    padding: 4px;
-      
 
-  }
-  main{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-  }
+body{
+  background-color:  #FF0031;
+}
+header{
+    font-family:"Montserrat", sans-serif;
+    text-align: center;
+    margin-top: 15vh;
+    color: white;
+}
 
-  #left-img{
-    grid-column: 1;
-  }
-  #right-img{
-    grid-column: 3;
-  }
-  img{
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 60%;
-  }
-  #user-info-group {    
-    margin: auto;
-    margin-top: 2%;
-    width: 70%;
-    min-width: 150px;
-    padding: 1%;
-    background-color: gray;
-    border-radius: 25px;
-    display: grid;
-    justify-items: center;
-    grid-column: 2;
-  }
+#txtEmail, #txtPassword, #txtConfirm {
+  width: 80%;
+  border: 1px solid black;
+  padding: 5px;
+  margin-bottom: 5px;
+  border-radius: 8px;
+}
+.button{
+  border: 1px solid black;
+  border-radius: 5px;
 
-  
-  
-  
- 
-  
+}
+.button{
+  border: 1px solid black;
+  border-radius: 5px;
+}
+.button:hover{
+  background-color:gainsboro;
+}
+.button:active{
+    background-color: orangered;
+}
+
+#button-group{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 10px;
+  width: 80%;
+  padding: 4px;
+}
+main{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+#left-img{
+  grid-column: 1;
+}
+#right-img{
+  grid-column: 3;
+}
+img{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%;
+}
+#user-info-group {    
+  margin: auto;
+  margin-top: 2%;
+  width: 70%;
+  min-width: 150px;
+  padding: 1%;
+  background-color: #FF0031;
+  display: grid;
+  justify-items: center;
+  grid-column: 2;
+}

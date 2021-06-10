@@ -349,6 +349,10 @@ body, html {
     width: 100%;
     min-width: 280px;
 }
+
+.taskEditor select {
+    width: 100%;
+}
 .taskEditor form input[type=text], input[type=date] {
 
     background:white;
@@ -366,6 +370,7 @@ body, html {
     height: 170px;
     float: left;
     padding-right: 5%;
+    padding-bottom: 5%;
 }
 
 .editDate {

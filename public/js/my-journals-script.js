@@ -23,7 +23,11 @@ function parseColor(color) {
   }
 }
 
-// deletes journal
+/**
+ * Removes specified journal from the user's account
+ *
+ * @param {*} journalId name of journal to be removed
+ */
 function removeJournal(journalId) {
   // first grab all of the journals
   const journals = document.querySelectorAll('journal-collection');
@@ -81,9 +85,9 @@ async function renderJournals(user) {
   let newJournal = {};
 
   const journals = await getAllJournalsAsync(user); // dummy function for now
-  if(journals){
+  if (journals) {
     const keys = Object.keys(journals);
-    console.log(keys);
+
     keys.forEach((key) => {
       journals[key].title = key;
       newJournal = document.createElement('journal-collection');
@@ -119,8 +123,6 @@ async function renderJournals(user) {
   }
 }
 
-// const database = firebase.database();
-
 const modal = document.getElementById('new-journal');
 
 const createBtn = document.getElementById('create');
@@ -132,11 +134,15 @@ const closeSpan = document.querySelector('.close');
 // for adding a tag
 const tagBtn = document.getElementById('tag-btn');
 
+// When choosing to add a tag, check if tag already exists
 tagBtn.addEventListener('click', () => {
   const tagTextField = document.getElementById('tag-name');
   const tagsList = document.getElementById('tags-list');
 
   let addTag = true;
+
+  // loop through currently added tags to see if the one being added
+  // is a duplicate
   for (let i = 0; i < tagsList.childNodes.length; i += 1) {
     if (tagTextField.value === tagsList.childNodes[i].textContent) {
       addTag = false;
@@ -144,6 +150,7 @@ tagBtn.addEventListener('click', () => {
     }
   }
 
+  // Add if the tag is not empty and is not a duplicate
   if (tagTextField.value !== '' && addTag) {
     const newTag = document.createElement('li');
     newTag.appendChild(document.createTextNode(tagTextField.value));
@@ -183,6 +190,8 @@ function addJournalTags(user, journalId) {
 createBtn.addEventListener('click', () => {
   const colorSelect = document.getElementById('colors');
   const journalName = document.getElementById('journal-name');
+
+  // check if the journal name is empty
   if (journalName.value === '') {
     alert('Must name journal');
     return;
@@ -190,23 +199,27 @@ createBtn.addEventListener('click', () => {
 
   // add and then rerender
   createNewJournal('User1', journalName.value, '', colorSelect.value);
-  editJournal('User1', journalName.value, 'color', colorSelect.value)
+  editJournal('User1', journalName.value, 'color', colorSelect.value);
   addJournalTags('User1', journalName.value);
+
   // call function to add tags to journal
   renderJournals('User1');
   modal.style.display = 'none';
   resetModal();
 });
 
+// hide add journal modal if user clicks on X button
 closeSpan.addEventListener('click', () => {
   modal.style.display = 'none';
 });
 
+// hide add journal modal if user clicks cancel button
 cancelBtn.addEventListener('click', () => {
   modal.style.display = 'none';
   resetModal();
 });
 
+// hide add journal modal if user clicks outside of it
 window.addEventListener('click', (event) => {
   if (event.target === modal) {
     modal.style.display = 'none';
@@ -226,16 +239,16 @@ dCancel.addEventListener('click', () => {
   document.getElementById('delete-journal').style.display = 'none';
 });
 
+// If the user confirms that they want to delete a specific journal,
+// then that journal is removed from the database and the journals
+// are rerendered
 const dConfirm = document.getElementById('dj-confirm');
 dConfirm.addEventListener('click', (event) => {
   const closeModal = event.target.parentNode;
   // gets the delete message string
   let deleteMsg = closeModal.children[1].textContent;
-  console.log(deleteMsg);
-
   // extract correct journal from the delete message
   deleteMsg = deleteMsg.substring(15, deleteMsg.length - 1);
-  console.log(deleteMsg);
 
   // now we need to grab all the nodes and delete one from the list with the name
   removeJournal(deleteMsg);
@@ -245,13 +258,15 @@ dConfirm.addEventListener('click', (event) => {
 
 renderJournals('User1');
 
-document.getElementById("logout").addEventListener('click', () => {
+// log the user out when the logout button is clicked
+document.getElementById('logout').addEventListener('click', () => {
   firebase.auth().signOut();
   window.location = '../index.html';
 });
 
-firebase.auth().onAuthStateChanged(user => {
+// check for a logged in user
+firebase.auth().onAuthStateChanged((user) => {
   if (!user) {
-    window.location = '../index.html'; //If User is not logged in, redirect to login page
+    window.location = '../index.html'; // If User is not logged in, redirect to login page
   }
 });

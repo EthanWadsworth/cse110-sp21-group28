@@ -29,7 +29,10 @@ function createNewUser(user, password) {
   });
 }
 
-// Function to get new JournalId when inserting a new journal
+/** Function to get new JournalId when inserting a new journal
+ *
+ * @param {*} user Specified user
+* */
 function getNewJournalId(user) {
   return database.ref().child(`users/${user}/journalId`).get()
     .then((snapshot) => {
@@ -39,11 +42,12 @@ function getNewJournalId(user) {
     .then(() => countId);
 }
 
-/*  Function to create a new Journal
-    Parameters: journalName: name of the journal
-                journalDesc: journal description
-                user: user
-*/
+/** Function to create a new journal for the specified user
+ *
+ * @param {*} user Specified user
+ * @param {*} journalName Journal name
+ * @param {*} journalDesc Journal description
+* */
 function createNewJournal(user, journalName, journalDesc) {
   if (user === '' || journalName === '') {
     throw new Error('error');
@@ -54,10 +58,11 @@ function createNewJournal(user, journalName, journalDesc) {
   });
 }
 
-/*  Function to delete a Journal
-    Parameters: journal_id: name of the journal for reference in backend
-                user: user
-*/
+/** Function to delete a specified journal from a specific user
+ *
+ * @param {*} user Specified user
+ * @param {*} journalId Journal description
+* */
 function deleteJournal(user, journalId) {
   if (user === '' || journalId === '') {
     throw new Error('error');
@@ -66,13 +71,13 @@ function deleteJournal(user, journalId) {
   }
 }
 
-/*  Function to edit a journal (name/description)
-    Parameters: journal_id: name of the journal for reference in backend
-                spec: specifies if name or description is being changed
-                  Should be "color" or "tags" or "entries"
-                specChange: what the spec should be changed to
-                  Should be (string for color and tag, list of strings for entry)
-*/
+/** Function to edit a journal (name/description)
+ *
+ * @param {*} user Specified user
+ * @param {*} journalId Journal name
+ * @param {*} spec Specifies if name or desciption is being changed (should be color/entires)
+ * @param {*} specChange String for what the spec should be changed to
+* */
 function editJournal(user, journalId, spec, specChange) {
   // console.log(`Editing journal ${journalId}'s ${spec}`);
   if (user === '' || journalId === '' || spec === '' || specChange === '') {
@@ -82,38 +87,12 @@ function editJournal(user, journalId, spec, specChange) {
   }
 }
 
-/*  Function to insert new tag into the journal
-    Parameters: journal_id: id of the journal for reference for which post id we're making
-                user: user
-                tag: tag to be inserted into tag array for this journal
-*/
-/*
-function newTag(user, journalId, tag) {
-  if (user === '' || journalId === '') {
-    throw new Error('error');
-  }
-  const tags = database.ref().child(`users/${user}/journals/${journalId}/tags/`);
-  let seen = false;
-  database.ref().child(`users/${user}/journals/'${journalId}/tags`).get()
-    .then((snapshot) => {
-      snapshot.forEach((tagSnap) => {
-        const val = tagSnap.val();
-        console.log(val);
-        if (val === tag) {
-          // Tag already exists
-          seen = true;
-        }
-      });
-    })
-    .then(() => {
-      if (!seen) {
-        tags.push(tag);
-      } else {
-        console.error('Tag already exists in this journal!');
-      }
-    });
-}
-*/
+/** Function to create a new tag
+ *
+ * @param {*} user Specified user
+ * @param {*} journalId Journal name
+ * @param {*} tag tag to insert for this journal
+* */
 function newTag(user, journalId, tag) {
   const tags = database.ref().child(`users/${user}/journals/${journalId}/tags/`);
   let seen = false;
@@ -131,17 +110,17 @@ function newTag(user, journalId, tag) {
       if (!seen) {
         tags.push(tag);
         resolve(tags);
-      } else {
         console.error('Tag already exists in this journal!');
       }
     });
 }
 
-/*  Function to delete tag from the journal
-    Parameters: journal_id: name of the journal for reference for which post id we're making
-                user: user
-                tag: tag to be deleted from the journal
-*/
+/** Function to delete a tag
+ *
+ * @param {*} user Specified user
+ * @param {*} journalId Journal name
+ * @param {*} tag tag to delete for this journal
+* */
 function deleteTag(user, journalId, tag) {
   if (user === '' || journalId === '') {
     throw new Error('error');
@@ -159,10 +138,11 @@ function deleteTag(user, journalId, tag) {
     });
 }
 
-/*  Function to get new Post Id for insertion into a journal
-    Parameters: journal_id: name of the journal for reference for which post id we're making
-                user: user
-*/
+/** Function to get a new entries ID
+ *
+ * @param {*} user Specified user
+ * @param {*} journalId Journal name
+* */
 function getNewTodoId(user, journalId) {
   return database.ref().child(`users/${user}/journals/${journalId}`).child('postId').get()
     .then((snapshot) => {
@@ -172,16 +152,16 @@ function getNewTodoId(user, journalId) {
     .then(() => countId);
 }
 
-/*  Function to create a new todo
-    Parameters: todoName: name of the post
-                todoDesc: journal description
-                start: todo start
-                end: todo end
-                tags: list of tags
-                journalId: journal the new todo belongs to
-                callback: function to re-render views of todos
-                NOTE: need to add the callback functionality after making renderTodos
-*/
+/** Function to create a new entry
+ *
+ * @param {*} user Specified user
+ * @param {*} todoName Name of the entry
+ * @param {*} todoDesc Description of the entry
+ * @param {*} start Start date of the entry (7/12/2020 format)
+ * @param {*} end End date of the entry (7/12/2020 format)
+ * @param {*} todotags List of tags that this entry falls under
+ * @param {*} journalId Journal name
+* */
 function createNewEntry(user, todoName, todoDesc, start, end, todotags, journalId) {
   if (user === '' || journalId === '' || todoName === '') {
     throw new Error('error');
@@ -201,10 +181,12 @@ function createNewEntry(user, todoName, todoDesc, start, end, todotags, journalI
   // });
 }
 
-/*  Function to delete a todo
-    Parameters: journal_id: name of the journal for reference in backend
-                todo_id: id of the todo for deletion
-*/
+/** Function to delete an entry
+ *
+ * @param {*} user Specified user
+ * @param {*} journalId Journal name
+ * @param {*} entryId Name of the entry to delete from the database
+* */
 function deleteTodo(user, journalId, entryId) {
   if (user === '' || journalId === '' || entryId === '') {
     throw new Error('error');
@@ -212,12 +194,14 @@ function deleteTodo(user, journalId, entryId) {
   database.ref(`users/${user}/journals/${journalId}/entries/${entryId}`).remove();
 }
 
-/*  Function to edit a todo
-    Parameters: journalId: name of the journal for reference in backend
-                todoId: id of the todo to edit
-                specChange: dict of pre instance values to the new values
-                  (DONT EDIT TAGS AS TAG EDITING HAS ITS OWN PROPERTY)
-*/
+/** Function to edit a Entry
+ *
+ * @param {*} user Specified user
+ * @param {*} journalId Journal name
+ * @param {*} entryId Name of the entry to edit
+ * @param {*} specChange Object of the spec and what it is being changed to for specific entry
+ * @param {*} spec Spec that is being changed
+* */
 function editTodo(user, journalId, entryId, specChange, spec) {
   if (user === '' || journalId === '' || entryId === '' || specChange === '') {
     throw new Error('error');
@@ -225,10 +209,10 @@ function editTodo(user, journalId, entryId, specChange, spec) {
   database.ref(`users/${user}/journals/${journalId}/entries/${entryId}`).update(specChange);
 }
 
-/*  Function to get all journal objects of a user
-    Parameters: user: userId
-    Returns a list of journal objects
-*/
+/** Function to get all journal objects of a user
+ *
+ * @param {*} user Specified user
+* */
 function getAllJournals(user) {
   const blogs = [];
   const journals = database.ref().child(`users/${user}/journals/`).get()
@@ -238,10 +222,11 @@ function getAllJournals(user) {
     });
 }
 
-/*  Function to get all entries specified by journal and user
-    Parameters: journalId: id of the journal for reference in backend
-    Returns a list of entry objects
-*/
+/** Function to get all entries specified by journal and user
+ *
+ * @param {*} user Specified user
+ * @param {*} journalId Specified journal
+* */
 async function getEntries(user, journalId) {
   return new Promise((resolve) => {
     const blogs = [];
@@ -252,34 +237,35 @@ async function getEntries(user, journalId) {
   });
 }
 
-/*  Function to get all Todos of a user REGARDLESS of journal
-    Parameters: journalId: id of the journal for reference in backend
-    Returns a list of entry objects
-*/
+/**  Function to get all Todos of a user REGARDLESS of journal
+ *
+ * @param {*} user Specified user
+* */
 async function getAllEntries(user) {
   return new Promise((resolve) => {
     const blogs = [];
     database.ref().child(`users/${user}/journals/`).on('value', (snapshot) => {
-      if (snapshot.val()){
-      Object.keys(snapshot.val()).forEach(async (journId) => {
-        const entries = await getEntries(user, journId);
-        if (!entries) {
-          return;
-        }
-        for (const [key, value] of Object.entries(entries)) {
-          blogs.push({ [key]: value });
-        }
-        resolve(blogs);
-      });
-    }
+      if (snapshot.val()) {
+        Object.keys(snapshot.val()).forEach(async (journId) => {
+          const entries = await getEntries(user, journId);
+          if (!entries) {
+            return;
+          }
+          for (const [key, value] of Object.entries(entries)) {
+            blogs.push({ [key]: value });
+          }
+          resolve(blogs);
+        });
+      }
     });
   });
 }
 
-/*  Function to get all tags specified by journal
-    Parameters: journalId: id of the journal for reference in backend
-    Returns a list of tags associated with journal
-*/
+/** Function to get all tags specified by journal
+ *
+ * @param {*} user Specified user
+ * @param {*} journalId Specified journal to grab tags from
+* */
 async function getAllTags(user, journalId) {
   return new Promise((resolve) => {
     const blogs = [];
@@ -290,6 +276,10 @@ async function getAllTags(user, journalId) {
   });
 }
 
+/** Function to get all journals from a user asynchronously
+ *
+ * @param {*} user Specified user
+* */
 async function getAllJournalsAsync(user) {
   const blogs = [];
   let journals = '';
@@ -302,6 +292,11 @@ async function getAllJournalsAsync(user) {
   });
 }
 
+/** Function to get a specific journal from a specific user
+ *
+ * @param {*} user Specified user
+ * @param {*} journalId Specified journal to grab
+* */
 async function getJournal(user, journal) {
   return new Promise((resolve) => {
     database.ref().child(`users/${user}/journals/${journal}`).get()
@@ -319,7 +314,7 @@ async function getJournal(user, journal) {
  * @param {string} journalId The name of the journal to add tags for
  * @param {Array} journalTags list of tags to add
  */
- function insertTagsMany(user, journalId, journalTags) {
+function insertTagsMany(user, journalId, journalTags) {
   const tags = database.ref().child(`users/${user}/journals/${journalId}/tags/`);
   journalTags.forEach((tag) => {
     newTag(user, journalId, tag);
@@ -332,5 +327,5 @@ export {
   deleteJournal, editJournal, newTag, deleteTag,
   getNewTodoId, createNewEntry, deleteTodo, editTodo,
   getAllJournals, getEntries, getAllEntries, getAllJournalsAsync,
-  getAllTags, getJournal, insertTagsMany
+  getAllTags, getJournal, insertTagsMany,
 };

@@ -1,9 +1,12 @@
 import {
   createNewEntry, deleteTodo, editTodo,
   getEntries, getAllEntries, getAllJournalsAsync, getAllTags,
-} from '../backend/backend_script.js';
+} from '../backend/backend_script.js?3';
 
-// Function to get NAMES of journals that have tasks at CURRENT date (for Weekly Panel "Tags")
+/**
+ * Gets NAMES of journals that have tasks at CURRENT date (for Weekly Panel "Tags")
+ * @param {*} currentDate
+ */
 async function getCurrentJournals(currentDate) {
   const currJournals = [];
   const journals = await getAllJournalsAsync('User1');
@@ -21,14 +24,16 @@ async function getCurrentJournals(currentDate) {
             currJournals.push([name, journals[name].color]);
           }
         });
-      } 
+      }
     });
   }
   return currJournals;
 }
 
-// Test
-// Function to get all the entries that are still active at CURRENT date (for Daily Panel)
+/**
+ * Gets all the entries that are still active at CURRENT date (for Daily Panel)
+ * @param {*} currentDate
+ */
 async function getCurrentEvents(currentDate) {
   const rangedEntries = [];
   return new Promise((resolve) => {
@@ -44,13 +49,21 @@ async function getCurrentEvents(currentDate) {
   });
 }
 
-// Function to get NUMBER of active tasks at CURRENT date
+/**
+ * Gets NUMBER of active tasks at CURRENT date
+ * @param {*} currentDate
+ *
+ */
 async function getNumTasks(currentDate) {
   return new Promise((resolve) => {
     getCurrentEvents(currentDate).then((result) => resolve(result.length));
   });
 }
 
+/**
+ * Populates the journal name tags on the WEEKLY panel for each day of the week
+ * EXECUTES ON PAGE RELOAD AND REFRESH
+ */
 async function populateWeeklyTags() {
   const weekRange = document.querySelector('.dateRange');
   const dates = weekRange.innerHTML;
@@ -87,8 +100,9 @@ async function populateWeeklyTags() {
 }
 
 /**
- *  USE DOM ELEMENTS TO SHOW ALL TASKS.
-*/
+ * Populates the task elements in the DAILY panel of the entries page
+ * EXECUTES ON PAGE RELOAD AND REFRESH
+ */
 async function createTaskContainers() {
   const shownDate = document.querySelector('body > div.wrapper > div.daily > div.dateRange');
   const rangedEntries = await getCurrentEvents(shownDate.innerHTML);
@@ -215,7 +229,7 @@ async function createTaskContainers() {
  * @param {*} secondYear
  * @param {*} direction
  */
-function findNextWeeklyDates(firstMonth, firstDate, firstYear, secondMonth, secondDate,
+async function findNextWeeklyDates(firstMonth, firstDate, firstYear, secondMonth, secondDate,
   secondYear, direction) {
   const dateRange = document.querySelector('.dateRange');
   let newFirstDate;
@@ -247,7 +261,7 @@ function findNextWeeklyDates(firstMonth, firstDate, firstYear, secondMonth, seco
  * to match the current weekly range's dates
  * EXECUTES WHENEVER WEEKLY DATE RANGE CHANGES
  */
-function changeDatesOfTheWeek() {
+async function changeDatesOfTheWeek() {
   const weekRange = document.querySelector('.dateRange');
   const dates = weekRange.innerHTML;
   const currentDate = new Date();
@@ -268,7 +282,7 @@ function changeDatesOfTheWeek() {
  *   If changing the date range is necessary, then change the dates next to each day of the week
  *   EXECUTES ONLY WHEN WINDOW RELOADS
  */
-function changeWeeklyDates() {
+async function changeWeeklyDates() {
   const today = new Date();
   const dayOfTheWeek = today.getDay();
   const dateRange = document.querySelector('.dateRange');
@@ -293,7 +307,10 @@ function changeWeeklyDates() {
   dateRange.innerHTML = `${sundayDate} - ${saturdayDate}`;
 }
 
-function clearTaskContainers() {
+/**
+ * Clears task containers in WEEKLY panel
+ */
+async function clearTaskContainers() {
   const removeTaskContainers = document.querySelectorAll('.taskContainer');
   removeTaskContainers.forEach((container) => {
     container.parentNode.removeChild(container);
@@ -303,12 +320,13 @@ function clearTaskContainers() {
 /** Changes the Daily Todo Tasks and Date
  * Also checks to see if the weekly date range needs to be changed
  */
-function changeDailyTodo() {
+async function changeDailyTodo() {
   const shownDate = document.querySelector('body > div > div.daily > div.dateRange');
   const today = new Date();
   const date = String(today.getDate());
   const shownDay = shownDate.innerHTML.split('/');
-  if (shownDay[1] !== date) {
+
+  if (shownDay[1] !== '') {
     const month = String(today.getMonth() + 1);
     const year = today.getFullYear();
     shownDate.innerHTML = `${month}/${date}/${year}`;
@@ -318,17 +336,20 @@ function changeDailyTodo() {
     clearTaskContainers();
   }
 }
-/**
- * When the page loads, check to make sure that the day has been updated and is correctly showing
- */
-window.addEventListener('load', () => {
+
+async function test() {
   changeDailyTodo();
   createTaskContainers();
   populateWeeklyTags();
-});
+}
 
 /**
- * This event listener will move the week range forward by 7 days
+ * When the page loads, check to make sure that the day has been updated and is correctly showing
+ */
+window.addEventListener('load', () => test());
+
+/**
+ * RIGHT ARROW: This event listener will move the week range forward by 7 days
  */
 const weekButton = document.querySelectorAll('div > input');
 weekButton[1].addEventListener('click', () => {
@@ -345,7 +366,7 @@ weekButton[1].addEventListener('click', () => {
 });
 
 /**
- * This event listener will move the week range back by 7 days
+ * LEFT ARROW: This event listener will move the week range back by 7 days
  */
 weekButton[0].addEventListener('click', () => {
   const dateRange = document.querySelector('.dateRange');
@@ -363,7 +384,9 @@ weekButton[0].addEventListener('click', () => {
   populateWeeklyTags();
 });
 
-// ALL OF THE BUTTON IMPLEMENTATIONS FOR THE SIDEBAR
+/**
+ * SIDEBAR BUTTON IMPLEMENTATIONS
+ */
 const logout = document.querySelector('body > div > div.sidebar > a:nth-child(4)');
 logout.addEventListener('click', () => {
   window.location = '../../public/index.html';
@@ -377,7 +400,9 @@ const entriesPage = document.querySelector('body > div > div.sidebar > a:nth-chi
 entriesPage.addEventListener('click', {
 });
 
-/** EVENTLISTENERS for button(Sunday, Monday, Tuesday, etc.) */
+/**
+ * DAY OF THE WEEK BUTTONS IN WEEKLY PANEL
+ */
 const days = document.querySelectorAll('.day');
 const shownDate = document.querySelector('body > div > div.daily > div.dateRange');
 
@@ -394,10 +419,11 @@ days.forEach((day) => {
   });
 });
 
-/** Double click on a task to edit (edit screen shows up)
- *  Once user presses submit, database should update existing info with what was just inputted
+/**
+ * HELPER: Converts date from MM/DD/YYYY to YYYY-MM-DD for date comparison
+ *
+ * @param {*} date
  */
-
 function formatDate(date) {
   const d = new Date(date);
   let month = `${d.getMonth() + 1}`;
@@ -408,6 +434,11 @@ function formatDate(date) {
   return [year, month, day].join('-');
 }
 
+/**
+ * HELPER: Gets list of user selected values in edit/create new entry screen
+ *
+ * @param {*} select
+ */
 function getSelectValues(select) {
   const result = [];
   const options = select && select.options;
@@ -421,6 +452,9 @@ function getSelectValues(select) {
   return result;
 }
 
+/**
+ * TASK EDITOR SCREEN IMPLEMENTATION
+ */
 const allTaskContainers = document.querySelector('.allTaskContainers');
 allTaskContainers.addEventListener('click', (e) => {
   if (e.target.className !== 'taskContainer') {
@@ -500,10 +534,6 @@ allTaskContainers.addEventListener('click', (e) => {
     tagSelector.setAttribute('multiple', 'true');
     editTags.appendChild(tagSelector);
 
-    const instructionsForTags = document.createElement('option');
-    instructionsForTags.setAttribute('value', '');
-    instructionsForTags.innerHTML = 'Hold Ctrl/Command for multiple';
-    tagSelector.appendChild(instructionsForTags);
     const currentTags = item.querySelectorAll('.task > .taskDescription > .tagContainer > .tag > text');
     const currTagList = [];
     currentTags.forEach((tag) => {
@@ -539,7 +569,6 @@ allTaskContainers.addEventListener('click', (e) => {
     infoForTaskStart.setAttribute('id', 'editTaskStart');
     infoForTaskStart.setAttribute('name', 'editTaskStart');
     infoForTaskStart.setAttribute('value', formatDate(currentTaskFirstDate));
-    // infoForTaskStart.value = currentTaskFirstDate;
     editDate.appendChild(infoForTaskStart);
 
     const filler = document.createElement('h3');
@@ -642,7 +671,10 @@ allTaskContainers.addEventListener('click', (e) => {
   }
 });
 
-/** MARK AS DONE: NOT DELETE TASKS */
+/**
+ * MARK TASK AS DONE
+ * Right click on task container to toggle between done/not done
+ */
 allTaskContainers.addEventListener('contextmenu', (e) => {
   // DO SOMETHING THAT SHOWS THAT THIS TASK IS DONE
   if (e.target.className !== 'taskContainer') {
@@ -677,13 +709,13 @@ allTaskContainers.addEventListener('contextmenu', (e) => {
   }
 });
 
-document.getElementById("logout").addEventListener('click', () => {
+document.getElementById('logout').addEventListener('click', () => {
   firebase.auth().signOut();
   window.location = '../index.html';
 });
 
-firebase.auth().onAuthStateChanged(user => {
+firebase.auth().onAuthStateChanged((user) => {
   if (!user) {
-    window.location = '../index.html'; //If User is not logged in, redirect to login page
+    window.location = '../index.html'; // If User is not logged in, redirect to login page
   }
 });

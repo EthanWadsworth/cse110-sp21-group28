@@ -45,7 +45,6 @@ const txtConfirm = document.getElementById('txtConfirm');
 
 if (btnLogin != null) {
   btnLogin.addEventListener('click', (e) => {
-    console.log('Logging in');
     const email = txtEmail.value;
     const pass = txtPassword.value;
     const auth = firebase.auth();

@@ -64,5 +64,3 @@ sampleEntries.forEach((entry) => {
   entryContainer.appendChild(newEntry);
   counter += 1;
 });
-
-

@@ -16,6 +16,8 @@
         "no-await-in-loop": "off",
         "no-param-reassign": "off",
         "no-loop-func": "off",
-        "no-restricted-syntax": "off"
+        "no-restricted-syntax": "off",
+        "no-undef": "off",
+        "max-len": "off"
     }
 }
