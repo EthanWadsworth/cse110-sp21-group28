@@ -1,9 +1,6 @@
 # CSE 110 Project - Bullet Journal - Team 28
 
 # Onboarding Documentation
-## Link to our Bullet Journal App
-
-https://bullet-journal-110.web.app/
 
 ## Introduction
 
