@@ -4,7 +4,7 @@
   "description": "CSE 110 Project - Bullet Journal",
   "main": "index.js",
   "scripts": {
-    "test": "npx jest --coverage",
+    "test": "jest",
     "unit-tests": "npx jest --coverage",
     "lint": "npx eslint . --ext .js",
     "lint-fix": "npx eslint --fix . --ext .js",
@@ -23,14 +23,17 @@
   },
   "homepage": "https://github.com/EthanWadsworth/cse110-sp21-group28#readme",
   "devDependencies": {
+    "@babel/core": "^7.14.3",
+    "@babel/preset-env": "^7.14.4",
     "eslint": "^7.26.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.23.2",
+    "eslint-plugin-jest": "^24.3.6",
     "jest": "^26.6.3"
   },
   "dependencies": {
     "@jest/globals": "^26.6.2",
-    "eslint-plugin-jest": "^24.3.6"
+    "firebase": "^8.6.5"
   }
 }

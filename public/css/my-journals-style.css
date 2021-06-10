@@ -1,0 +1,349 @@
+* {
+    margin: 0px;
+}
+body, html {
+    background-color: #e7e7e7;
+    font-family:"Montserrat", sans-serif;
+    height: 100%;
+    margin: 0px auto;
+    padding: 0px auto;
+}
+
+journal-collection {
+    border-radius: 25px;
+    color: white;
+    /* background-color: #FF0031; */
+    margin-left: 4vw;
+    margin-top: 1vh;
+    padding: 10px;
+    width: 15vw;
+    height: 15vh;
+}
+journal-collection:hover {
+    color: black;
+    transition: 0.5s;
+}
+
+
+.entry {
+    
+    border: solid black 2px;
+    display: inline-block;
+    white-space: nowrap;
+    padding: 5px;
+    margin-top: 40px;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.container {
+    float: left;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-content: flex-start;
+}
+
+.new-journal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 2; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+
+.journal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: 5% auto; /* 5% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%; /* Could be more or less, depending on screen size */
+    min-width: 300px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+}
+
+.journal-content h2 {
+    white-space: nowrap;
+}
+
+#set-new-journal {
+    column-gap: 100px;
+    padding: 4px;
+    width: 95%;
+    max-width: 95%;
+    margin: auto;
+}
+
+#set-new-journal input[type="text"], #set-new-journal select, .journal-content input {
+    font-family: "Montserrat", sans-serif;
+    box-sizing: border-box;
+    width: 100%;
+    outline: none;
+    padding: 7px 15px 7px 15px;
+    margin-bottom: 2vh;
+    color: black;
+    font-weight: bold;
+    border-radius: 20px;
+}
+/* start Buttons */
+
+#button-group {
+    display: flex;
+    justify-content: center;
+}
+
+#cancel, #dj-cancel, #tag-btn {
+    display: inline-block;
+    padding: 0.7em 1.7em;
+    margin: 0 0.3em 0.3em 0;
+    border-radius: 20px;
+    border: none;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'Montserrat',sans-serif;
+    color: #4f4f4f;
+    text-align:center;
+    position: relative;
+    font-weight: bold;
+}
+
+#create, #dj-confirm {
+    display: inline-block;
+    padding: 0.7em 1.7em;
+    margin: 0 0.3em 0.3em 0;
+    border-radius: 20px;
+    border: none;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family: 'Montserrat',sans-serif;
+    color:#FFFFFF;
+    background-color: #FF0031;
+    text-align: center;
+    position: relative;
+    font-weight: bold;
+}
+
+/* end Buttons */
+
+.button:hover {
+    background-color:gainsboro;
+}
+
+#create:hover, #dj-confirm:hover{
+    background-color:#A4001F;
+}
+
+
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    z-index: 5;
+  }
+  
+.close:hover,
+.close:focus {
+    color: gainsboro;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+@keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 0; opacity: 1}
+}
+
+#journal-entries-wrapper {
+    width: 80%;
+}
+
+#journal-entries {
+    display: flex;
+    justify-content: left;
+    padding-top: 6vh;
+}
+
+.wrapper{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+}
+
+h1 {
+    text-align: center;
+    color: #4f4f4f;
+}
+
+#add-journal {
+    color: white;
+    background-color: #FF0031;
+    float: right;
+    padding: 8px;
+    margin-right: 1vw;
+    border-radius: 15px;
+}
+
+#add-journal:hover {
+    background-color: #A4001F;
+    transition: 0.5s;
+}
+
+/* Sidebar */
+/* .sidebar {
+    z-index: 1;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+    background:#FF0031;
+    border-radius: 0px 20px 20px 0px;
+} */
+
+/* .logo {
+    display: flex;
+    flex-direction: row;
+    width: auto;
+    height: auto;
+    justify-content: center;
+    padding: 20px 0px 20px 0px;
+} */
+
+/* Jocelot text */
+/* .logo h1 {
+    color:white;
+    font-weight: bolder;
+    font-size: 48px;
+    text-align: center;
+} */
+
+/* Jocelot Logo */
+/* .logo img {
+    width: 59px;
+    height: 100%;
+    left: 4px;
+} */
+
+/* Page Container */
+/* .sidebar a {
+    display: block;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 16px 0px 16px 36px;
+} */
+
+
+/* .sidebar a:hover {
+    background-color:#A4001F;
+    transition: 0.5s;
+} */
+
+/* Sidebar rectangle */
+.sidebar {
+    z-index: 1;
+    width: 20%;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+    background:#FF0031;
+    border-radius: 0px 20px 20px 0px;
+}
+
+/* Sidebar Elements */
+/* Jocelot Logo Container */
+.logo {
+    display: flex;
+    flex-direction: row;
+    width: auto;
+    height: auto;
+    justify-content: center;
+    padding: 20px 0px 20px 0px;
+}
+
+/* Jocelot Text */
+.logo h1 {
+    color:white;
+    font-weight: bolder;
+    font-size: 3vw;
+    text-align: center;
+}
+
+/* Jocelot Logo */
+.logo img {
+    width: 3vw;
+    height: 100%;
+    left: 4px;
+}
+
+/* Page Container */
+.sidebar a {
+    display: block;
+    color: white;
+    font-size: 2vw;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 16px 0px 16px 36px;
+}
+
+.sidebar a:hover {
+    background-color:#A4001F;
+    transition: 0.5s;
+}
+
+/* Journal Icon */
+#journal-logo {
+    list-style-image: url("album.svg");
+    width: 1vw;
+}
+
+/* Entries Icon */
+#entries-logo {
+    list-style-image: url("list.svg");
+    width: 1vw;
+}
+
+/* Log Out Icon */
+#log-out-logo {
+    list-style-image: url("enter.svg");
+}
+
+/* Tags List  */
+#tags-list {
+    list-style-type: none;
+}
+
+/* Tags List Items  */
+#tags-list li {
+    display: inline-block;
+    max-width: 25%;
+    background: #A3EFDD;
+    border-radius: 20px;
+    padding: 2px;
+    margin: 3px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#tags-list li text {
+    padding: 7px 7px;
+    opacity: 0.2;
+    font-weight: 700;
+    color: black;
+}
+

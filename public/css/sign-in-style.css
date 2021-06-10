@@ -1,80 +1,74 @@
 * {
-    font-family: sans-serif;
-    
-  }
-  body{
-    background-color: rgb(85, 3, 3);
-  }
-  header{
-      text-align: center;
-      margin-top: 15vh;
-      color: white;
-  }
-  
-    
-  #username, #password {
-    width: 80%;
-    border: 1px solid black;
-    padding: 5px;
-    margin-bottom: 5px;
-    border-radius: 8px;
-  }
-  .button{
-    border: 1px solid black;
-    border-radius: 5px;
-
-  }
-  .button:hover{
-    background-color:gainsboro;
+  font-family:"Montserrat", sans-serif;
 }
- .button:active{
-      background-color: orangered;
-  }
-  
-  #button-group{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    column-gap: 10px;
-    width: 80%;
-    padding: 4px;
-      
+body{
+  background-color: #FF0031;
+}
+header{
+    font-family:"Montserrat", sans-serif;
+    text-align: center;
+    margin-top: 15vh;
+    color: white;
+}
 
-  }
-  main{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+  
+#txtEmail, #txtPassword {
+  width: 80%;
+  border: 1px solid black;
+  padding: 5px;
+  margin-bottom: 5px;
+  border-radius: 8px;
+}
+.button{
+  border: 1px solid black;
+  border-radius: 5px;
+
+}
+.button:hover{
+  background-color:gainsboro;
+}
+.button:active{
+    background-color: orangered;
+}
+
+#button-group{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 10px;
+  width: 80%;
+  padding: 4px;
     
-  }
 
-  #left-img{
-    grid-column: 1;
-  }
-  #right-img{
-    grid-column: 3;
-  }
-  img{
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 60%;
-  }
+}
+main{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  
+}
 
-  
-  #user-info-group {    
-    margin: auto;
-    margin-top: 2%;
-    width: 70%;
-    min-width: 150px;
-    padding: 1%;
-    background-color: gray;
-    border-radius: 25px;
-    display: grid;
-    justify-items: center;
-    grid-column: 2;
-  }
+#left-img{
+  grid-column: 1;
+}
+#right-img{
+  grid-column: 3;
+}
+img{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%;
+}
 
-  
-  
-  
- 
-  
+
+#user-info-group {    
+  margin: auto;
+  margin-top: 2%;
+  width: 70%;
+  min-width: 150px;
+  padding: 1%;
+  background-color: #FF0031;
+  border-radius: 25px;
+  display: grid;
+  justify-items: center;
+  grid-column: 2;
+}

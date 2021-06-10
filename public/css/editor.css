@@ -1,0 +1,7 @@
+p:empty:not(:focus)::before {
+    content: attr(data-placeholder);
+}
+
+h1:empty:not(:focus)::before {
+    content: attr(data-placeholder);
+}

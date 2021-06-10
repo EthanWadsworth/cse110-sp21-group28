@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="editor.css">
+    <script src="https://kit.fontawesome.com/ed43ac3da1.js" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+<body>
+    <button id="ulBtn" onclick="createItem('ul')"><i class="fas fa-list-ul"></i></button>
+    <button id="olBtn" onclick="createItem('ol')"><i class="fas fa-list-ol"></i></button>
+    <button id="paragraphBtn" onclick="createItem('p', true)">T</button>
+    <button id="linkBtn" onclick="createItem('a')"><i class="fas fa-link"></i></button>
+    <button id="titleBtn" onclick="createItem('h1', true)"><i class="fas fa-heading"></i></button>
+    <div id="editor-area"></div>
+</body>
+<script src="../js/editor.js"></script>
+</html>
