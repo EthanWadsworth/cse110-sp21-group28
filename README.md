@@ -11,12 +11,13 @@ A bullet journal is a tool for individuals to use to organize their tasks in an 
 
 You can access our bullet journal webapp [here](https://bullet-journal-110.web.app/) 
 
-<p align="center"> Journal's Page</p>
+<p align="center"> Journal's Page
 ![Alt text](/public/images/JournalPage.png "Journal's Page")
+</p>
 
-<p align="center"> All Entries Page</p>
+<p align="center"> All Entries Page
 ![Alt text](/public/images/AllEntriesPage.png "All Entries Page")
-
+</p>
 ## Introduction to our team
 [Team Page](/admin/team.md)
 
