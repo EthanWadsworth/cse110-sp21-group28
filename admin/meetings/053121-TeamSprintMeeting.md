@@ -3,7 +3,7 @@ Date: Monday, May 31st, 2021.
 Members Present: Everyone    
 Time Started: 3 PM.   
 
-###Agenda
+### Agenda
 1. Separate into two groups
 2. One group tackles Journals Page
 3. Second group works on Entries Page
