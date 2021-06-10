@@ -603,6 +603,7 @@ allTaskContainers.addEventListener('click', (e) => {
               alert('Start Date must be before End Date');
             } else if (currentTaskName.innerHTML !== inputTaskName.value) {
               deleteTodo('User1', currJournal, taskId);
+              createNewEntry('User1', inputTaskName.value, newText, startDay.toLocaleDateString('en-US'), endDay.toLocaleDateString('en-US'), selectedTags, currJournal);
             } else {
               createNewEntry('User1', inputTaskName.value, newText, startDay.toLocaleDateString('en-US'), endDay.toLocaleDateString('en-US'), selectedTags, currJournal);
             }
