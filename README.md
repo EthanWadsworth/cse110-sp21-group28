@@ -15,6 +15,7 @@ Journal's Page
 ![Alt text](/public/images/JournalPage.png "Journal's Page")
 
 All Entries Page
+![Alt text](/public/images/AllEntriesPage.png "All Entries Page")
 
 ## Introduction to our team
 [Team Page](/admin/team.md)
