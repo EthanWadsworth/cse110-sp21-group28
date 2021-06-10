@@ -36,7 +36,7 @@ Use github actions to check each process and each file for node. Make modificati
 ### Agile Team Status Video
 - Read about the agile team status video and go through it as a team
 - Plan what we want to say as teams (breakout rooms)
-- We came togeither as a group and presented what we had in the meeting itself (Ethan T. recorded each part)
+- We came together as a group and presented what we had in the meeting itself (Ethan T. recorded each part)
 - Lastly, we designated (Allen Cheung) to splice the recordings of the messages together.
 
 ### End of Meeting
