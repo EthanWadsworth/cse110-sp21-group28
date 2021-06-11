@@ -11,6 +11,9 @@ A bullet journal is a tool for individuals to use to organize their tasks in an 
 
 You can access our bullet journal webapp [here](https://bullet-journal-110.web.app/) 
 
+[Final Team Video (Public Version)](https://youtu.be/oQ4GkGzSK6g)
+[Final Team Video (Private Version)](https://youtu.be/JnpN0d97ohY)
+
 Journal's Page
 ![Alt text](/public/images/JournalPage.png "Journal's Page")
 
